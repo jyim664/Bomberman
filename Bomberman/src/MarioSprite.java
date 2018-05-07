@@ -9,13 +9,13 @@ import processing.core.PImage;
  * by: Shelby
  */
  
-public class Sprite extends Rectangle2D.Double {
+public class MarioSprite extends Rectangle2D.Double {
 	
 	// FIELDS
 	private PImage image;
 	
 	// CONSTRUCTORS
-	public Sprite(PImage img, int x, int y, int w, int h) {
+	public MarioSprite(PImage img, int x, int y, int w, int h) {
 		super(x,y,w,h);
 		image = img;
 	}

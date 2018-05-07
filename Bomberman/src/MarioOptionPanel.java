@@ -3,12 +3,12 @@ import javax.swing.*;
 import java.awt.event.*;
 
 
-public class OptionPanel extends JPanel implements ActionListener {
+public class MarioOptionPanel extends JPanel implements ActionListener {
 	
-	Main w;
+	MarioMain w;
 	
-	public OptionPanel(Main main) {
-		this.w = main;
+	public MarioOptionPanel(MarioMain w) {
+		this.w = w;
 		JButton button = new JButton("Press me!");
 		button.addActionListener(this);
 		add(button);

@@ -5,7 +5,7 @@ import java.util.*;
 
 import processing.core.PImage;
 
-public class Mario extends Sprite {
+public class Mario extends MarioSprite {
 
 	public static final int MARIO_WIDTH = 40;
 	public static final int MARIO_HEIGHT = 60;
