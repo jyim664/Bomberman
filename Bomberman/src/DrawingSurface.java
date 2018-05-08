@@ -24,6 +24,7 @@ public class DrawingSurface extends PApplet {
 	// line is executed again.
 	public void draw() { 
 		menu.draw(this);
+		menu.drawInsPage(this);
 		
 		
 		
@@ -31,43 +32,48 @@ public class DrawingSurface extends PApplet {
 	}
 	
 	public void mousePressed() {
-		if(menu.overShop) {
-			menu.shopX+=10;
-			menu.shopLen-=20;
-			menu.shopText+=3;
+		if(menu.isOverShop()) {
+			
+			menu.shiftShopButton(10, -20, 3);
 		}
 		
-		if(menu.overStart) {
-			menu.startX+=10;
-			menu.startLen-=20;
-			menu.startText+=3;
+		if(menu.isOverStart()) {
+			
+			menu.shiftStartButton(10, -20, 3);
 		}
 		
-		if(menu.overIns) {
-			menu.insX+=10;
-			menu.insLen-=20;
-			menu.insText+=3;
+		if(menu.isOverIns()) {
+			
+			menu.shiftInsButton(10, -20, 3);
 		}
 	}
 	
 	public void mouseReleased() {
-		if(menu.overShop) {
-			menu.shopX-=10;
-			menu.shopLen+=20;
-			menu.shopText-=3;
+		if(menu.isOverShop()) {
+			
+			menu.shiftShopButton(-10, 20, -3);
 		}
 		
-		if(menu.overStart) {
-			menu.startX-=10;
-			menu.startLen+=20;
-			menu.startText-=3;
+		if(menu.isOverStart()) {
+			
+			menu.shiftStartButton(-10, 20, -3);
 		}
-		if(menu.overIns) {
-			menu.insX-=10;
-			menu.insLen+=20;
-			menu.insText-=3;
+		if(menu.isOverIns()) {
+			
+			menu.shiftInsButton(-10, 20, -3);
+			
+			
 		}
+		
 	}
 	
+	public void mouseClicked() {
+		if(menu.isOverX()) {
+			menu.changeInsPageStatus(false);
+		}
+		if(menu.isOverIns()) {
+			menu.changeInsPageStatus(true);
+		}
+	}
 	
 }
