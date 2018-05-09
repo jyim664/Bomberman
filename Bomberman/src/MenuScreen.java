@@ -43,6 +43,7 @@ public class MenuScreen {
 	
 	//fades the starting text
 	private int fadeValue = 0;
+	private int transparency = 0;
 	
 	
 	//background image
@@ -238,9 +239,32 @@ public class MenuScreen {
 			wasdKeys.resize(130, 90);
 			drawer.image(wasdKeys, 340	, 295);
 			arrowKeys.resize(130, 90);
-			drawer.image(arrowKeys, 540, 29);
+			drawer.image(arrowKeys, 540, 290);
 			 
 		}
+	}
+	
+	public void drawMapPage(PApplet drawer) {
+		int x = 0;
+		if(startPressed == true) {
+			if (transparency < 255) { transparency += 3;
+			
+			}
+			drawer.tint(255, transparency);
+			
+			
+			drawer.image(bomberFace1, 365, 625);
+			
+			if(drawer.mouseX > 365 && drawer.mouseX < 415 && drawer.mouseY > 600 && drawer.mouseY < 675) {
+				//drawer.fill(0);
+				drawer.stroke(3);
+				drawer.strokeWeight(5);
+				drawer.ellipse(390, 650, 50,	50);
+			}
+			
+			
+		}
+		
 	}
 	
 	public void shiftStartButton(int x, int len, int text) {
