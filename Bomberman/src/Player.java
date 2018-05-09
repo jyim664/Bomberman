@@ -12,18 +12,25 @@ public class Player extends Unit {
 	public static final int PLAYER_HEIGHT = 60;
 	
 	public Player(PImage img, int x, int y) {
-		super(1, 1, 1, 1, PLAYER_WIDTH, PLAYER_HEIGHT, img);
+		super(1, 1, x, y, PLAYER_WIDTH, PLAYER_HEIGHT, img);
 		bombsCount = 2;
 	}
 	
 	public void walkX(int dir) {
+		
 		xLoc += dir;
+
+		
 	}
 	
-	public void walkY(int dir) 	{
+	public void walkY(int dir) {
+		
 		yLoc += dir;
+
+				
 	}
 	
+
 
 
 
