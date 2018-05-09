@@ -3,6 +3,7 @@ import processing.core.PApplet;
 public class DrawingSurface extends PApplet {
 
 	private MenuScreen menu;
+	private static final int frameHeight = 800, frameWidth = 800;
 	
 	public DrawingSurface() {
 		menu = new MenuScreen("B    mberman");
@@ -23,8 +24,10 @@ public class DrawingSurface extends PApplet {
 	// sequence and after the last line is read, the first 
 	// line is executed again.
 	public void draw() { 
+		this.scale((float) width / frameWidth, (float) height / frameHeight);//scales objects based on framesize
 		menu.draw(this);
 		menu.drawInsPage(this);
+		menu.drawMapPage(this);
 		
 		
 		
