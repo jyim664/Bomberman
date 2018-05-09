@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * This class draws the main menu and the game screen.
+ * @author Justin Yim, Kush Patel, Johnry Zhaos
+ *
+ */
 public class DrawingSurface extends PApplet {
 
 	private MenuScreen menu;

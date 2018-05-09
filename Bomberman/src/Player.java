@@ -3,6 +3,11 @@ import java.util.ArrayList;
 
 import processing.core.PImage;
 
+/**
+ * This class represents the player-controlled Unit. Includes methods such as Walk and placeBomb.
+ * @author Justin Yim, Johnry Zhao
+ *
+ */
 public class Player extends Unit {
 	
 	private int bombsCount;

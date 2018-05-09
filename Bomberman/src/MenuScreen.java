@@ -5,6 +5,11 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 
+/**
+ * This class represents the Menu Screen. Includes Start, Instructions, Shop.
+ * @author Kush Patel
+ *
+ */
 public class MenuScreen {
 	
 	

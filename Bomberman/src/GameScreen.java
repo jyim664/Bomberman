@@ -1,5 +1,10 @@
 import processing.core.PApplet;
 
+/**
+ * This class resembles the actual game map where the game will be taking place. 
+ * @author Justin Yim
+ *
+ */
 public class GameScreen {
 
 	private int width = Main.width;
