@@ -34,6 +34,9 @@ public class MenuScreen {
 	private boolean overIns = false;
 	private boolean activateInsPage = false;
 	private boolean overX = false;
+	private boolean startPressed = false;
+	private boolean overMapPage = false;
+	private boolean activateMapPage = false;
 	
 	private String title;
 	private String start = "Start";
@@ -42,6 +45,7 @@ public class MenuScreen {
 	
 	//fades the starting text
 	private int fadeValue = 0;
+	private int transparency = 0;
 	
 	
 	//background image
@@ -79,8 +83,11 @@ public class MenuScreen {
 		drawer.image(bg, 0, 0);
 		
 		drawer.textFont(titleFont);
-		if(fadeValue < 255){
+		if(fadeValue < 255 && startPressed == false){
 			fadeValue+=1;
+		}
+		else if(fadeValue>0 && startPressed == true) {
+			fadeValue-=5;
 		}
 	
 	drawer.fill(255, 255, 240, fadeValue);
@@ -90,49 +97,49 @@ public class MenuScreen {
 	
 	drawer.textFont(buttonFont);
 
-	drawer.stroke(0);
+	drawer.stroke(0, fadeValue);
 	drawer.strokeWeight(5);
-	drawer.fill(startR, startG, startB);
+	drawer.fill(startR, startG, startB, fadeValue);
 	
 	if(drawer.mouseX > shopX && drawer.mouseX < shopX + shopLen && drawer.mouseY > shopY && drawer.mouseY < shopY + shopWid) {
-		drawer.fill(255, 215, 0);
+		drawer.fill(255, 215, 0, fadeValue);
 		overShop = true;
 	}else {
-		drawer.fill(startR, startG, startB);
+		drawer.fill(startR, startG, startB, fadeValue);
 		overShop = false;
 	}
 	
 	
 	
 	drawer.rect(shopX, shopY, shopLen, shopWid, startCur);
-	drawer.fill(0);
+	drawer.fill(0, fadeValue);
 	drawer.textSize(50);
 	drawer.text("Shop", shopText, shopY + 45);
 	
 	if(drawer.mouseX > insX && drawer.mouseX < insX + insLen && drawer.mouseY > insY && drawer.mouseY < insY + insWid) {
-		drawer.fill(255, 215, 0);
+		drawer.fill(255, 215, 0, fadeValue);
 		overIns = true;
 	}else {
-		drawer.fill(startR, startG, startB);
+		drawer.fill(startR, startG, startB, fadeValue);
 		overIns = false;
 	}
 	
 	
 	drawer.rect(insX, insY, insLen, insWid, startCur);
-	drawer.fill(0);
+	drawer.fill(0, fadeValue);
 	drawer.textSize(50);
 	drawer.text("Instructions", insText, insY+ 45);
 	
 	if(drawer.mouseX > startX && drawer.mouseX < startX + startLen && drawer.mouseY > startY && drawer.mouseY < startY + startWid) {
-		drawer.fill(255, 215, 0);
+		drawer.fill(255, 215, 0, fadeValue);
 		overStart = true;
 	}else {
-		drawer.fill(startR, startG, startB);
+		drawer.fill(startR, startG, startB, fadeValue);
 		overStart = false;
 	}
 	
 	drawer.rect(startX, startY, startLen, startWid, startCur);
-	drawer.fill(0);
+	drawer.fill(0, fadeValue);
 	drawer.textSize(50);
 	drawer.text("Start", startText, startY + 45);
 
@@ -166,7 +173,7 @@ public class MenuScreen {
 	     flamecolorG = flamecolorG + 33;     
 	   }
 	drawer.translate(-65, -122);
-	drawer.fill(0, 0, 0, 255);
+	drawer.fill(0, 0, 0, fadeValue);
 	drawer.ellipse(190, 295, 80, 80);//bomb
 	drawer.rect(183, 245, 16, 15);//bomb stub
 	
@@ -239,6 +246,33 @@ public class MenuScreen {
 		}
 	}
 	
+	public void drawMapPage(PApplet drawer) {
+		if(activateMapPage) {
+		int x = 0;
+		if(startPressed == true) {
+			if (transparency < 255) { transparency += 3;
+			
+			}
+			drawer.tint(255, transparency);
+			
+			
+			drawer.image(bomberFace1, 365, 625);
+			
+			if(drawer.mouseX > 365 && drawer.mouseX < 415 && drawer.mouseY > 600 && drawer.mouseY < 675) {
+				//drawer.fill(0);
+				overMapPage = true;
+				drawer.stroke(3);
+				drawer.strokeWeight(5);
+				drawer.ellipse(390, 650, 50,	50);
+			}
+			
+			
+		}
+		
+		}
+		
+	}
+	
 	public void shiftStartButton(int x, int len, int text) {
 		startX += x;
 		startLen += len;
@@ -263,6 +297,14 @@ public class MenuScreen {
 		activateInsPage = check;
 	}
 	
+	public void changeStartStatus(boolean check) {
+		startPressed = check;
+	}
+	
+	public void changeMapPageStatus(boolean check) {
+		activateMapPage = check;
+	}
+	
 	public boolean isOverStart() {
 		return overStart;
 	}
@@ -277,6 +319,10 @@ public class MenuScreen {
 	
 	public boolean isOverX() {
 		return overX;
+	}
+	
+	public boolean isOverMapPage() {
+		return overMapPage;
 	}
 	
 	

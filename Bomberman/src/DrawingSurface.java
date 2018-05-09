@@ -10,19 +10,21 @@ public class DrawingSurface extends PApplet {
 	private GameScreen board;
 	
 	private Player bomberman1;
+	private Player bomberman2; 
+	
 	private ArrayList<PImage> assets; //all of Bomberman's images
 	private ArrayList<Integer> keys;
 
 	private boolean gameState; // false == menu, true == game
 	
-	private static final int frameHeight = 800;
-	private static final int frameWidth = 800;
+	
 
+	private static final int frameHeight = 800, frameWidth = 800;
 	
 	public DrawingSurface() {
 		menu = new MenuScreen("B    mberman");
 		board = new GameScreen();
-		gameState = false;
+		gameState = false; //menu = false, game screen = true;
 		
 		assets = new ArrayList<PImage>();
 		keys = new ArrayList<Integer>();
@@ -31,8 +33,11 @@ public class DrawingSurface extends PApplet {
 		
 	}
 	
-	public void spawnPlayer() {
-		bomberman1 = new Player(assets.get(0), Main.width/2-Player.PLAYER_WIDTH/2,50);
+	public void spawnPlayer1() {
+		bomberman1 = new Player(assets.get(0), 0,0);
+	}
+	public void spawnPlayer2() {
+		bomberman2 = new Player(assets.get(0), 750,0);
 	}
 	
 	
@@ -45,7 +50,9 @@ public class DrawingSurface extends PApplet {
 		assets.add(loadImage("bombermanRight.png")); //3 = right
 
 		menu.setup(this);
-		spawnPlayer();
+		spawnPlayer1();
+		spawnPlayer2();
+
 		
 	}
 	
@@ -54,36 +61,62 @@ public class DrawingSurface extends PApplet {
 	// sequence and after the last line is read, the first 
 	// line is executed again.
 	public void draw() { 
-	this.scale((float)width/frameWidth, (float)height/frameHeight);
-//		if(gameState == false) {
-//		menu.draw(this);
-//		menu.drawInsPage(this);
-//		}
-		
+		this.scale((float) width / frameWidth, (float) height / frameHeight);//scales objects based on framesize
+		if(gameState == false) {
+			menu.draw(this);
+			menu.drawInsPage(this);
+			menu.drawMapPage(this);
+		}
+		if(gameState) {
 		board.draw(this, 0, 0, Main.width, Main.height);
 		bomberman1.draw(this);
+		bomberman2.draw(this);
+
+		}
 		
 		
 		// modifying stuff
-
-				if (isPressed(KeyEvent.VK_LEFT)) {
+				//player 1
+				if (isPressed(KeyEvent.VK_A)) {
 					bomberman1.setImage(assets.get(2));
 					bomberman1.walkX(-1);
 
 				}
-				if (isPressed(KeyEvent.VK_RIGHT)) {
+				if (isPressed(KeyEvent.VK_D)) {
 					bomberman1.setImage(assets.get(3));
 					bomberman1.walkX(1);
 
 				}
-				if (isPressed(KeyEvent.VK_UP)) {
+				if (isPressed(KeyEvent.VK_W)) {
 					bomberman1.setImage(assets.get(1));
 					bomberman1.walkY(-1);
 
 				}
-				if (isPressed(KeyEvent.VK_DOWN)) {
+				if (isPressed(KeyEvent.VK_S)) {
 					bomberman1.setImage(assets.get(0));
 					bomberman1.walkY(1);
+
+				}
+				
+				//player 2
+				if (isPressed(KeyEvent.VK_LEFT)) {
+					bomberman2.setImage(assets.get(2));
+					bomberman2.walkX(-1);
+
+				}
+				if (isPressed(KeyEvent.VK_RIGHT)) {
+					bomberman2.setImage(assets.get(3));
+					bomberman2.walkX(1);
+
+				}
+				if (isPressed(KeyEvent.VK_UP)) {
+					bomberman2.setImage(assets.get(1));
+					bomberman2.walkY(-1);
+
+				}
+				if (isPressed(KeyEvent.VK_DOWN)) {
+					bomberman2.setImage(assets.get(0));
+					bomberman2.walkY(1);
 
 				}
 				
@@ -134,6 +167,14 @@ public class DrawingSurface extends PApplet {
 		}
 		if(menu.isOverIns()) {
 			menu.changeInsPageStatus(true);
+		}
+		if(menu.isOverStart()) {
+			menu.changeStartStatus(true);
+			menu.changeMapPageStatus(true);
+
+		}
+		if(menu.isOverMapPage()) {
+			gameState = true;
 		}
 	}
 	
