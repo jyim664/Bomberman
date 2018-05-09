@@ -60,13 +60,13 @@ public class MenuScreen {
 	}
 	
 	public void setup(PApplet drawer) {
-	bg = drawer.loadImage("/Users/kush/eclipse-workspace/BombermanGithub/Bomberman/src/biomes-noisy.png");
-	bomberFace1 = drawer.loadImage("/Users/kush/eclipse-workspace/BombermanGithub/Bomberman/src/BombermanFace.png");
-	bomberFace2 = drawer.loadImage("/Users/kush/eclipse-workspace/BombermanGithub/Bomberman/src/BombermanFace2.png");
-	enterKey = drawer.loadImage("/Users/kush/eclipse-workspace/BombermanGithub/Bomberman/src/Enter.png");
-	spacebar = drawer.loadImage("/Users/kush/eclipse-workspace/BombermanGithub/Bomberman/src/Space.png");
-	wasdKeys = drawer.loadImage("/Users/kush/eclipse-workspace/BombermanGithub/Bomberman/src/WASD.png");
-	arrowKeys = drawer.loadImage("/Users/kush/eclipse-workspace/BombermanGithub/Bomberman/src/ArrowKeys.png");
+	bg = drawer.loadImage("biomes-noisy.png");
+	bomberFace1 = drawer.loadImage("BombermanFace.png");
+	bomberFace2 = drawer.loadImage("BombermanFace2.png");
+	enterKey = drawer.loadImage("Enter.png");
+	spacebar = drawer.loadImage("Space.png");
+	wasdKeys = drawer.loadImage("WASD.png");
+	arrowKeys = drawer.loadImage("ArrowKeys.png");
 	
 	titleFont = drawer.createFont("Phosphate", 24);
     
