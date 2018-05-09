@@ -5,14 +5,14 @@ import processing.core.PApplet;
  * @author Justin Yim
  *
  */
-public class GameScreen {
+public class LevelOne {
 
 	private int width = Main.width;
 	private int height = Main.height;
 	private boolean grid[][];
 	
-	public GameScreen() {
-		grid = new boolean[15][15];
+	public LevelOne() {
+		grid = new boolean[8][8];
 	}
 	
 	public void draw(PApplet marker, float x, float y, float width, float height) {

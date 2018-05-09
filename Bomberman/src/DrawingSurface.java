@@ -12,7 +12,7 @@ import processing.core.PImage;
 public class DrawingSurface extends PApplet {
 
 	private MenuScreen menu;
-	private GameScreen board;
+	private LevelOne board;
 	
 	private Player bomberman1;
 	private Player bomberman2; 
@@ -28,7 +28,7 @@ public class DrawingSurface extends PApplet {
 	
 	public DrawingSurface() {
 		menu = new MenuScreen("B    mberman");
-		board = new GameScreen();
+		board = new LevelOne();
 		gameState = false; //menu = false, game screen = true;
 		
 		assets = new ArrayList<PImage>();
