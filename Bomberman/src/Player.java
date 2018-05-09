@@ -20,7 +20,7 @@ public class Player extends Unit {
 		xLoc += dir;
 	}
 	
-	public void walkY(int dir) {
+	public void walkY(int dir) 	{
 		yLoc += dir;
 	}
 	
