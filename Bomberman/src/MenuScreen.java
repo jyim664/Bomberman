@@ -84,7 +84,7 @@ public class MenuScreen {
 		
 		drawer.textFont(titleFont);
 		if(fadeValue < 255 && startPressed == false){
-			fadeValue+=1;
+			fadeValue+=5;
 		}
 		else if(fadeValue>0 && startPressed == true) {
 			fadeValue-=5;
@@ -259,7 +259,7 @@ public class MenuScreen {
 			drawer.image(bomberFace1, 365, 625);
 			
 			if(drawer.mouseX > 365 && drawer.mouseX < 415 && drawer.mouseY > 600 && drawer.mouseY < 675) {
-				//drawer.fill(0);
+				
 				overMapPage = true;
 				drawer.stroke(3);
 				drawer.strokeWeight(5);
