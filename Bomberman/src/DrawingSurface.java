@@ -74,6 +74,9 @@ public class DrawingSurface extends PApplet {
 		if(menu.isOverIns()) {
 			menu.changeInsPageStatus(true);
 		}
+		if(menu.isOverStart()) {
+			menu.changeStartStatus(true);
+		}
 	}
 	
 }
