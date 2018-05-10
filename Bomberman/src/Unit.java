@@ -1,6 +1,14 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+
+
+
+/**
+ * This class represents a basic unit on the game screen, whether it be bot or player. Holds methods that both player and bots will utilize.
+ * @author Justin Yim, Johnry Zhao
+ *
+ */
 public class Unit {
 
 	public int lives;

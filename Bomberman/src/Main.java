@@ -5,6 +5,10 @@ import javax.swing.JFrame;
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
+/**
+ * This class runs the entire program.
+ * @author Kush Patel
+ */
 public class Main {
 
 	public static int width = 800, height = 800;
