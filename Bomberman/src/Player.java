@@ -35,12 +35,6 @@ public class Player extends Unit {
 				
 	}
 	
-	public int[] dropBomb(){
-		int[] retVal =  new int[2];
-		retVal[0] = xLoc;
-		retVal[1] = yLoc;
-		return retVal;
-	}
 	
 
 

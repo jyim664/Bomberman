@@ -73,4 +73,12 @@ public class Unit {
 	public void draw(PApplet g) {
 		g.image(image,(int)xLoc,(int)yLoc,(int)width,(int)height);
 	}
+	
+	public int[] dropBomb(){
+		int[] retVal =  new int[2];
+		retVal[0] = xLoc;
+		retVal[1] = yLoc;
+		return retVal;
+	}
+	
 }
