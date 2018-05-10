@@ -9,7 +9,7 @@ public class Bot extends Unit{
 	
 	public void makeDecision( Boolean[][] dangerous) {
 		
-	//	if( dangerous[xL])
+	
 		
 		
 	}
