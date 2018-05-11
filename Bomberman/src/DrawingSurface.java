@@ -17,6 +17,9 @@ public class DrawingSurface extends PApplet {
 	private Player bomberman1;
 	private Player bomberman2; 
 	
+	private PImage boundaryWall;
+	private PImage breakableWall;
+	
 	private ArrayList<PImage> assets; //all of Bomberman's images
 	private ArrayList<Integer> keys;
 
@@ -53,8 +56,11 @@ public class DrawingSurface extends PApplet {
 		assets.add(loadImage("bombermanBack.png")); //1 = back
 		assets.add(loadImage("bombermanLeft.png")); //2 = left
 		assets.add(loadImage("bombermanRight.png")); //3 = right
+		
+		boundaryWall = loadImage("UnbreakableStoneTile.png");
 
 		menu.setup(this);
+		board.setup(this);
 		spawnPlayer1();
 		spawnPlayer2();
 
@@ -73,7 +79,7 @@ public class DrawingSurface extends PApplet {
 			menu.drawMapPage(this);
 		}
 		if(gameState) {
-		board.draw(this, 0, 0, Main.width, Main.height);
+		board.draw(this, 0, 0, Main.width, Main.height, boundaryWall);
 		bomberman1.draw(this);
 		bomberman2.draw(this);
 

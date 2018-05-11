@@ -6,15 +6,14 @@ import processing.core.PImage;
  * @author Justin Yim
  *
  */
-public class LevelOne { //12 x 12 map
+public class LevelOne extends PApplet { //12 x 12 map
 
 	private int width = Main.width;
 	private int height = Main.height;
 	private boolean grid[][];
 	private int[] pointCoords[][];
 	
-	private PImage boundaryWall;
-	private PImage breakableWall;
+	
 	
 	
 	public LevelOne() {
@@ -34,18 +33,16 @@ public class LevelOne { //12 x 12 map
 
 			grid[i][grid.length-1] = true;
 			grid[i][grid.length-2] = true;
-
-
-		
 		}
+		
 	} 
 	
 	public void setup(PApplet drawer) {
 		
-		
+
 	}
 	
-	public void draw(PApplet marker, float x, float y, float width, float height) {
+	public void draw(PApplet marker, float x, float y, float width, float height,PImage img) {
 		
 		marker.pushStyle();
 		
@@ -57,13 +54,14 @@ public class LevelOne { //12 x 12 map
 		for (int i = 0; i < grid[0].length;i++) {
 			for (int j = 0; j < grid.length; j ++) {
 				if (grid[j][i] == true) {
-					marker.fill(0);
+					marker.image(img, cellWidth*j + x, cellHeight*i);
+
 				}
 				else {
 					marker.fill(255);
-					
+					marker.rect(cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
+
 				}
-			marker.rect(cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
 
 			}
 		}
