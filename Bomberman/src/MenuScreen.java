@@ -50,7 +50,7 @@ public class MenuScreen {
 	
 	//fades the starting text
 	private int fadeValue = 0;
-	private int transparency = 0;
+	
 	
 	
 	//background image
@@ -255,10 +255,8 @@ public class MenuScreen {
 		if(activateMapPage) {
 		int x = 0;
 		if(startPressed == true) {
-			if (transparency < 255) { transparency += 3;
-			
-			}
-			drawer.tint(255, transparency);
+		
+			drawer.tint(255);
 			
 			
 			drawer.image(bomberFace1, 365, 625);
