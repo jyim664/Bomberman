@@ -6,12 +6,16 @@ import processing.core.PImage;
  * @author Justin Yim
  *
  */
-public class LevelOne {
+public class LevelOne { //12 x 12 map
 
 	private int width = Main.width;
 	private int height = Main.height;
 	private boolean grid[][];
-	private PImage image;
+	private int[] pointCoords[][];
+	
+	private PImage boundaryWall;
+	private PImage breakableWall;
+	
 	
 	public LevelOne() {
 		grid = new boolean[16][16];
@@ -59,7 +63,7 @@ public class LevelOne {
 					marker.fill(255);
 					
 				}
-				marker.rect(cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
+			marker.rect(cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
 
 			}
 		}
