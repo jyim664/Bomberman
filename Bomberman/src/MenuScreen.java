@@ -50,7 +50,7 @@ public class MenuScreen {
 	
 	//fades the starting text
 	private int fadeValue = 0;
-	private int transparency = 255;
+	
 	
 	
 	//background image
