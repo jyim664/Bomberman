@@ -18,9 +18,23 @@ public class LevelOne {
 		
 		for(int i = 0; i< grid.length; i++) {
 			grid[0][i] = true;
+			grid[1][i] = true;
 			grid[grid.length - 1][i] = true;
+			grid[grid.length - 2][i] = true;
 		}
-	}
+		
+		for(int i = 0; i < grid.length; i++) {
+			grid[i][0] = true;
+			grid[i][1] = true;
+
+
+			grid[i][grid.length-1] = true;
+			grid[i][grid.length-2] = true;
+
+
+		
+		}
+	} 
 	
 	public void setup(PApplet drawer) {
 		
