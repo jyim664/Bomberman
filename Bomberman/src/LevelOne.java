@@ -12,7 +12,12 @@ public class LevelOne {
 	private boolean grid[][];
 	
 	public LevelOne() {
-		grid = new boolean[8][8];
+		grid = new boolean[16][16];
+		
+		for(int i = 0; i< grid.length; i++) {
+			grid[0][i] = true;
+			grid[grid.length - 1][i] = true;
+		}
 	}
 	
 	public void draw(PApplet marker, float x, float y, float width, float height) {
