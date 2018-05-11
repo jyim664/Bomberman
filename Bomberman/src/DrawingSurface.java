@@ -6,7 +6,7 @@ import processing.core.PImage;
 
 /**
  * This class draws the main menu and the game screen.
- * @author Justin Yim, Kush Patel, Johnry Zhaos
+ * @author Justin Yim, Kush Patel, Johnry Zhao
  *
  */
 public class DrawingSurface extends PApplet {
@@ -27,7 +27,7 @@ public class DrawingSurface extends PApplet {
 	private static final int frameHeight = 800, frameWidth = 800;
 	
 	public DrawingSurface() {
-		menu = new MenuScreen("B    mberman");
+		menu = new MenuScreen("B  mberman");
 		board = new LevelOne();
 		gameState = false; //menu = false, game screen = true;
 		
@@ -102,6 +102,7 @@ public class DrawingSurface extends PApplet {
 					bomberman1.walkY(1);
 
 				}
+				
 				
 				//player 2
 				if (isPressed(KeyEvent.VK_LEFT)) {

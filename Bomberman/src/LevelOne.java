@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 /**
  * This class resembles the actual game map where the game will be taking place. 
@@ -10,6 +11,7 @@ public class LevelOne {
 	private int width = Main.width;
 	private int height = Main.height;
 	private boolean grid[][];
+	private PImage image;
 	
 	public LevelOne() {
 		grid = new boolean[16][16];
@@ -18,6 +20,11 @@ public class LevelOne {
 			grid[0][i] = true;
 			grid[grid.length - 1][i] = true;
 		}
+	}
+	
+	public void setup(PApplet drawer) {
+		
+		
 	}
 	
 	public void draw(PApplet marker, float x, float y, float width, float height) {
