@@ -14,7 +14,12 @@ public class LevelOne {
 	private PImage image;
 	
 	public LevelOne() {
-		grid = new boolean[8][8];
+		grid = new boolean[16][16];
+		
+		for(int i = 0; i< grid.length; i++) {
+			grid[0][i] = true;
+			grid[grid.length - 1][i] = true;
+		}
 	}
 	
 	public void setup(PApplet drawer) {
