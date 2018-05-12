@@ -13,11 +13,11 @@ public class Player extends Unit {
 	private int bombsCount;
 	private int a;
 	
-	public static final int PLAYER_WIDTH = 40;
-	public static final int PLAYER_HEIGHT = 60;
+	public static final int PLAYER_WIDTH = 30;
+	public static final int PLAYER_HEIGHT = 45;
 	
 	public Player(PImage img, int x, int y) {
-		super(1, 1, x, y, PLAYER_WIDTH, PLAYER_HEIGHT, img);
+		super(1, 3, x, y, PLAYER_WIDTH, PLAYER_HEIGHT, img);
 		bombsCount = 2;
 	}
 	
