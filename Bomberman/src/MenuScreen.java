@@ -77,10 +77,10 @@ public class MenuScreen {
 	wasdKeys = drawer.loadImage("WASD.png");
 	arrowKeys = drawer.loadImage("ArrowKeys.png");
 	
-	titleFont = drawer.createFont("Tw Cen MT", 24);
+	titleFont = drawer.createFont("Phosphate", 24);
     
 	drawer.frameRate(60);
-	buttonFont = drawer.createFont("Bell MT", 24);
+	buttonFont = drawer.createFont("Copperplate", 24);
 	
 	}
 	

@@ -31,7 +31,7 @@ public class DrawingSurface extends PApplet {
 	private static final int frameHeight = 800, frameWidth = 800;
 	
 	public DrawingSurface() {
-		menu = new MenuScreen("B  mberman");
+		menu = new MenuScreen("B   mberman");
 		board = new LevelOne();
 		board = new LevelOne("LevelOneMap");
 		gameState = false; //menu = false, game screen = true;
