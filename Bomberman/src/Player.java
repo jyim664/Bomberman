@@ -46,7 +46,7 @@ public class Player extends Unit {
 	 */
 	public int[] dropBomb() {
 		if (this.currentOnScreen < bombsCount) {
-			super.dropBomb();
+			return super.dropBomb();
 		}
 
 		return null;
