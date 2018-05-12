@@ -48,7 +48,12 @@ public class DrawingSurface extends PApplet {
 	}
 	public void spawnPlayer2() {
 		bomberman2 = new Player(assets.get(0), 750,0);
+	}private void spawnBot1() {
+		// TODO Auto-generated method stub
+		Bot1 = new Bot(1, 1, 200, 200, 50, 50, boundaryWall);
+		
 	}
+
 	
 	
 	// The statements in the setup() function 
@@ -63,15 +68,17 @@ public class DrawingSurface extends PApplet {
 		breakableWall = loadImage("BreakableStoneTile.png");
 		grassTile = loadImage("GrassTile.png");
 
-	//	Bot1 = new Bot(1, 1, 200, 200, 50, 50, boundaryWall);
+		
 		
 		menu.setup(this);
 		board.setup(this);
 		spawnPlayer1();
 		spawnPlayer2();
+	//	spawnBot1();
 
 		
 	}
+	
 	
 	// The statements in draw() are executed until the 
 	// program is stopped. Each statement is executed in 
