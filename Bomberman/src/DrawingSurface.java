@@ -98,45 +98,48 @@ public class DrawingSurface extends PApplet {
 				//player 1
 				if (isPressed(KeyEvent.VK_A)) {
 					bomberman1.setImage(assets.get(2));
-					bomberman1.walkX(-1);
+					bomberman1.walkX(-1*bomberman1.getSpeed());
 
 				}
 				if (isPressed(KeyEvent.VK_D)) {
 					bomberman1.setImage(assets.get(3));
-					bomberman1.walkX(1);
+					bomberman1.walkX(1*bomberman1.getSpeed());
 
 				}
 				if (isPressed(KeyEvent.VK_W)) {
 					bomberman1.setImage(assets.get(1));
-					bomberman1.walkY(-1);
+					bomberman1.walkY(-1*bomberman1.getSpeed());
 
 				}
 				if (isPressed(KeyEvent.VK_S)) {
 					bomberman1.setImage(assets.get(0));
-					bomberman1.walkY(1);
+					bomberman1.walkY(1*bomberman1.getSpeed());
 
 				}
+				if (isPressed(KeyEvent.VK_SPACE)) {
+					int[] bombLoc = bomberman1.dropBomb();
+					
 				
-				
+				}
 				//player 2
 				if (isPressed(KeyEvent.VK_LEFT)) {
 					bomberman2.setImage(assets.get(2));
-					bomberman2.walkX(-1);
+					bomberman2.walkX(-1*bomberman2.getSpeed());
 
 				}
 				if (isPressed(KeyEvent.VK_RIGHT)) {
 					bomberman2.setImage(assets.get(3));
-					bomberman2.walkX(1);
+					bomberman2.walkX(1*bomberman2.getSpeed());
 
 				}
 				if (isPressed(KeyEvent.VK_UP)) {
 					bomberman2.setImage(assets.get(1));
-					bomberman2.walkY(-1);
+					bomberman2.walkY(-1*bomberman2.getSpeed());
 
 				}
 				if (isPressed(KeyEvent.VK_DOWN)) {
 					bomberman2.setImage(assets.get(0));
-					bomberman2.walkY(1);
+					bomberman2.walkY(1*bomberman2.getSpeed());
 
 				}
 				
