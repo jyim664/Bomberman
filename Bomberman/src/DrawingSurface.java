@@ -16,7 +16,7 @@ public class DrawingSurface extends PApplet {
 	
 	private Player bomberman1;
 	private Player bomberman2; 
-	
+	private Bot Bot1;
 	private PImage boundaryWall;
 	private PImage breakableWall;
 	
@@ -59,6 +59,8 @@ public class DrawingSurface extends PApplet {
 		
 		boundaryWall = loadImage("UnbreakableStoneTile.png");
 
+	//	Bot1 = new Bot(1, 1, 200, 200, 50, 50, boundaryWall);
+		
 		menu.setup(this);
 		board.setup(this);
 		spawnPlayer1();
@@ -82,6 +84,8 @@ public class DrawingSurface extends PApplet {
 		board.draw(this, 0, 0, Main.width, Main.height, boundaryWall);
 		bomberman1.draw(this);
 		bomberman2.draw(this);
+	//	Bot1.RandomMovements();
+	//	Bot1.draw(this);
 
 		}
 		

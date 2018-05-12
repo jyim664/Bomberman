@@ -6,7 +6,7 @@ public class Bot extends Unit {
 		super(lives, speed, xLoc, yLoc, width, height, img);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public void makeDecision(Boolean[][] dangerous) {
 		int safeSpotX;
 		int safeSpotY;
@@ -29,18 +29,24 @@ public class Bot extends Unit {
 	}
 	
 	public void RandomMovements() {
+		int k = 4;
 		while(this.getLives()>0) {
 		int i = (int)(Math.random()*4+1);
 		if(i == 1) {
-			this.moveXDirection((int)(Math.random()*100+1));
+			this.moveXDirection(50);
 		}else if(i == 2) {
-			this.moveXDirection(-(int)(Math.random()*100+1));
+			this.moveXDirection(-50);
 		}else if(i == 3) {
-			this.moveYDirection(-(int)(Math.random()*100+1));
+			this.moveYDirection(-50);
 		}else if(i == 4) {
-			this.moveYDirection((int)(Math.random()*100+1));
+			this.moveYDirection(50);
 		}else {
 			
+		}
+		k --;
+		if (k == 0) {
+			k = 4;
+			this.dropBomb();
 		}
 		try {
 			Thread.sleep(250);
