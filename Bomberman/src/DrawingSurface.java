@@ -116,8 +116,11 @@ public class DrawingSurface extends PApplet {
 					bomberman1.walkY(1*bomberman1.getSpeed());
 
 				}
+				if (isPressed(KeyEvent.VK_SPACE)) {
+					int[] bombLoc = bomberman1.dropBomb();
+					
 				
-				
+				}
 				//player 2
 				if (isPressed(KeyEvent.VK_LEFT)) {
 					bomberman2.setImage(assets.get(2));
