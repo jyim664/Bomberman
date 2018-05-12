@@ -16,7 +16,8 @@ public class DrawingSurface extends PApplet {
 	
 	private Player bomberman1;
 	private Player bomberman2; 
-	private Bot Bot1;
+	private Bot bot1;
+	private Bot bot2;
 	private PImage boundaryWall;
 	private PImage breakableWall;
 	private PImage grassTile;
@@ -32,7 +33,6 @@ public class DrawingSurface extends PApplet {
 	
 	public DrawingSurface() {
 		menu = new MenuScreen("B  mberman");
-		board = new LevelOne();
 		board = new LevelOne("LevelOneMap");
 		gameState = false; //menu = false, game screen = true;
 		
@@ -48,12 +48,12 @@ public class DrawingSurface extends PApplet {
 	}
 	public void spawnPlayer2() {
 		bomberman2 = new Player(assets.get(0), 750,0);
-	}private void spawnBot1() {
-		// TODO Auto-generated method stub
-		Bot1 = new Bot(1, 1, 200, 200, 50, 50, boundaryWall);
-		
 	}
 
+	
+	public void spawnBot1() {
+		bot1 = new Bot(1,3,50,50,assets.get(0));
+	}
 	
 	
 	// The statements in the setup() function 
@@ -68,13 +68,13 @@ public class DrawingSurface extends PApplet {
 		breakableWall = loadImage("BreakableStoneTile.png");
 		grassTile = loadImage("GrassTile.png");
 
-		
-		
+	
 		menu.setup(this);
 		board.setup(this);
 		spawnPlayer1();
 		spawnPlayer2();
-	//	spawnBot1();
+
+		spawnBot1();
 
 		
 	}
@@ -95,8 +95,11 @@ public class DrawingSurface extends PApplet {
 		board.draw(this, 0, 0, Main.width, Main.height, boundaryWall, breakableWall, grassTile);
 		bomberman1.draw(this);
 		bomberman2.draw(this);
-	//	Bot1.RandomMovements();
-	//	Bot1.draw(this);
+		bot1.RandomMovements();
+		
+		bot1.draw(this);
+		
+	
 
 		}
 		
