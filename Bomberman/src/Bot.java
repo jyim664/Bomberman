@@ -7,9 +7,12 @@ import processing.core.PImage;
  *
  */
 public class Bot extends Unit {
+	
+	public static final int BOT_WIDTH = 30;
+	public static final int BOT_HEIGHT = 45;
 
-	public Bot(int lives, int speed, int xLoc, int yLoc, int width, int height, PImage img) {
-		super(lives, speed, xLoc, yLoc, width, height, img);
+	public Bot(int lives, int speed, int xLoc, int yLoc, PImage img) {
+		super(lives, speed, xLoc, yLoc, BOT_WIDTH, BOT_HEIGHT, img);
 		// TODO Auto-generated constructor stub
 	}
 
