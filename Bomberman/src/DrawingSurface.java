@@ -19,6 +19,7 @@ public class DrawingSurface extends PApplet {
 	private Bot Bot1;
 	private PImage boundaryWall;
 	private PImage breakableWall;
+	private PImage grassTile;
 	
 	private ArrayList<PImage> assets; //all of Bomberman's images
 	private ArrayList<Integer> keys;
@@ -32,6 +33,7 @@ public class DrawingSurface extends PApplet {
 	public DrawingSurface() {
 		menu = new MenuScreen("B  mberman");
 		board = new LevelOne();
+		board = new LevelOne("LevelOneMap");
 		gameState = false; //menu = false, game screen = true;
 		
 		assets = new ArrayList<PImage>();
@@ -58,6 +60,8 @@ public class DrawingSurface extends PApplet {
 		assets.add(loadImage("bombermanRight.png")); //3 = right
 		
 		boundaryWall = loadImage("UnbreakableStoneTile.png");
+		breakableWall = loadImage("BreakableStoneTile.png");
+		grassTile = loadImage("GrassTile.png");
 
 	//	Bot1 = new Bot(1, 1, 200, 200, 50, 50, boundaryWall);
 		
@@ -81,7 +85,7 @@ public class DrawingSurface extends PApplet {
 			menu.drawMapPage(this);
 		}
 		if(gameState) {
-		board.draw(this, 0, 0, Main.width, Main.height, boundaryWall);
+		board.draw(this, 0, 0, Main.width, Main.height, boundaryWall, breakableWall, grassTile);
 		bomberman1.draw(this);
 		bomberman2.draw(this);
 	//	Bot1.RandomMovements();
