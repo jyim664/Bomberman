@@ -16,10 +16,13 @@ public class Bot extends Unit {
 
 	private static final int BOT_WIDTH = 30;
 	private static final int BOT_HEIGHT = 45;
+	
+	private int bombCount;
+	private int currentOnScreen = 0;
 
 	public Bot(int lives, int speed, int xLoc, int yLoc, PImage img) {
 		super(lives, speed, xLoc, yLoc, BOT_WIDTH, BOT_HEIGHT, img);
-		// TODO Auto-generated constructor stub
+		bombCount = 1;
 	}
 
 	public void makeDecision(Boolean[][] dangerous) {
@@ -67,4 +70,26 @@ public class Bot extends Unit {
 		yUnitsPerMove = (destination[1] - this.getYLoc())/50;
 		numberOfSteps = 50;
 	}
+	
+	public int[] dropBomb() {
+		if(canDropBomb()) {
+			currentOnScreen++;
+			return super.dropBomb();
+
+		}
+
+	
+		return null;
+
+	}
+	public boolean canDropBomb() {
+		if (this.currentOnScreen >= bombCount) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	
 }

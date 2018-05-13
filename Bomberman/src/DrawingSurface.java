@@ -1,5 +1,6 @@
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -18,9 +19,12 @@ public class DrawingSurface extends PApplet {
 	private Player bomberman2; 
 	private Bot bot1;
 	private Bot bot2;
+	
+	
 	private PImage boundaryWall;
 	private PImage breakableWall;
 	private PImage grassTile;
+	private PImage bomb;
 	
 	private ArrayList<PImage> assets; //all of Bomberman's images
 	private ArrayList<Integer> keys;
@@ -44,16 +48,20 @@ public class DrawingSurface extends PApplet {
 	}
 	
 	public void spawnPlayer1() {
-		bomberman1 = new Player(assets.get(0), 0,0);
+		bomberman1 = new Player(assets.get(0), 2*50,2*50); //FOR LEVEL 1
 	}
 	public void spawnPlayer2() {
-		bomberman2 = new Player(assets.get(0), 750,0);
+		bomberman2 = new Player(assets.get(0), 13*50,2* 50); //FOR LEVEL 1
 	}
 
 	
 	public void spawnBot1() {
-		bot1 = new Bot(1,3,50,50,assets.get(0));
+		bot1 = new Bot(1,3,2*50,13*50,assets.get(0));
 	}
+	
+	
+	
+	
 	
 	
 	// The statements in the setup() function 
@@ -68,7 +76,8 @@ public class DrawingSurface extends PApplet {
 		breakableWall = loadImage("BreakableStoneTile.png");
 		grassTile = loadImage("GrassTile.png");
 
-	
+		bomb = loadImage("bomb.png");
+		
 		menu.setup(this);
 		board.setup(this);
 		spawnPlayer1();
@@ -92,7 +101,7 @@ public class DrawingSurface extends PApplet {
 			menu.drawMapPage(this);
 		}
 		if(gameState) {
-		board.draw(this, 0, 0, Main.width, Main.height, boundaryWall, breakableWall, grassTile);
+		board.draw(this, 0, 0, Main.width, Main.height, boundaryWall, breakableWall, grassTile,bomb);
 		bomberman1.draw(this);
 		bomberman2.draw(this);
 		bot1.RandomMovements();
@@ -128,7 +137,9 @@ public class DrawingSurface extends PApplet {
 				}
 				if (isPressed(KeyEvent.VK_SPACE)) {
 					int[] bombLoc = bomberman1.dropBomb();
-					
+					if(bombLoc != null) {
+						board.addBomb(bombLoc[0], bombLoc[1]);
+					}
 				
 				}
 				//player 2
@@ -151,6 +162,13 @@ public class DrawingSurface extends PApplet {
 					bomberman2.setImage(assets.get(0));
 					bomberman2.walkY(1*bomberman2.getSpeed());
 
+				}
+				if (isPressed(KeyEvent.VK_ENTER)) {
+					int[] bombLoc = bomberman2.dropBomb();
+					if(bombLoc != null) {
+						board.addBomb(bombLoc[0], bombLoc[1]);
+					}
+				
 				}
 				
 			
