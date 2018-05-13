@@ -10,7 +10,9 @@ public class Bomb extends Unit {
 		
 	}
 
-	public void explode(){
+	public void explode(	){
 		
+		this.addLives(-1);
 	}
+	
 }
