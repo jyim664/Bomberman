@@ -8,8 +8,8 @@ import processing.core.PImage;
  */
 public class Bot extends Unit {
 	
-	public static final int BOT_WIDTH = 30;
-	public static final int BOT_HEIGHT = 45;
+	private static final int BOT_WIDTH = 30;
+	private static final int BOT_HEIGHT = 45;
 
 	public Bot(int lives, int speed, int xLoc, int yLoc, PImage img) {
 		super(lives, speed, xLoc, yLoc, BOT_WIDTH, BOT_HEIGHT, img);
