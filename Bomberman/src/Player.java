@@ -12,7 +12,7 @@ import processing.core.PImage;
  */
 public class Player extends Unit {
 
-	private int bombsCount = 2;
+	private int bombCount;
 	private int currentOnScreen = 0;
 
 	public static final int PLAYER_WIDTH = 30;
@@ -20,7 +20,7 @@ public class Player extends Unit {
 
 	public Player(PImage img, int x, int y) {
 		super(1, 3, x, y, PLAYER_WIDTH, PLAYER_HEIGHT, img);
-		bombsCount = 2;
+		bombCount = 1;
 	}
 
 	public void walkX(int dir) {
@@ -45,14 +45,27 @@ public class Player extends Unit {
 	 *         player has on the field is less than the amt that they are allowed
 	 */
 	public int[] dropBomb() {
-		if (this.currentOnScreen < bombsCount) {
+		if(canDropBomb()) {
+			currentOnScreen++;
 			return super.dropBomb();
+
 		}
+
+		
 
 		return null;
 
 	}
-	public void addCurrentBombs(int howMany) {
-		currentOnScreen += howMany;
+	
+	public boolean canDropBomb() {
+		if (this.currentOnScreen >= bombCount) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
+//	public void addCurrentBombs(int howMany) {
+//		currentOnScreen += howMany;
+//	}
 }

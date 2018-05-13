@@ -36,7 +36,7 @@ public class LevelOne extends PApplet { //12 x 12 map
 
 	}
 	
-	public void draw(PApplet marker, float x, float y, float width, float height,PImage img1, PImage img2, PImage img3) {
+	public void draw(PApplet marker, float x, float y, float width, float height,PImage img1, PImage img2, PImage img3, PImage img4) {
 		
 		marker.pushStyle();
 		
@@ -55,10 +55,13 @@ public class LevelOne extends PApplet { //12 x 12 map
 					marker.image(img1, cellWidth*j + x, cellHeight*i);
 				}
 				
-				else {
+				else if(grid[j][i] == '_') {
 					
 					marker.image(img3, cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
 
+				}
+				else {
+					marker.image(img4,cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
 				}
 
 			}
@@ -110,7 +113,9 @@ public class LevelOne extends PApplet { //12 x 12 map
 		}
     }
 
-	
+	public void addBomb(int x, int y) {
+		grid[x][y] = 'x';
+	}
 	
 	
 	
