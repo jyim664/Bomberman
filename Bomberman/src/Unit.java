@@ -76,8 +76,9 @@ public class Unit {
 	
 	public int[] dropBomb(){
 		int[] retVal =  new int[2];
-		retVal[0] = xLoc;
-		retVal[1] = yLoc;
+		retVal[0] = (int)(xLoc/50);
+		
+		retVal[1] = (int)(yLoc/50);
 		return retVal;
 	}
 	
