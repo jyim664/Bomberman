@@ -25,25 +25,6 @@ public class LevelOne extends PApplet { //12 x 12 map
 	public LevelOne() {
 		 grid = new char[16][16];
 		
-		
-		
-		
-		for(int i = 0; i< grid.length; i++) {
-			grid[0][i] = '#';
-			grid[1][i] = '#';
-			grid[grid.length - 1][i] = '#';
-			grid[grid.length - 2][i] = '#';
-		}
-		
-		for(int i = 0; i < grid.length; i++) {
-			grid[i][0] = '#';
-			grid[i][1] = '#';
-
-
-			grid[i][grid.length-1] = '#';
-			grid[i][grid.length-2] = '#';
-		}
-		
 	}
 	
 	public LevelOne(String filename) {
