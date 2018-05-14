@@ -31,6 +31,8 @@ public class DrawingSurface extends PApplet {
 
 	private boolean gameState; // false == menu, true == game
 	
+	private ArrayList<Bomb> player1Bombs = new ArrayList<Bomb>();
+	private ArrayList<Bomb> player2Bombs = new ArrayList<Bomb>();
 	
 
 	private static final int frameHeight = 800, frameWidth = 800;
@@ -139,6 +141,7 @@ public class DrawingSurface extends PApplet {
 					int[] bombLoc = bomberman1.dropBomb();
 					if(bombLoc != null) {
 						board.addBomb(bombLoc[0], bombLoc[1]);
+						player1Bombs.add(new Bomb(bombLoc[0]*50,bombLoc[0]*50, bomb));
 					}
 				
 				}

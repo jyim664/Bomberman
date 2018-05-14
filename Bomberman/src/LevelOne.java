@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import processing.core.PApplet;
@@ -18,6 +19,7 @@ public class LevelOne extends PApplet { //12 x 12 map
 	private char grid[][];
 	private int[] pointCoords[][];
 	
+
 	
 	
 	
