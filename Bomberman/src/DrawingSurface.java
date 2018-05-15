@@ -25,6 +25,7 @@ public class DrawingSurface extends PApplet {
 	private PImage breakableWall;
 	private PImage grassTile;
 	private PImage bomb;
+	private PImage explosion;
 	
 	private ArrayList<PImage> assets; //all of Bomberman's images
 	private ArrayList<Integer> keys;
@@ -79,6 +80,8 @@ public class DrawingSurface extends PApplet {
 		grassTile = loadImage("GrassTile.png");
 
 		bomb = loadImage("bomb.png");
+		explosion = loadImage("explosion.png");
+
 		
 		menu.setup(this);
 		board.setup(this);
@@ -109,6 +112,26 @@ public class DrawingSurface extends PApplet {
 		bot1.RandomMovements();
 		
 		bot1.draw(this);
+		System.out.println(player1Bombs.size());
+		
+		if(player1Bombs.size() > 0) {
+			System.out.println("RUNS");
+
+			player1Bombs.get(0).draw(this);
+			if(player1Bombs.get(0).countDown()) {
+				
+				if(!player1Bombs.get(0).getStatus()) {
+					player1Bombs.get(0).setImage(explosion);
+					player1Bombs.get(0).explode();
+				}
+				else {
+					board.resetPlace(player1Bombs.get(0).getXLoc()/50, player1Bombs.get(0).getYLoc()/50);
+					player1Bombs.remove(0);
+					bomberman1.changeNumBombs(-1);
+
+				}
+				
+		}
 		
 	
 
@@ -140,8 +163,9 @@ public class DrawingSurface extends PApplet {
 				if (isPressed(KeyEvent.VK_SPACE)) {
 					int[] bombLoc = bomberman1.dropBomb();
 					if(bombLoc != null) {
+						Bomb b1 = new Bomb(bomb,bombLoc[0] * 50, bombLoc[1] * 50);
 						board.addBomb(bombLoc[0], bombLoc[1]);
-						player1Bombs.add(new Bomb(bombLoc[0]*50,bombLoc[0]*50, bomb));
+						player1Bombs.add(b1);
 					}
 				
 				}
@@ -174,7 +198,7 @@ public class DrawingSurface extends PApplet {
 				
 				}
 				
-			
+		}
 		
 	}
 	

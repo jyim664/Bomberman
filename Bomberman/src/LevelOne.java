@@ -63,7 +63,7 @@ public class LevelOne extends PApplet { //12 x 12 map
 
 				}
 				else {
-					marker.image(img4,cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
+//					marker.image(img4,cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
 				}
 
 			}
@@ -119,6 +119,9 @@ public class LevelOne extends PApplet { //12 x 12 map
 		grid[x][y] = 'x';
 	}
 	
+	public void resetPlace(int x, int y) {
+		grid[x][y] = '_';
+	}
 	
 	
 	
