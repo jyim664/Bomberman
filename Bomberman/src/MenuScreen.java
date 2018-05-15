@@ -65,6 +65,7 @@ public class MenuScreen {
 	private PImage startButton;
 	private PImage insButton;
 	private PImage shopButton;
+	private PImage controlTitle;
 	
 	
 	public MenuScreen(String gameTitle) {
@@ -84,6 +85,7 @@ public class MenuScreen {
 	startButton = drawer.loadImage("Start.png");
 	insButton = drawer.loadImage("Instructions.png");
 	shopButton = drawer.loadImage("Shop.png");
+	controlTitle = drawer.loadImage("Controls.png");
 	
 	
 	titleFont = drawer.createFont("Phosphate", 24);
