@@ -71,7 +71,7 @@ public class Unit {
 				return retVal;
 	}
 	public void draw(PApplet g) {
-		g.image(image,(int)xLoc,(int)yLoc,(int)width,(int)height);
+		g.image(image,xLoc,yLoc,width,height);
 	}
 	
 	public int[] dropBomb(){ //From Pixels to grid index

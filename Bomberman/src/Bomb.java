@@ -25,7 +25,7 @@ public class Bomb extends Unit {
 	public boolean countDown() {
 		System.out.println(timer);
 		if(exploded) {
-			if (timer < 15 ) {
+			if (timer < 10 ) {
 				timer++;
 				return false;
 				}

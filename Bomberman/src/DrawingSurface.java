@@ -80,7 +80,7 @@ public class DrawingSurface extends PApplet {
 		grassTile = loadImage("GrassTile.png");
 
 		bomb = loadImage("bomb.png");
-		explosion = loadImage("explosion.png");
+		explosion = loadImage("explode.png");
 
 		
 		menu.setup(this);
@@ -106,7 +106,7 @@ public class DrawingSurface extends PApplet {
 			menu.drawMapPage(this);
 		}
 		if(gameState) {
-		board.draw(this, 0, 0, Main.width, Main.height, boundaryWall, breakableWall, grassTile,bomb);
+		board.draw(this, 0, 0, Main.width, Main.height, boundaryWall, breakableWall, grassTile,bomb, explosion);
 		bomberman1.draw(this);
 		bomberman2.draw(this);
 		bot1.RandomMovements();
@@ -117,11 +117,12 @@ public class DrawingSurface extends PApplet {
 		if(player1Bombs.size() > 0) {
 			System.out.println("RUNS");
 
-			player1Bombs.get(0).draw(this);
+			//player1Bombs.get(0).draw(this);
 			if(player1Bombs.get(0).countDown()) {
 				
 				if(!player1Bombs.get(0).getStatus()) {
-					player1Bombs.get(0).setImage(explosion);
+					//player1Bombs.get(0).setImage(explosion);
+					board.isExploded(true);
 					player1Bombs.get(0).explode();
 				}
 				else {
