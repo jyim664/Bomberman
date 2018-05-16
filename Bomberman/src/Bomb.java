@@ -48,7 +48,7 @@ public class Bomb extends Unit {
 		}
 		}
 }
-	public boolean getStatus() {
+	public boolean getStatus() { //if Exploded or not
 		return exploded;
 	}
 	}

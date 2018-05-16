@@ -114,32 +114,59 @@ public class DrawingSurface extends PApplet {
 		bot1.draw(this);
 		System.out.println(player1Bombs.size());
 		
-		if(player1Bombs.size() > 0) {
+		
+		
+		//PLAYER 1 BOMB STUFF
+		if(player1Bombs.size() > 0) { 
 			System.out.println("RUNS");
-
-			//player1Bombs.get(0).draw(this);
 			if(player1Bombs.get(0).countDown()) {
-				
 				if(!player1Bombs.get(0).getStatus()) {
 					//player1Bombs.get(0).setImage(explosion);
-					board.isExploded(true);
+					board.player1BombIsExploded(true);
 					player1Bombs.get(0).explode();
 				}
 				else {
 					board.resetPlace(player1Bombs.get(0).getXLoc()/50, player1Bombs.get(0).getYLoc()/50);
 					player1Bombs.remove(0);
 					bomberman1.changeNumBombs(-1);
-
+					board.player1BombIsExploded(false);
+				}	
+		}
+		}
+		
+		//PLAYER 2 BOMB STUFF
+		if(player2Bombs.size() > 0) { 
+			System.out.println("RUNS");
+			if(player2Bombs.get(0).countDown()) {
+				if(!player2Bombs.get(0).getStatus()) {
+					//player1Bombs.get(0).setImage(explosion);
+					board.player2BombIsExploded(true);
+					player2Bombs.get(0).explode();
 				}
-				
-		}
-		
-	
+				else {
+					board.resetPlace(player2Bombs.get(0).getXLoc()/50, player2Bombs.get(0).getYLoc()/50);
+					player2Bombs.remove(0);
+					bomberman2.changeNumBombs(-1);
+					board.player2BombIsExploded(false);
 
+				}	
+		}
 		}
 		
 		
-		// modifying stuff
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		// modifying stuff (KEYOBOARD)
 				//player 1
 				if (isPressed(KeyEvent.VK_A)) {
 					bomberman1.setImage(assets.get(2));
@@ -205,11 +232,11 @@ public class DrawingSurface extends PApplet {
 					}
 
 				}
-				if (isPressed(KeyEvent.VK_SPACE)) {
+				if (isPressed(KeyEvent.VK_SPACE)) { //BOMB STUFF
 					int[] bombLoc = bomberman1.dropBomb();
 					if(bombLoc != null) {
 						Bomb b1 = new Bomb(bomb,bombLoc[0] * 50, bombLoc[1] * 50);
-						board.addBomb(bombLoc[0], bombLoc[1]);
+						board.addP1Bomb(bombLoc[0], bombLoc[1]);
 						player1Bombs.add(b1);
 					}
 				
@@ -283,9 +310,10 @@ public class DrawingSurface extends PApplet {
 				if (isPressed(KeyEvent.VK_ENTER)) {
 					int[] bombLoc = bomberman2.dropBomb();
 					if(bombLoc != null) {
-						board.addBomb(bombLoc[0], bombLoc[1]);
+						Bomb b1 = new Bomb(bomb,bombLoc[0] * 50, bombLoc[1] * 50);
+						board.addP2Bomb(bombLoc[0], bombLoc[1]);
+						player2Bombs.add(b1);
 					}
-				
 				}
 				
 		}
