@@ -12,12 +12,12 @@ import processing.core.PImage;
  * @author Justin Yim
  *
  */
-public class LevelOne extends PApplet { //12 x 12 map
+public class Levels extends PApplet { //12 x 12 map
 
 	private int width = Main.width;
 	private int height = Main.height;
 	private char grid[][];
-	private boolean badSpots[][];
+	private boolean badSpots[][] ;
 
 	
 	
@@ -26,12 +26,12 @@ public class LevelOne extends PApplet { //12 x 12 map
 	private boolean player2BombExploded = false;
 
 	
-	public LevelOne() {
+	public Levels() {
 		 grid = new char[16][16];
-		
+		 badSpots = new boolean[grid.length][grid[0].length];
 	}
 	
-	public LevelOne(String filename) {
+	public Levels(String filename) {
 		grid = readData(filename);
 		 badSpots = new boolean[grid.length][grid.length];
 		for (int i = 0; i < grid[0].length;i++) {
@@ -154,8 +154,8 @@ public class LevelOne extends PApplet { //12 x 12 map
 		grid[x][y] = '_';
 	}
 	
-	public boolean getStatus(int xLoc, int yLoc) {
-		return badSpots[xLoc][yLoc];
+	public boolean getStatus(int gridX, int gridY) {
+		return badSpots[gridX][gridY];
 	}
 	
 	public void player1BombIsExploded(boolean explode) {

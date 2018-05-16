@@ -1,5 +1,9 @@
 import processing.core.PImage;
-
+/**
+ * 
+ * @author Johnry Zhao, Kush Patel
+ *
+ */
 public class Bomb extends Unit {
 	
 	private int range;
@@ -37,7 +41,7 @@ public class Bomb extends Unit {
 				}
 		
 	else {
-		if (timer < 60 ) {
+		if (timer < 40 ) {
 		timer++;
 		return false;
 		}
