@@ -4,32 +4,55 @@ public class Bomb extends Unit {
 	
 	private int range;
 	private int timer;
+	private boolean exploded;
 
 
 	public static final int BOMB_WIDTH = 30;
 	public static final int BOMB_HEIGHT = 45;
 	
-	public Bomb( int xLoc, int yLoc, PImage img) {
+	public Bomb(PImage img, int xLoc, int yLoc) {
 		super(1, 3, xLoc, yLoc, BOMB_WIDTH, BOMB_HEIGHT, img);
 		range = 1;
 		timer = 0;
+		exploded = false;
 		
 	}
 
-	public void explode(	){
-		
-		this.addLives(-1);
+	public void explode(){
+		exploded = true;
 	}
 	
 	public boolean countDown() {
-		if (timer >= 180) {
+		System.out.println(timer);
+		if(exploded) {
+			if (timer < 10 ) {
+				timer++;
+				return false;
+				}
+				else {
+				
+				timer = 0;
+				return true;
+				}
+				}
 		
-		 return true;
+	else {
+		if (timer < 60 ) {
+		timer++;
+		return false;
 		}
 		else {
-			timer++;
-			return false;
+		
+		timer = 0;
+		return true;
 		}
+		}
+}
+	public boolean getStatus() { //if Exploded or not
+		return exploded;
+	}
 	}
 	
-}
+	
+	
+

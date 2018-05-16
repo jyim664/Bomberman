@@ -61,6 +61,11 @@ public class MenuScreen {
 	private PImage spacebar;
 	private PImage wasdKeys;
 	private PImage arrowKeys;
+	private PImage bombermanTitle;
+	private PImage startButton;
+	private PImage insButton;
+	private PImage shopButton;
+	private PImage controlTitle;
 	
 	
 	public MenuScreen(String gameTitle) {
@@ -76,12 +81,18 @@ public class MenuScreen {
 	spacebar = drawer.loadImage("Space.png");
 	wasdKeys = drawer.loadImage("WASD.png");
 	arrowKeys = drawer.loadImage("ArrowKeys.png");
+	bombermanTitle = drawer.loadImage("BTitle.png");
+	startButton = drawer.loadImage("Start.png");
+	insButton = drawer.loadImage("Instructions.png");
+	shopButton = drawer.loadImage("Shop.png");
+	controlTitle = drawer.loadImage("Controls.png");
 	
-	titleFont = drawer.createFont("Tw Cen MT", 24);
+	
+	titleFont = drawer.createFont("Phosphate", 24);
     
 	drawer.frameRate(60);
-	buttonFont = drawer.createFont("Bell MT", 24);
-	
+	buttonFont = drawer.createFont("Copperplate", 24);
+
 	}
 	
 	public void draw(PApplet drawer) {
@@ -92,13 +103,19 @@ public class MenuScreen {
 			fadeValue+=5;
 		}
 		else if(fadeValue>0 && startPressed == true) {
-			fadeValue-=10;
+			fadeValue-=50;
+			xTitleDis = 2000;
+			shopText = 2000;
+			insText = 2000;
+			startText = 2000;
 		}
 	
 	drawer.fill(255, 255, 240, fadeValue);
 	drawer.textSize(110);	
-	drawer.text(title, (width/2) - xTitleDis, (height/2) - yTitleDis);
-	
+	//drawer.text(title, (width/2) - xTitleDis, (height/2) - yTitleDis);
+	drawer.rotate(-0.0001f);
+	drawer.image(bombermanTitle, (width/2) - (xTitleDis - 36) , (height/2) - (yTitleDis + 50) );
+	drawer.rotate(0.0001f);
 	
 	drawer.textFont(buttonFont);
 
@@ -119,7 +136,10 @@ public class MenuScreen {
 	drawer.rect(shopX, shopY, shopLen, shopWid, startCur);
 	drawer.fill(0, fadeValue);
 	drawer.textSize(50);
-	drawer.text("Shop", shopText, shopY + 45);
+	//drawer.text("Shop", shopText, shopY + 45);
+	shopButton.resize(130, 40);
+	drawer.image(shopButton, shopText, shopY+13);
+	
 	
 	if(drawer.mouseX > insX && drawer.mouseX < insX + insLen && drawer.mouseY > insY && drawer.mouseY < insY + insWid) {
 		drawer.fill(255, 215, 0, fadeValue);
@@ -133,7 +153,9 @@ public class MenuScreen {
 	drawer.rect(insX, insY, insLen, insWid, startCur);
 	drawer.fill(0, fadeValue);
 	drawer.textSize(50);
-	drawer.text("Instructions", insText, insY+ 45);
+	//drawer.text("Instructions", insText, insY+ 45);
+	insButton.resize(335, 40);
+	drawer.image(insButton, insText - 3, insY + 13 );
 	
 	if(drawer.mouseX > startX && drawer.mouseX < startX + startLen && drawer.mouseY > startY && drawer.mouseY < startY + startWid) {
 		drawer.fill(255, 215, 0, fadeValue);
@@ -146,11 +168,13 @@ public class MenuScreen {
 	drawer.rect(startX, startY, startLen, startWid, startCur);
 	drawer.fill(0, fadeValue);
 	drawer.textSize(50);
-	drawer.text("Start", startText, startY + 45);
+	//drawer.text("Start", startText, startY + 45);
+	startButton.resize(150, 40);
+	drawer.image(startButton, startText, startY+13);
 
 	
 	
-	drawer.translate(65, 122);
+	drawer.translate(116, 145);
 	float aX1 = 125; //bottom anchor
 	  float aY1 = 125;
 	  float aX2 = 125; //top anchor
@@ -179,7 +203,7 @@ public class MenuScreen {
 	   }
 	drawer.translate(-65, -122);
 	drawer.fill(0, 0, 0, fadeValue);
-	drawer.ellipse(190, 295, 80, 80);//bomb
+	drawer.ellipse(190, 295, 83, 83);//bomb
 	drawer.rect(183, 245, 16, 15);//bomb stub
 	
 	
@@ -190,7 +214,7 @@ public class MenuScreen {
 	
 	public void drawInsPage(PApplet drawer) {
 		if(activateInsPage) {
-		
+			drawer.translate(-50, 0);
 			
 			drawer.fill(0);
 		
@@ -204,7 +228,7 @@ public class MenuScreen {
 			drawer.rect(100,  100, 600, 600);
 			
 			drawer.strokeWeight(15);
-			if(drawer.mouseX > 645 && drawer.mouseX < 675 && drawer.mouseY > 120 && drawer.mouseY < 150) {
+			if(drawer.mouseX > 645 && drawer.mouseX < 675 && drawer.mouseY > 140 && drawer.mouseY < 170) {
 				drawer.stroke(0);
 				overX =true;
 			}else {
@@ -258,7 +282,7 @@ public class MenuScreen {
 		
 			drawer.tint(255);
 			
-			
+			drawer.translate(-50, 0);
 			drawer.image(bomberFace1, 365, 625);
 			
 			if(drawer.mouseX > 365 && drawer.mouseX < 415 && drawer.mouseY > 600 && drawer.mouseY < 675) {

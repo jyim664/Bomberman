@@ -17,39 +17,31 @@ public class LevelOne extends PApplet { //12 x 12 map
 	private int width = Main.width;
 	private int height = Main.height;
 	private char grid[][];
-	private int[] pointCoords[][];
-	
+	private boolean badSpots[][];
 
 	
 	
 	
+	private boolean player1BombExploded = false;
+	private boolean player2BombExploded = false;
+
 	
 	public LevelOne() {
 		 grid = new char[16][16];
-		
-		
-		
-		
-		for(int i = 0; i< grid.length; i++) {
-			grid[0][i] = '#';
-			grid[1][i] = '#';
-			grid[grid.length - 1][i] = '#';
-			grid[grid.length - 2][i] = '#';
-		}
-		
-		for(int i = 0; i < grid.length; i++) {
-			grid[i][0] = '#';
-			grid[i][1] = '#';
-
-
-			grid[i][grid.length-1] = '#';
-			grid[i][grid.length-2] = '#';
-		}
 		
 	}
 	
 	public LevelOne(String filename) {
 		grid = readData(filename);
+		 badSpots = new boolean[grid.length][grid.length];
+		for (int i = 0; i < grid[0].length;i++) {
+			for (int j = 0; j < grid.length; j ++) {
+				if (grid[j][i] == '*' || grid[j][i] == '#') {
+					badSpots[j][i] = true;
+
+				}
+	}
+		}
 	}
 	
 	public void setup(PApplet drawer) {
@@ -57,7 +49,7 @@ public class LevelOne extends PApplet { //12 x 12 map
 
 	}
 	
-	public void draw(PApplet marker, float x, float y, float width, float height,PImage img1, PImage img2, PImage img3, PImage img4) {
+	public void draw(PApplet marker, float x, float y, float width, float height,PImage img1, PImage img2, PImage img3, PImage img4, PImage img5) {
 		
 		marker.pushStyle();
 		
@@ -81,8 +73,23 @@ public class LevelOne extends PApplet { //12 x 12 map
 					marker.image(img3, cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
 
 				}
+				else if(grid[j][i] == 'x') {
+					if(player1BombExploded == false) {
+						marker.image(img4,cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
+
+					}else {
+						marker.image(img5,cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
+
+					}		
+				}
 				else {
-					marker.image(img4,cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
+					if(player2BombExploded == false) {
+						marker.image(img4,cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
+					}
+					else {
+						marker.image(img5,cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
+
+					}
 				}
 
 			}
@@ -134,10 +141,30 @@ public class LevelOne extends PApplet { //12 x 12 map
 		}
     }
 
-	public void addBomb(int x, int y) {
+	public void addP1Bomb(int x, int y) {
 		grid[x][y] = 'x';
 	}
 	
+	public void addP2Bomb(int x, int y) {
+		grid[x][y] = 'y';
+	}
+	
+	
+	public void resetPlace(int x, int y) {
+		grid[x][y] = '_';
+	}
+	
+	public boolean getStatus(int xLoc, int yLoc) {
+		return badSpots[xLoc][yLoc];
+	}
+	
+	public void player1BombIsExploded(boolean explode) {
+		player1BombExploded = explode;
+	}
+	
+	public void player2BombIsExploded(boolean explode) {
+		player2BombExploded = explode;
+	}
 	
 	
 	

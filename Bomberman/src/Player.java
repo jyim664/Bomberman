@@ -65,7 +65,8 @@ public class Player extends Unit {
 			return true;
 		}
 	}
-//	public void addCurrentBombs(int howMany) {
-//		currentOnScreen += howMany;
-//	}
+	
+	public void changeNumBombs(int x) {
+		currentOnScreen += x;
+}
 }
