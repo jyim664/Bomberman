@@ -18,11 +18,7 @@ public class LevelOne extends PApplet { //12 x 12 map
 	private int height = Main.height;
 	private char grid[][];
 	private int[] pointCoords[][];
-	
-
-	
-	
-	
+	private boolean bombExploded = false;
 	
 	public LevelOne() {
 		 grid = new char[16][16];
@@ -38,7 +34,7 @@ public class LevelOne extends PApplet { //12 x 12 map
 
 	}
 	
-	public void draw(PApplet marker, float x, float y, float width, float height,PImage img1, PImage img2, PImage img3, PImage img4) {
+	public void draw(PApplet marker, float x, float y, float width, float height,PImage img1, PImage img2, PImage img3, PImage img4, PImage img5) {
 		
 		marker.pushStyle();
 		
@@ -63,7 +59,13 @@ public class LevelOne extends PApplet { //12 x 12 map
 
 				}
 				else {
-//					marker.image(img4,cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
+					if(bombExploded == false) {
+						marker.image(img4,cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
+
+					}else {
+						marker.image(img5,cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
+
+					}
 				}
 
 			}
@@ -121,6 +123,10 @@ public class LevelOne extends PApplet { //12 x 12 map
 	
 	public void resetPlace(int x, int y) {
 		grid[x][y] = '_';
+	}
+	
+	public void isExploded(boolean explode) {
+		bombExploded = explode;
 	}
 	
 	
