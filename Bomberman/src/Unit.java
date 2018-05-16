@@ -65,7 +65,7 @@ public class Unit {
 	public void setImage(PImage other) {
 		image = other;
 	}
-	
+		
 	public String toString() {
 		String retVal = "Unit with "+ lives +" health, "+ speed +" speed, at ("+xLoc+','+yLoc+").";
 				return retVal;

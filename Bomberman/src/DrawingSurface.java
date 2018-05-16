@@ -13,7 +13,7 @@ import processing.core.PImage;
 public class DrawingSurface extends PApplet {
 
 	private MenuScreen menu;
-	private LevelOne board;
+	private Levels board;
 	
 	private Player bomberman1;
 	private Player bomberman2; 
@@ -40,7 +40,7 @@ public class DrawingSurface extends PApplet {
 	
 	public DrawingSurface() {
 		menu = new MenuScreen("B    mberman");
-		board = new LevelOne("LevelOneMap");
+		board = new Levels("LevelOneMap");
 		gameState = false; //menu = false, game screen = true;
 		
 		assets = new ArrayList<PImage>();
@@ -59,7 +59,8 @@ public class DrawingSurface extends PApplet {
 
 	
 	public void spawnBot1() {
-		bot1 = new Bot(1,3,2*50,13*50,assets.get(0));
+		bot1 = new Bot(1,3,2*50,13*50,assets.get(0), board);
+		
 	}
 	
 	
@@ -89,6 +90,7 @@ public class DrawingSurface extends PApplet {
 		spawnPlayer2();
 
 		spawnBot1();
+	//	bot1.setUp(board);
 
 		
 	}
@@ -110,7 +112,7 @@ public class DrawingSurface extends PApplet {
 		board.draw(this, 0, 0, Main.width, Main.height, boundaryWall, breakableWall, grassTile,bomb, explosion);
 		bomberman1.draw(this);
 		bomberman2.draw(this);
-		bot1.RandomMovements();
+		bot1.RandomMovements(board);
 		
 		bot1.draw(this);
 		

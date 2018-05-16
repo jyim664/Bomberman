@@ -1,5 +1,9 @@
 import processing.core.PImage;
-
+/**
+ * 
+ * @author Johnry Zhao, Kush Patel
+ *
+ */
 public class Bomb extends Unit {
 
 	private int range;
@@ -35,6 +39,13 @@ public class Bomb extends Unit {
 				timer = 0;
 				return true;
 			}
+				}
+				
+		
+	else {
+		if (timer < 40 ) {
+		timer++;
+		return false;
 		}
 
 		else {
@@ -47,12 +58,13 @@ public class Bomb extends Unit {
 				timer = 0;
 				return true;
 			}
-		}
+		}}
 	}
+
 	public boolean getStatus() { //if Exploded or not
 		return exploded;
 	}
-
+	
 //	public boolean canSpreadLeft(LevelOne lvl) {
 //		char[][] grid = lvl.getGrid();
 //		int[] bombCoords = super.pixeltoGrid();
