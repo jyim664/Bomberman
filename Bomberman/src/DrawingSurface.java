@@ -142,22 +142,66 @@ public class DrawingSurface extends PApplet {
 				//player 1
 				if (isPressed(KeyEvent.VK_A)) {
 					bomberman1.setImage(assets.get(2));
-					bomberman1.walkX(-1*bomberman1.getSpeed());
+					int[] newLoc = bomberman1.pixeltoGrid();
+					if(board.getStatus(newLoc[0] - 1, newLoc[1])) {
+						System.out.println("HERE");
+						int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0] - 1, newLoc[1]);
+						if(bomberman1.getXLoc() - pixelWallLoc[0] >= 50) 
+						bomberman1.walkX(-1*bomberman1.getSpeed());
+
+					}
+					else {
+						bomberman1.walkX(-1*bomberman1.getSpeed());
+
+					}
 
 				}
 				if (isPressed(KeyEvent.VK_D)) {
 					bomberman1.setImage(assets.get(3));
-					bomberman1.walkX(1*bomberman1.getSpeed());
+					int[] newLoc = bomberman1.pixeltoGrid();
+					if(board.getStatus(newLoc[0] + 1, newLoc[1])) {
+						System.out.println("HERE");
+						int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0] + 1, newLoc[1]);
+						if(pixelWallLoc[0] - bomberman1.getXLoc() >= 30) 
+							bomberman1.walkX(1*bomberman1.getSpeed());
+
+					}
+					else {
+						bomberman1.walkX(1*bomberman1.getSpeed());
+
+					}
 
 				}
 				if (isPressed(KeyEvent.VK_W)) {
 					bomberman1.setImage(assets.get(1));
-					bomberman1.walkY(-1*bomberman1.getSpeed());
+					int[] newLoc = bomberman1.pixeltoGrid();
+					if(board.getStatus(newLoc[0], newLoc[1] - 1)) {
+						System.out.println("HERE");
+						int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0], newLoc[1] - 1);
+						if(bomberman1.getYLoc() - pixelWallLoc[1]  >= 45) 
+							bomberman1.walkY(-1*bomberman1.getSpeed());
+
+					}
+					else {
+						bomberman1.walkY(-1*bomberman1.getSpeed());
+
+					}
 
 				}
 				if (isPressed(KeyEvent.VK_S)) {
 					bomberman1.setImage(assets.get(0));
-					bomberman1.walkY(1*bomberman1.getSpeed());
+					int[] newLoc = bomberman1.pixeltoGrid();
+					if(board.getStatus(newLoc[0], newLoc[1] + 1)) {
+						System.out.println("HERE");
+						int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0], newLoc[1] + 1);
+						if(pixelWallLoc[1] - bomberman1.getYLoc()  >= 45) 
+							bomberman1.walkY(1*bomberman1.getSpeed());
+
+					}
+					else {
+						bomberman1.walkY(1*bomberman1.getSpeed());
+
+					}
 
 				}
 				if (isPressed(KeyEvent.VK_SPACE)) {
@@ -172,22 +216,67 @@ public class DrawingSurface extends PApplet {
 				//player 2
 				if (isPressed(KeyEvent.VK_LEFT)) {
 					bomberman2.setImage(assets.get(2));
-					bomberman2.walkX(-1*bomberman2.getSpeed());
+					int[] newLoc = bomberman2.pixeltoGrid();
+					if(board.getStatus(newLoc[0] - 1, newLoc[1])) {
+						System.out.println("HERE");
+						int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0] - 1, newLoc[1]);
+						if(bomberman2.getXLoc() - pixelWallLoc[0] >= 50) 
+						bomberman2.walkX(-1*bomberman2.getSpeed());
+
+					}
+					else {
+						bomberman2.walkX(-1*bomberman2.getSpeed());
+
+					}
 
 				}
 				if (isPressed(KeyEvent.VK_RIGHT)) {
 					bomberman2.setImage(assets.get(3));
-					bomberman2.walkX(1*bomberman2.getSpeed());
+					int[] newLoc = bomberman2.pixeltoGrid();
+					if(board.getStatus(newLoc[0] + 1, newLoc[1])) {
+						System.out.println("HERE");
+						int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0] + 1, newLoc[1]);
+						if(pixelWallLoc[0] - bomberman2.getXLoc() >= 30) 
+							bomberman2.walkX(1*bomberman2.getSpeed());
+
+					}
+					else {
+						bomberman2.walkX(1*bomberman2.getSpeed());
+
+					}
 
 				}
 				if (isPressed(KeyEvent.VK_UP)) {
 					bomberman2.setImage(assets.get(1));
-					bomberman2.walkY(-1*bomberman2.getSpeed());
+					int[] newLoc = bomberman2.pixeltoGrid();
+					if(board.getStatus(newLoc[0], newLoc[1] - 1)) {
+						System.out.println("HERE");
+						int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0], newLoc[1] - 1);
+						if(bomberman2.getYLoc() - pixelWallLoc[1]  >= 45) 
+							bomberman2.walkY(-1*bomberman2.getSpeed());
+
+					}
+					else {
+						bomberman2.walkY(-1*bomberman2.getSpeed());
+
+					}
+
 
 				}
 				if (isPressed(KeyEvent.VK_DOWN)) {
 					bomberman2.setImage(assets.get(0));
-					bomberman2.walkY(1*bomberman2.getSpeed());
+					int[] newLoc = bomberman2.pixeltoGrid();
+					if(board.getStatus(newLoc[0], newLoc[1] + 1)) {
+						System.out.println("HERE");
+						int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0], newLoc[1] + 1);
+						if(pixelWallLoc[1] - bomberman2.getYLoc()  >= 45) 
+							bomberman2.walkY(1*bomberman2.getSpeed());
+
+					}
+					else {
+						bomberman2.walkY(1*bomberman2.getSpeed());
+
+					}
 
 				}
 				if (isPressed(KeyEvent.VK_ENTER)) {

@@ -17,8 +17,7 @@ public class LevelOne extends PApplet { //12 x 12 map
 	private int width = Main.width;
 	private int height = Main.height;
 	private char grid[][];
-	private int[] pointCoords[][];
-	
+	private boolean badSpots[][];
 
 	
 	
@@ -31,6 +30,15 @@ public class LevelOne extends PApplet { //12 x 12 map
 	
 	public LevelOne(String filename) {
 		grid = readData(filename);
+		 badSpots = new boolean[grid.length][grid.length];
+		for (int i = 0; i < grid[0].length;i++) {
+			for (int j = 0; j < grid.length; j ++) {
+				if (grid[j][i] == '*' || grid[j][i] == '#') {
+					badSpots[j][i] = true;
+
+				}
+	}
+		}
 	}
 	
 	public void setup(PApplet drawer) {
@@ -122,6 +130,11 @@ public class LevelOne extends PApplet { //12 x 12 map
 	public void resetPlace(int x, int y) {
 		grid[x][y] = '_';
 	}
+	
+	public boolean getStatus(int xLoc, int yLoc) {
+		return badSpots[xLoc][yLoc];
+	}
+	
 	
 	
 	

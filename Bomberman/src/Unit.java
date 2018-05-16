@@ -74,12 +74,32 @@ public class Unit {
 		g.image(image,(int)xLoc,(int)yLoc,(int)width,(int)height);
 	}
 	
-	public int[] dropBomb(){
+	public int[] dropBomb(){ //From Pixels to grid index
 		int[] retVal =  new int[2];
 		retVal[0] = (int)(((double)xLoc/50)+0.5);
 		
 		retVal[1] = (int)(((double)yLoc/50)+0.5);
 		return retVal;
 	}
+	
+	public int[] pixeltoGrid(){ 
+		int[] retVal =  new int[2];
+		retVal[0] = (int)(((double)xLoc/50)+0.5);
+		
+		retVal[1] = (int)(((double)yLoc/50)+0.5);
+		return retVal;
+	}
+	
+	public int[] gridToPixel(int x, int y){  //x and y = grid indexes
+		int[] retVal =  new int[2];
+		retVal[0] = (int)(((double)x*50)+0.5);
+		
+		retVal[1] = (int)(((double)y*50)+0.5);
+		return retVal;
+	}
+	
+	
+	
+	
 	
 }
