@@ -154,7 +154,7 @@ public class LevelOne extends PApplet { //12 x 12 map
 		grid[x][y] = '_';
 	}
 	
-	public boolean getStatus(int xLoc, int yLoc) {
+	public boolean getStatus(int xLoc, int yLoc) { //GRID COORDS NOT PIXELS
 		return badSpots[xLoc][yLoc];
 	}
 	
@@ -166,7 +166,9 @@ public class LevelOne extends PApplet { //12 x 12 map
 		player2BombExploded = explode;
 	}
 	
-	
+	public char[][] getGrid() {
+		return grid;
+	}
 	
 	
 }

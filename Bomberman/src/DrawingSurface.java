@@ -98,7 +98,8 @@ public class DrawingSurface extends PApplet {
 	// program is stopped. Each statement is executed in 
 	// sequence and after the last line is read, the first 
 	// line is executed again.
-	public void draw() { 
+	public void draw() {
+		
 		this.scale((float) width / frameWidth, (float) height / frameHeight);//scales objects based on framesize
 		if(gameState == false) {
 			menu.draw(this);
@@ -112,34 +113,87 @@ public class DrawingSurface extends PApplet {
 		bot1.RandomMovements();
 		
 		bot1.draw(this);
-		System.out.println(player1Bombs.size());
 		
-		
-		
+		boolean left , right, up, down;
+		left = false;
+		right = false;
+		up = false;
+		down = false;
+
 		//PLAYER 1 BOMB STUFF
-		if(player1Bombs.size() > 0) { 
-			System.out.println("RUNS");
+		if(player1Bombs.size() > 0) {
+			
+		
+
 			if(player1Bombs.get(0).countDown()) {
 				if(!player1Bombs.get(0).getStatus()) {
-					//player1Bombs.get(0).setImage(explosion);
 					board.player1BombIsExploded(true);
 					player1Bombs.get(0).explode();
+					
+					if(!board.getStatus(player1Bombs.get(0).getXLoc()/50 + 1, player1Bombs.get(0).getYLoc()/50)) {
+						board.addP1Bomb(player1Bombs.get(0).getXLoc()/50 + 1, player1Bombs.get(0).getYLoc()/50);
+						right = true;
+												//RIGHT
+					}
+
+					
+					if(!board.getStatus(player1Bombs.get(0).getXLoc()/50 - 1, player1Bombs.get(0).getYLoc()/50)) {
+						board.addP1Bomb(player1Bombs.get(0).getXLoc()/50 - 1, player1Bombs.get(0).getYLoc()/50);
+						left = true;
+						//Left
+					}
+
+					if(!board.getStatus(player1Bombs.get(0).getXLoc()/50, player1Bombs.get(0).getYLoc()/50 - 1)) {
+						board.addP1Bomb(player1Bombs.get(0).getXLoc()/50, player1Bombs.get(0).getYLoc()/50 - 1);
+						up = true;
+							//UP
+					}
+
+					
+					if(!board.getStatus(player1Bombs.get(0).getXLoc()/50, player1Bombs.get(0).getYLoc()/50 + 1)) {
+						board.addP1Bomb(player1Bombs.get(0).getXLoc()/50, player1Bombs.get(0).getYLoc()/50 + 1);
+						down = true;
+						//Down
+					}
+
 				}
 				else {
 					board.resetPlace(player1Bombs.get(0).getXLoc()/50, player1Bombs.get(0).getYLoc()/50);
+					
+					if(right) {
+						board.resetPlace(player1Bombs.get(0).getXLoc()/50 + 1, player1Bombs.get(0).getYLoc()/50);
+						System.out.println(right);
+
+						right = false;
+					}
+					if(left) {
+						board.resetPlace(player1Bombs.get(0).getXLoc()/50 - 1, player1Bombs.get(0).getYLoc()/50);
+						left = false;
+
+					}
+					if(up) {
+						board.resetPlace(player1Bombs.get(0).getXLoc()/50, player1Bombs.get(0).getYLoc()/50 - 1);
+						up = false;
+
+					}
+					if(down) {
+						board.resetPlace(player1Bombs.get(0).getXLoc()/50, player1Bombs.get(0).getYLoc()/50 + 1);
+						down = false;
+
+					}
 					player1Bombs.remove(0);
 					bomberman1.changeNumBombs(-1);
 					board.player1BombIsExploded(false);
 				}	
-		}
+		
+				
+			}
 		}
 		
 		//PLAYER 2 BOMB STUFF
 		if(player2Bombs.size() > 0) { 
-			System.out.println("RUNS");
 			if(player2Bombs.get(0).countDown()) {
 				if(!player2Bombs.get(0).getStatus()) {
-					//player1Bombs.get(0).setImage(explosion);
 					board.player2BombIsExploded(true);
 					player2Bombs.get(0).explode();
 				}
@@ -172,7 +226,6 @@ public class DrawingSurface extends PApplet {
 					bomberman1.setImage(assets.get(2));
 					int[] newLoc = bomberman1.pixeltoGrid();
 					if(board.getStatus(newLoc[0] - 1, newLoc[1])) {
-						System.out.println("HERE");
 						int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0] - 1, newLoc[1]);
 						if(bomberman1.getXLoc() - pixelWallLoc[0] >= 50) 
 						bomberman1.walkX(-1*bomberman1.getSpeed());
@@ -188,7 +241,6 @@ public class DrawingSurface extends PApplet {
 					bomberman1.setImage(assets.get(3));
 					int[] newLoc = bomberman1.pixeltoGrid();
 					if(board.getStatus(newLoc[0] + 1, newLoc[1])) {
-						System.out.println("HERE");
 						int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0] + 1, newLoc[1]);
 						if(pixelWallLoc[0] - bomberman1.getXLoc() >= 30) 
 							bomberman1.walkX(1*bomberman1.getSpeed());
@@ -204,7 +256,6 @@ public class DrawingSurface extends PApplet {
 					bomberman1.setImage(assets.get(1));
 					int[] newLoc = bomberman1.pixeltoGrid();
 					if(board.getStatus(newLoc[0], newLoc[1] - 1)) {
-						System.out.println("HERE");
 						int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0], newLoc[1] - 1);
 						if(bomberman1.getYLoc() - pixelWallLoc[1]  >= 45) 
 							bomberman1.walkY(-1*bomberman1.getSpeed());
@@ -220,7 +271,6 @@ public class DrawingSurface extends PApplet {
 					bomberman1.setImage(assets.get(0));
 					int[] newLoc = bomberman1.pixeltoGrid();
 					if(board.getStatus(newLoc[0], newLoc[1] + 1)) {
-						System.out.println("HERE");
 						int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0], newLoc[1] + 1);
 						if(pixelWallLoc[1] - bomberman1.getYLoc()  >= 45) 
 							bomberman1.walkY(1*bomberman1.getSpeed());
@@ -234,6 +284,7 @@ public class DrawingSurface extends PApplet {
 				}
 				if (isPressed(KeyEvent.VK_SPACE)) { //BOMB STUFF
 					int[] bombLoc = bomberman1.dropBomb();
+					System.out.println(Arrays.toString(bombLoc));
 					if(bombLoc != null) {
 						Bomb b1 = new Bomb(bomb,bombLoc[0] * 50, bombLoc[1] * 50);
 						board.addP1Bomb(bombLoc[0], bombLoc[1]);
@@ -246,7 +297,6 @@ public class DrawingSurface extends PApplet {
 					bomberman2.setImage(assets.get(2));
 					int[] newLoc = bomberman2.pixeltoGrid();
 					if(board.getStatus(newLoc[0] - 1, newLoc[1])) {
-						System.out.println("HERE");
 						int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0] - 1, newLoc[1]);
 						if(bomberman2.getXLoc() - pixelWallLoc[0] >= 50) 
 						bomberman2.walkX(-1*bomberman2.getSpeed());
@@ -262,7 +312,6 @@ public class DrawingSurface extends PApplet {
 					bomberman2.setImage(assets.get(3));
 					int[] newLoc = bomberman2.pixeltoGrid();
 					if(board.getStatus(newLoc[0] + 1, newLoc[1])) {
-						System.out.println("HERE");
 						int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0] + 1, newLoc[1]);
 						if(pixelWallLoc[0] - bomberman2.getXLoc() >= 30) 
 							bomberman2.walkX(1*bomberman2.getSpeed());
@@ -278,7 +327,6 @@ public class DrawingSurface extends PApplet {
 					bomberman2.setImage(assets.get(1));
 					int[] newLoc = bomberman2.pixeltoGrid();
 					if(board.getStatus(newLoc[0], newLoc[1] - 1)) {
-						System.out.println("HERE");
 						int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0], newLoc[1] - 1);
 						if(bomberman2.getYLoc() - pixelWallLoc[1]  >= 45) 
 							bomberman2.walkY(-1*bomberman2.getSpeed());
@@ -295,7 +343,6 @@ public class DrawingSurface extends PApplet {
 					bomberman2.setImage(assets.get(0));
 					int[] newLoc = bomberman2.pixeltoGrid();
 					if(board.getStatus(newLoc[0], newLoc[1] + 1)) {
-						System.out.println("HERE");
 						int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0], newLoc[1] + 1);
 						if(pixelWallLoc[1] - bomberman2.getYLoc()  >= 45) 
 							bomberman2.walkY(1*bomberman2.getSpeed());
@@ -314,11 +361,14 @@ public class DrawingSurface extends PApplet {
 						board.addP2Bomb(bombLoc[0], bombLoc[1]);
 						player2Bombs.add(b1);
 					}
-				}
+				}}}
+	
 				
-		}
 		
-	}
+		
+		
+	
+	
 	
 	public void mousePressed() {
 		if(menu.isOverShop()) {

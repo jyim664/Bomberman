@@ -14,6 +14,7 @@ public class Player extends Unit {
 
 	private int bombCount;
 	private int currentOnScreen = 0;
+	private int explosionRadius;
 
 	public static final int PLAYER_WIDTH = 30;
 	public static final int PLAYER_HEIGHT = 45;
@@ -21,6 +22,7 @@ public class Player extends Unit {
 	public Player(PImage img, int x, int y) {
 		super(1, 3, x, y, PLAYER_WIDTH, PLAYER_HEIGHT, img);
 		bombCount = 1;
+		explosionRadius = 0;
 	}
 
 	public void walkX(int dir) {
@@ -69,4 +71,8 @@ public class Player extends Unit {
 	public void changeNumBombs(int x) {
 		currentOnScreen += x;
 }
+	
+	public void addRadius() {
+		explosionRadius++;
+	}
 }
