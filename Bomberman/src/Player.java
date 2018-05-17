@@ -22,7 +22,7 @@ public class Player extends Unit {
 	public Player(PImage img, int x, int y) {
 		super(1, 3, x, y, PLAYER_WIDTH, PLAYER_HEIGHT, img);
 		bombCount = 1;
-		explosionRadius = 0;
+		explosionRadius = 1;
 	}
 
 	public void walkX(int dir) {
@@ -74,5 +74,8 @@ public class Player extends Unit {
 	
 	public void addRadius() {
 		explosionRadius++;
+	}
+	public int getRadius() {
+		return explosionRadius;
 	}
 }
