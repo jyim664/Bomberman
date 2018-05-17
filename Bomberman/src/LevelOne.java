@@ -17,7 +17,9 @@ public class LevelOne extends PApplet { //12 x 12 map
 	private int width = Main.width;
 	private int height = Main.height;
 	private char grid[][];
-	private boolean badSpots[][];
+	private boolean unbreakableSpots[][];
+	private boolean breakableSpots[][];
+
 
 	
 	
@@ -33,17 +35,21 @@ public class LevelOne extends PApplet { //12 x 12 map
 	
 	public LevelOne(String filename) {
 		grid = readData(filename);
-		 badSpots = new boolean[grid.length][grid.length];
+		 unbreakableSpots = new boolean[grid.length][grid.length];
 		for (int i = 0; i < grid[0].length;i++) {
 			for (int j = 0; j < grid.length; j ++) {
-				if (grid[j][i] == '*' || grid[j][i] == '#') {
-					badSpots[j][i] = true;
-
+				if (grid[j][i] == '*' ) {
+					unbreakableSpots[j][i] = true;
 				}
+				if (grid[j][i] == '#') {
+					
+					breakableSpots[j][i] = true;
+			}
+				
 	}
 		}
 	}
-	
+
 	public void setup(PApplet drawer) {
 		
 
@@ -155,7 +161,7 @@ public class LevelOne extends PApplet { //12 x 12 map
 	}
 	
 	public boolean getStatus(int xLoc, int yLoc) { //GRID COORDS NOT PIXELS
-		return badSpots[xLoc][yLoc];
+		return unbreakableSpots[xLoc][yLoc];
 	}
 	
 	public void player1BombIsExploded(boolean explode) {
