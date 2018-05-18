@@ -1,4 +1,5 @@
 import processing.core.PImage;
+
 /**
  * 
  * @author Johnry Zhao, Kush Patel
@@ -10,12 +11,11 @@ public class Bomb extends Unit {
 	private int timer;
 	private boolean exploded;
 
-	//explode direction
+	// explode direction
 	private boolean ER;
-	private boolean EL; 
+	private boolean EL;
 	private boolean EU;
-	private boolean ED; 
-
+	private boolean ED;
 
 	public static final int BOMB_WIDTH = 30;
 	public static final int BOMB_HEIGHT = 45;
@@ -30,114 +30,110 @@ public class Bomb extends Unit {
 		EU = false;
 		ED = false;
 
-
 	}
 
-	public void explode(){
+	public void explode() {
 		exploded = true;
-
 
 	}
 
 	public boolean countDown() {
-		if(exploded) {
-			if (timer < 10 ) {
+		if (exploded) {
+			if (timer < 10) {
 				timer++;
 				return false;
-			}
-			else {
+			} else {
 
 				timer = 0;
 				return true;
 			}
 		}
 
-
 		else {
-			if (timer < 40 ) {
+			if (timer < 30) {
 				timer++;
 				return false;
 			}
 
 			else {
-				if (timer < 60 ) {
+				if (timer < 30) {
 					timer++;
 					return false;
-				}
-				else {
+				} else {
 
 					timer = 0;
 					return true;
 				}
-			}}
+			}
+		}
 	}
 
-	public boolean getStatus() { //if Exploded or not
+	public boolean getStatus() { // if Exploded or not
 		return exploded;
 	}
 
-	//	public boolean canSpreadLeft(LevelOne lvl) {
-	//		char[][] grid = lvl.getGrid();
-	//		int[] bombCoords = super.pixeltoGrid();
-	//		if(bombCoords[0] - 1 >= 0) {
-	//			return true;
-	//		}
-	//		return false;
-	//	}
-	//	public boolean canSpreadRight(LevelOne lvl) {
-	//		char[][] grid = lvl.getGrid();
-	//		int[] bombCoords = super.pixeltoGrid();
-	//		if(bombCoords[0] + 1 < grid.length) {
-	//			return true;
-	//		}
-	//		return false;
-	//	}
-	//	public boolean canSpreadUp(LevelOne lvl) {
-	//		char[][] grid = lvl.getGrid();
-	//		int[] bombCoords = super.pixeltoGrid();
-	//		if(bombCoords[1] - 1 >= 0) {
-	//			return true;
-	//		}
-	//		return false;
-	//	}
-	//	public boolean canSpreadLeftDown(LevelOne lvl) {
-	//		char[][] grid = lvl.getGrid();
-	//		int[] bombCoords = super.pixeltoGrid();
-	//		if(bombCoords[1] + 1 < grid[0].length) {
-	//			return true;
-	//		}
-	//		return false;
-	//	}
-
-
+	// public boolean canSpreadLeft(LevelOne lvl) {
+	// char[][] grid = lvl.getGrid();
+	// int[] bombCoords = super.pixeltoGrid();
+	// if(bombCoords[0] - 1 >= 0) {
+	// return true;
+	// }
+	// return false;
+	// }
+	// public boolean canSpreadRight(LevelOne lvl) {
+	// char[][] grid = lvl.getGrid();
+	// int[] bombCoords = super.pixeltoGrid();
+	// if(bombCoords[0] + 1 < grid.length) {
+	// return true;
+	// }
+	// return false;
+	// }
+	// public boolean canSpreadUp(LevelOne lvl) {
+	// char[][] grid = lvl.getGrid();
+	// int[] bombCoords = super.pixeltoGrid();
+	// if(bombCoords[1] - 1 >= 0) {
+	// return true;
+	// }
+	// return false;
+	// }
+	// public boolean canSpreadLeftDown(LevelOne lvl) {
+	// char[][] grid = lvl.getGrid();
+	// int[] bombCoords = super.pixeltoGrid();
+	// if(bombCoords[1] + 1 < grid[0].length) {
+	// return true;
+	// }
+	// return false;
+	// }
 
 	public void setLeft(boolean x) {
 		EL = x;
 	}
+
 	public void setRight(boolean x) {
 		ER = x;
 	}
+
 	public void setUp(boolean x) {
 		EU = x;
 	}
+
 	public void setDown(boolean x) {
 		ED = x;
 	}
-	
-	public boolean getLeft() { 
+
+	public boolean getLeft() {
 		return EL;
-	} 
-	public boolean getRight() { 
+	}
+
+	public boolean getRight() {
 		return ER;
-	} 
-	public boolean getUp() { 
+	}
+
+	public boolean getUp() {
 		return EU;
-	} 
-	public boolean getDown() { 
+	}
+
+	public boolean getDown() {
 		return ED;
-	} 
+	}
 }
-
-
-
-
