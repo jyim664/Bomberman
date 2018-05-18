@@ -39,7 +39,7 @@ public class Bomb extends Unit {
 
 	public boolean countDown() {
 		if (exploded) {
-			if (timer < 10) {
+			if (timer < 15) {
 				timer++;
 				return false;
 			} else {
@@ -50,7 +50,7 @@ public class Bomb extends Unit {
 		}
 
 		else {
-			if (timer < 30) {
+			if (timer < 40) {
 				timer++;
 				return false;
 			}

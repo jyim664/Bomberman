@@ -98,7 +98,9 @@ public class Unit {
 		return retVal;
 	}
 	
-	
+	public void die() {
+		lives--;
+	}
 	
 	
 	
