@@ -135,6 +135,7 @@ public class DrawingSurface extends PApplet {
 								board.addP1Bomb(player1Bombs.get(0).getXLoc()/50 + explosionRadius - i, player1Bombs.get(0).getYLoc()/50);
 								player1Bombs.get(0).setRight(true);
 								System.out.print(" Right");
+								System.out.print(board.getUnbreakableStatus(player1Bombs.get(0).getXLoc()/50 + explosionRadius - i, player1Bombs.get(0).getYLoc()/50));
 								//RIGHT
 							}
 							if(!board.getUnbreakableStatus(player1Bombs.get(0).getXLoc()/50 - explosionRadius + i, player1Bombs.get(0).getYLoc()/50)) {

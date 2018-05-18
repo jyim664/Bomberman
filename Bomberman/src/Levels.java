@@ -36,7 +36,7 @@ public class Levels extends PApplet { //12 x 12 map
 		 badSpots = new boolean[grid.length][grid.length];
 		for (int i = 0; i < grid[0].length;i++) {
 			for (int j = 0; j < grid.length; j ++) {
-				if (grid[j][i] == '*' || grid[j][i] == '#') {
+				if (grid[j][i] == '*' ) {
 					badSpots[j][i] = true;
 
 				}
