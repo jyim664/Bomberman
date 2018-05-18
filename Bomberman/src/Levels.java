@@ -17,7 +17,9 @@ public class Levels extends PApplet { //12 x 12 map
 	private int width = Main.width;
 	private int height = Main.height;
 	private char grid[][];
-	private boolean badSpots[][] ;
+	private boolean unbreakableSpots[][] ;
+	private boolean breakableSpots[][] ;
+
 
 	
 	
@@ -28,17 +30,21 @@ public class Levels extends PApplet { //12 x 12 map
 	
 	public Levels() {
 		 grid = new char[16][16];
-		 badSpots = new boolean[grid.length][grid[0].length];
+		 unbreakableSpots = new boolean[grid.length][grid[0].length];
 	}
 	
 	public Levels(String filename) {
 		grid = readData(filename);
-		 badSpots = new boolean[grid.length][grid.length];
+		 unbreakableSpots = new boolean[grid.length][grid.length];
+		 breakableSpots = new boolean[grid.length][grid.length];
 		for (int i = 0; i < grid[0].length;i++) {
 			for (int j = 0; j < grid.length; j ++) {
 				if (grid[j][i] == '*' ) {
-					badSpots[j][i] = true;
+					unbreakableSpots[j][i] = true;
 
+				}
+				if (grid[j][i] == '#') {
+					breakableSpots[j][i] = true;
 				}
 	}
 		}
@@ -155,9 +161,16 @@ public class Levels extends PApplet { //12 x 12 map
 	}
 	
 	public boolean getUnbreakableStatus(int gridX, int gridY) {
-		return badSpots[gridX][gridY];
+		return unbreakableSpots[gridX][gridY];
 	}
 	
+	public boolean getBreakableStatus(int gridX, int gridY) {
+		return breakableSpots[gridX][gridY];
+	}
+	
+	public void removeBreakableSpot(int gridX, int gridY) {
+		breakableSpots[gridX][gridY] = false;
+	}
 	public void player1BombIsExploded(boolean explode) {
 		player1BombExploded = explode;
 	}
