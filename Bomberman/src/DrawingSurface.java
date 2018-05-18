@@ -134,14 +134,12 @@ public class DrawingSurface extends PApplet {
 							if(!board.getUnbreakableStatus(player1Bombs.get(0).getXLoc()/50 + explosionRadius - i, player1Bombs.get(0).getYLoc()/50)) {
 								board.addP1Bomb(player1Bombs.get(0).getXLoc()/50 + explosionRadius - i, player1Bombs.get(0).getYLoc()/50);
 								player1Bombs.get(0).setRight(true);
-								System.out.print(" Right");
 								System.out.print(board.getUnbreakableStatus(player1Bombs.get(0).getXLoc()/50 + explosionRadius - i, player1Bombs.get(0).getYLoc()/50));
 								//RIGHT
 							}
 							if(!board.getUnbreakableStatus(player1Bombs.get(0).getXLoc()/50 - explosionRadius + i, player1Bombs.get(0).getYLoc()/50)) {
 								board.addP1Bomb(player1Bombs.get(0).getXLoc()/50 - explosionRadius + i, player1Bombs.get(0).getYLoc()/50);
 								player1Bombs.get(0).setLeft(true);
-								System.out.print(" Left");
 
 								//Left
 							}
@@ -149,7 +147,6 @@ public class DrawingSurface extends PApplet {
 							if(!board.getUnbreakableStatus(player1Bombs.get(0).getXLoc()/50, player1Bombs.get(0).getYLoc()/50 - explosionRadius + i)) {
 								board.addP1Bomb(player1Bombs.get(0).getXLoc()/50, player1Bombs.get(0).getYLoc()/50 - explosionRadius + i);
 								player1Bombs.get(0).setUp(true);
-								System.out.print(" Up");
 
 								//UP
 							}
@@ -158,7 +155,6 @@ public class DrawingSurface extends PApplet {
 							if(!board.getUnbreakableStatus(player1Bombs.get(0).getXLoc()/50, player1Bombs.get(0).getYLoc()/50 + explosionRadius - i)) {
 								board.addP1Bomb(player1Bombs.get(0).getXLoc()/50, player1Bombs.get(0).getYLoc()/50 + explosionRadius - i);
 								player1Bombs.get(0).setDown(true);
-								System.out.print(" Down");
 
 								//Down
 							}
@@ -166,6 +162,7 @@ public class DrawingSurface extends PApplet {
 					}
 					else {
 						board.resetPlace(player1Bombs.get(0).getXLoc()/50, player1Bombs.get(0).getYLoc()/50);
+						board.removeBreakableSpot(player1Bombs.get(0).getXLoc()/50, player1Bombs.get(0).getYLoc()/50);
 
 						for(int i = 0; i < explosionRadius; i++) {
 							if(player1Bombs.get(0).getRight()) { //right
@@ -256,6 +253,7 @@ public class DrawingSurface extends PApplet {
 			
 			else {
 				board.resetPlace(player2Bombs.get(0).getXLoc()/50, player2Bombs.get(0).getYLoc()/50);
+				board.removeBreakableSpot(player2Bombs.get(0).getXLoc()/50, player2Bombs.get(0).getYLoc()/50);
 
 				for(int i = 0; i < explosionRadius; i++) {
 					if(player2Bombs.get(0).getRight()) { //right
@@ -383,6 +381,7 @@ public class DrawingSurface extends PApplet {
 			Bomb b1 = new Bomb(bomb,bombLoc[0] * 50, bombLoc[1] * 50);
 			board.addP1Bomb(bombLoc[0], bombLoc[1]);
 			player1Bombs.add(b1);
+			board.setBreakableSpot(bombLoc[0], bombLoc[1]);
 		}
 
 	}
@@ -454,6 +453,8 @@ public class DrawingSurface extends PApplet {
 			Bomb b1 = new Bomb(bomb,bombLoc[0] * 50, bombLoc[1] * 50);
 			board.addP2Bomb(bombLoc[0], bombLoc[1]);
 			player2Bombs.add(b1);
+			board.setBreakableSpot(bombLoc[0], bombLoc[1]);
+
 		}
 	}}
 }
