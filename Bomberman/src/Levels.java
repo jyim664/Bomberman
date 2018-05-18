@@ -9,7 +9,7 @@ import processing.core.PImage;
 
 /**
  * This class resembles the actual game map where the game will be taking place. 
- * @author Justin Yim
+ * @author Justin Yim Kush Patel
  *
  */
 public class Levels extends PApplet { //12 x 12 map

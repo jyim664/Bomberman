@@ -19,6 +19,7 @@ public class Bot extends Unit {
 
 	private int bombCount;
 	private int currentOnScreen = 0;
+	private int oscillateY = 0;
 
 	public Bot(int lives, int speed, int xLoc, int yLoc, PImage img, Levels lvl) {
 		super(lives, speed, xLoc, yLoc, BOT_WIDTH, BOT_HEIGHT, img);
@@ -53,19 +54,22 @@ public class Bot extends Unit {
 			getNewDst(lvl);
 		}
 		if (this.canMoveX(lvl) == true ) {
+			oscillateY = 0;
 			this.moveXDirection(xUnitsPerMove * 3);
 			
-		} else if (this.canMoveY(lvl) == true) {
+		} else if (this.canMoveY(lvl) == true && oscillateY<3) {
+			
 			this.moveYDirection(yUnitsPerMove * 3);
 			
-		}else if (this.canMoveX(lvl) == false) {
+		}else if (this.canMoveX(lvl) == false && oscillateY<3) {
 			
 			yUnitsPerMove = -yUnitsPerMove;
+			oscillateY ++;
 			this.moveYDirection(yUnitsPerMove * 3);
 		} else if (this.canMoveY(lvl) == false) {
 		
 			xUnitsPerMove = -xUnitsPerMove;
-			this.moveYDirection(xUnitsPerMove * 3);
+			this.moveXDirection(xUnitsPerMove * 3);
 		}else  {
 			getNewDst(lvl);
 		}
