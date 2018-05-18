@@ -14,6 +14,7 @@ public class DrawingSurface extends PApplet {
 
 	private MenuScreen menu;
 	private Levels board;
+	private boolean winner;
 
 	private Player bomberman1;
 	private Player bomberman2; 
@@ -45,6 +46,8 @@ public class DrawingSurface extends PApplet {
 
 		assets = new ArrayList<PImage>();
 		keys = new ArrayList<Integer>();
+		
+		winner = false;
 
 
 
@@ -101,6 +104,8 @@ public class DrawingSurface extends PApplet {
 	// sequence and after the last line is read, the first 
 	// line is executed again.
 	public void draw() {
+		
+		
 		this.scale((float) width / frameWidth, (float) height / frameHeight);//scales objects based on framesize
 		if(level1 == false) {
 			menu.draw(this);
@@ -108,6 +113,9 @@ public class DrawingSurface extends PApplet {
 			menu.drawMapPage(this);
 		}
 		if(level1) {
+			if(bomberman1.getLives() == 0 || bomberman2.getLives() == 0) {
+				winner = true;
+			}
 			board.draw(this, 0, 0, Main.width, Main.height, boundaryWall, breakableWall, grassTile,bomb, explosion);
 			if(bomberman1.getLives() > 0)
 			bomberman1.draw(this);
@@ -147,9 +155,11 @@ public class DrawingSurface extends PApplet {
 								player1Bombs.get(0).setRight(true);
 								if(bomberman1Loc[0] == player1Bombs.get(0).getXLoc()/50 + explosionRadius - i && bomberman1Loc[1] ==  player1Bombs.get(0).getYLoc()/50) {
 									bomberman1.die();
+
 								}
 								if(bomberman2Loc[0] == player1Bombs.get(0).getXLoc()/50 + explosionRadius - i && bomberman2Loc[1] ==  player1Bombs.get(0).getYLoc()/50) {
 									bomberman2.die();
+
 								}
 								//RIGHT
 							}
@@ -158,9 +168,11 @@ public class DrawingSurface extends PApplet {
 								player1Bombs.get(0).setLeft(true);
 								if(bomberman1Loc[0] ==player1Bombs.get(0).getXLoc()/50 - explosionRadius + i && bomberman1Loc[1] ==  player1Bombs.get(0).getYLoc()/50) {
 									bomberman1.die();
+
 								}
 								if(bomberman2Loc[0] == player1Bombs.get(0).getXLoc()/50 - explosionRadius + i && bomberman2Loc[1] ==  player1Bombs.get(0).getYLoc()/50) {
 									bomberman2.die();
+
 								}
 
 								//Left
@@ -172,9 +184,11 @@ public class DrawingSurface extends PApplet {
 								
 								if(bomberman1Loc[0] ==player1Bombs.get(0).getXLoc()/50 && bomberman1Loc[1] ==  player1Bombs.get(0).getYLoc()/50 - explosionRadius + i) {
 									bomberman1.die();
+
 								}
 								if(bomberman2Loc[0] == player1Bombs.get(0).getXLoc()/50 && bomberman2Loc[1] == player1Bombs.get(0).getYLoc()/50 - explosionRadius + i) {
 									bomberman2.die();
+
 								}
 
 								//UP
@@ -187,9 +201,11 @@ public class DrawingSurface extends PApplet {
 								
 								if(bomberman1Loc[0] ==player1Bombs.get(0).getXLoc()/50 && bomberman1Loc[1] == player1Bombs.get(0).getYLoc()/50 + explosionRadius - i) {
 									bomberman1.die();
+
 								}
 								if(bomberman2Loc[0] == player1Bombs.get(0).getXLoc()/50 && bomberman2Loc[1] == player1Bombs.get(0).getYLoc()/50 + explosionRadius - i) {
 									bomberman2.die();
+
 								}
 
 								//Down
@@ -279,6 +295,7 @@ public class DrawingSurface extends PApplet {
 						}
 						if(bomberman2Loc[0] == player2Bombs.get(0).getXLoc()/50 && bomberman2Loc[1] ==  player2Bombs.get(0).getYLoc()/50) {
 							bomberman2.die();
+
 						}
 						
 						
@@ -289,9 +306,11 @@ public class DrawingSurface extends PApplet {
 								
 								if(bomberman1Loc[0] == player2Bombs.get(0).getXLoc()/50 + explosionRadius - i && bomberman1Loc[1] ==  player2Bombs.get(0).getYLoc()/50) {
 									bomberman1.die();
+
 								}
 								if(bomberman2Loc[0] == player2Bombs.get(0).getXLoc()/50 + explosionRadius - i && bomberman2Loc[1] ==  player2Bombs.get(0).getYLoc()/50) {
 									bomberman2.die();
+
 								}
 								//RIGHT
 							}
@@ -301,9 +320,11 @@ public class DrawingSurface extends PApplet {
 								
 								if(bomberman1Loc[0] ==player2Bombs.get(0).getXLoc()/50 - explosionRadius + i && bomberman1Loc[1] ==  player2Bombs.get(0).getYLoc()/50) {
 									bomberman1.die();
+
 								}
 								if(bomberman2Loc[0] == player2Bombs.get(0).getXLoc()/50 - explosionRadius + i && bomberman2Loc[1] ==  player2Bombs.get(0).getYLoc()/50) {
 									bomberman2.die();
+
 								}
 								//Left
 							}
@@ -314,9 +335,11 @@ public class DrawingSurface extends PApplet {
 								
 								if(bomberman1Loc[0] ==player2Bombs.get(0).getXLoc()/50 && bomberman1Loc[1] ==  player2Bombs.get(0).getYLoc()/50 - explosionRadius + i) {
 									bomberman1.die();
+
 								}
 								if(bomberman2Loc[0] == player2Bombs.get(0).getXLoc()/50 && bomberman2Loc[1] == player2Bombs.get(0).getYLoc()/50 - explosionRadius + i) {
 									bomberman2.die();
+
 								}
 								//UP
 							}
@@ -328,10 +351,13 @@ public class DrawingSurface extends PApplet {
 								
 								if(bomberman1Loc[0] ==player2Bombs.get(0).getXLoc()/50 && bomberman1Loc[1] == player2Bombs.get(0).getYLoc()/50 + explosionRadius - i) {
 									bomberman1.die();
+
 								}
 								if(bomberman2Loc[0] == player2Bombs.get(0).getXLoc()/50 && bomberman2Loc[1] == player2Bombs.get(0).getYLoc()/50 + explosionRadius - i) {
 									bomberman2.die();
+
 								}
+								
 								//Down
 							}
 						}
@@ -416,7 +442,9 @@ public class DrawingSurface extends PApplet {
 
 	// modifying stuff (KEYOBOARD)
 	//player 1
-	if (isPressed(KeyEvent.VK_A)) {
+			boolean p1key = false;
+	if (isPressed(KeyEvent.VK_A) && !p1key) {
+		p1key = true;
 		bomberman1.setImage(assets.get(2));
 		int[] newLoc = bomberman1.pixeltoGrid();
 		if(board.getUnbreakableStatus(newLoc[0] - 1, newLoc[1]) || board.getBreakableStatus(newLoc[0] - 1, newLoc[1]) ) {
@@ -431,7 +459,8 @@ public class DrawingSurface extends PApplet {
 		}
 
 	}
-	if (isPressed(KeyEvent.VK_D)) {
+	if (isPressed(KeyEvent.VK_D) && !p1key) {
+		p1key = true;
 		bomberman1.setImage(assets.get(3));
 		int[] newLoc = bomberman1.pixeltoGrid();
 		if(board.getUnbreakableStatus(newLoc[0] + 1, newLoc[1]) || board.getBreakableStatus(newLoc[0] + 1, newLoc[1]) ) {
@@ -446,7 +475,8 @@ public class DrawingSurface extends PApplet {
 		}
 
 	}
-	if (isPressed(KeyEvent.VK_W)) {
+	if (isPressed(KeyEvent.VK_W) && !p1key ) {
+		p1key = true;
 		bomberman1.setImage(assets.get(1));
 		int[] newLoc = bomberman1.pixeltoGrid();
 		if(board.getUnbreakableStatus(newLoc[0], newLoc[1] - 1) || board.getBreakableStatus(newLoc[0], newLoc[1] - 1)) {
@@ -461,7 +491,8 @@ public class DrawingSurface extends PApplet {
 		}
 
 	}
-	if (isPressed(KeyEvent.VK_S)) {
+	if (isPressed(KeyEvent.VK_S) && !p1key) {
+		p1key = true;
 		bomberman1.setImage(assets.get(0));
 		int[] newLoc = bomberman1.pixeltoGrid();
 		if(board.getUnbreakableStatus(newLoc[0], newLoc[1] + 1) || board.getBreakableStatus(newLoc[0], newLoc[1] + 1)) {
@@ -487,7 +518,10 @@ public class DrawingSurface extends PApplet {
 
 	}
 	//player 2
-	if (isPressed(KeyEvent.VK_LEFT)) {
+	
+	boolean p2key = false;
+	if (isPressed(KeyEvent.VK_LEFT) && !p2key) {
+		p2key = true;
 		bomberman2.setImage(assets.get(2));
 		int[] newLoc = bomberman2.pixeltoGrid();
 		if(board.getUnbreakableStatus(newLoc[0] - 1, newLoc[1]) || board.getBreakableStatus(newLoc[0] - 1, newLoc[1])) {
@@ -502,7 +536,8 @@ public class DrawingSurface extends PApplet {
 		}
 
 	}
-	if (isPressed(KeyEvent.VK_RIGHT)) {
+	if (isPressed(KeyEvent.VK_RIGHT) && !p2key) {
+		p2key = true;
 		bomberman2.setImage(assets.get(3));
 		int[] newLoc = bomberman2.pixeltoGrid();
 		if(board.getUnbreakableStatus(newLoc[0] + 1, newLoc[1]) || board.getBreakableStatus(newLoc[0] + 1, newLoc[1])) {
@@ -517,7 +552,8 @@ public class DrawingSurface extends PApplet {
 		}
 
 	}
-	if (isPressed(KeyEvent.VK_UP)) {
+	if (isPressed(KeyEvent.VK_UP)  && !p2key) {
+		p2key = true;
 		bomberman2.setImage(assets.get(1));
 		int[] newLoc = bomberman2.pixeltoGrid();
 		if(board.getUnbreakableStatus(newLoc[0], newLoc[1] - 1) || board.getBreakableStatus(newLoc[0], newLoc[1] - 1)) {
@@ -533,7 +569,8 @@ public class DrawingSurface extends PApplet {
 
 
 	}
-	if (isPressed(KeyEvent.VK_DOWN)) {
+	if (isPressed(KeyEvent.VK_DOWN)  && !p2key ) {
+		p2key = true;
 		bomberman2.setImage(assets.get(0));
 		int[] newLoc = bomberman2.pixeltoGrid();
 		if(board.getUnbreakableStatus(newLoc[0], newLoc[1] + 1) || board.getBreakableStatus(newLoc[0], newLoc[1] + 1)) {
@@ -558,7 +595,9 @@ public class DrawingSurface extends PApplet {
 
 		}
 	}}
-}
+} 
+		
+	
 
 
 
