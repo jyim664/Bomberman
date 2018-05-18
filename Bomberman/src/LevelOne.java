@@ -35,10 +35,12 @@ public class LevelOne extends PApplet { //12 x 12 map
 	
 	public LevelOne(String filename) {
 		grid = readData(filename);
-		 unbreakableSpots = new boolean[grid.length][grid.length];
+//		 unbreakableSpots = new boolean[grid.length][grid.length];
+//		 breakableSpots = new boolean[grid.length][grid.length];
 		for (int i = 0; i < grid[0].length;i++) {
 			for (int j = 0; j < grid.length; j ++) {
 				if (grid[j][i] == '*' ) {
+					
 					unbreakableSpots[j][i] = true;
 				}
 				if (grid[j][i] == '#') {
@@ -56,8 +58,8 @@ public class LevelOne extends PApplet { //12 x 12 map
 	}
 	
 	public void draw(PApplet marker, float x, float y, float width, float height,PImage img1, PImage img2, PImage img3, PImage img4, PImage img5) {
-		
 		marker.pushStyle();
+		int count = 0;
 		
 		float cellWidth = width / grid.length;
 		float cellHeight = height / grid[0].length;
@@ -68,6 +70,7 @@ public class LevelOne extends PApplet { //12 x 12 map
 			for (int j = 0; j < grid.length; j ++) {
 				if (grid[j][i] == '#') {
 					marker.image(img2, cellWidth*j + x, cellHeight*i);
+					count++;
 
 				}
 				else if(grid[j][i] == '*') {
@@ -100,7 +103,7 @@ public class LevelOne extends PApplet { //12 x 12 map
 
 			}
 		}
-
+		System.out.println(count);
 		marker.popStyle();
 		
 	}
@@ -160,8 +163,12 @@ public class LevelOne extends PApplet { //12 x 12 map
 		grid[x][y] = '_';
 	}
 	
-	public boolean getStatus(int xLoc, int yLoc) { //GRID COORDS NOT PIXELS
+	public boolean getUnbreakableStatus(int xLoc, int yLoc) { //GRID COORDS NOT PIXELS
 		return unbreakableSpots[xLoc][yLoc];
+	}
+	
+	public boolean getBreakableStatus(int xLoc, int yLoc) { //GRID COORDS NOT PIXELS
+		return breakableSpots[xLoc][yLoc];
 	}
 	
 	public void player1BombIsExploded(boolean explode) {

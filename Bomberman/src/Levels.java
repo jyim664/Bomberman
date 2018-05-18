@@ -154,7 +154,7 @@ public class Levels extends PApplet { //12 x 12 map
 		grid[x][y] = '_';
 	}
 	
-	public boolean getStatus(int gridX, int gridY) {
+	public boolean getUnbreakableStatus(int gridX, int gridY) {
 		return badSpots[gridX][gridY];
 	}
 	

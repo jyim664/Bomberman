@@ -86,9 +86,9 @@ public class Bot extends Unit {
 		yLocMin = (int) (((double) yLoc / 50));
 		yLocMax = (int) (((double) (yLoc + 48) / 50));
 		xLocNow = (int) (((double) xLoc / 50) + 0.5);
-		if (yUnitsPerMove < 0 && !lvl.getStatus(xLocNow, yLocMin)) {
+		if (yUnitsPerMove < 0 && !lvl.getUnbreakableStatus(xLocNow, yLocMin)) {
 			return true;
-		} else if (yUnitsPerMove > 0 && !lvl.getStatus(xLocNow, yLocMax)) {
+		} else if (yUnitsPerMove > 0 && !lvl.getUnbreakableStatus(xLocNow, yLocMax)) {
 			return true;
 		}
 
@@ -102,9 +102,9 @@ public class Bot extends Unit {
 		xLocMin = (int) (((double) xLoc / 50));
 		xLocMax = (int) (((double) (xLoc + 30) / 50));
 		yLocNow = (int) (((double) (yLoc ) / 50) + 0.5);
-		if (xUnitsPerMove < 0 && !lvl.getStatus(xLocMin, yLocNow)) {
+		if (xUnitsPerMove < 0 && !lvl.getUnbreakableStatus(xLocMin, yLocNow)) {
 			return true;
-		} else if (xUnitsPerMove > 0 && !lvl.getStatus(xLocMax, yLocNow)) {
+		} else if (xUnitsPerMove > 0 && !lvl.getUnbreakableStatus(xLocMax, yLocNow)) {
 			return true;
 		}
 		return false;
@@ -117,7 +117,7 @@ public class Bot extends Unit {
 		dst[1] = (int) (Math.random() * 600 + 100);
 		
 
-		if(lvl.getStatus(dst[0]/50, dst[1]/50)) {
+		if(lvl.getUnbreakableStatus(dst[0]/50, dst[1]/50)) {
 			return getNewDst(lvl);
 		}
 		
