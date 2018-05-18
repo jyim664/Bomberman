@@ -171,6 +171,10 @@ public class Levels extends PApplet { //12 x 12 map
 	public void removeBreakableSpot(int gridX, int gridY) {
 		breakableSpots[gridX][gridY] = false;
 	}
+	
+	public void setBreakableSpot(int gridX, int gridY) {
+		breakableSpots[gridX][gridY] = true;
+	}
 	public void player1BombIsExploded(boolean explode) {
 		player1BombExploded = explode;
 	}
