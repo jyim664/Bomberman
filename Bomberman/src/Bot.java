@@ -8,11 +8,10 @@ import processing.core.PImage;
  */
 public class Bot extends Unit {
 
-	private int[] destination ;
+	private int[] destination;
 
 	private int xUnitsPerMove = 0;
 	private int yUnitsPerMove = 0;
-
 
 	private static final int BOT_WIDTH = 30;
 	private static final int BOT_HEIGHT = 45;
@@ -48,32 +47,30 @@ public class Bot extends Unit {
 		}
 	}
 
-
 	public void RandomMovements(Levels lvl) {
 		if (Math.abs(this.getXLoc() - destination[0]) < 80 && Math.abs(this.getYLoc() - destination[1]) < 80) {
 			getNewDst(lvl);
 		}
-		if (this.canMoveX(lvl) == true ) {
+		if (this.canMoveX(lvl) == true) {
 			oscillateY = 0;
 			this.moveXDirection(xUnitsPerMove * 3);
-			
-		} else if (this.canMoveY(lvl) == true && oscillateY<3) {
-			
+
+		} else if (this.canMoveY(lvl) == true && oscillateY < 3) {
+
 			this.moveYDirection(yUnitsPerMove * 3);
-			
-		}else if (this.canMoveX(lvl) == false && oscillateY<3) {
-			
+
+		} else if (this.canMoveX(lvl) == false && oscillateY < 3) {
+
 			yUnitsPerMove = -yUnitsPerMove;
-			oscillateY ++;
+			oscillateY++;
 			this.moveYDirection(yUnitsPerMove * 3);
 		} else if (this.canMoveY(lvl) == false) {
-		
+
 			xUnitsPerMove = -xUnitsPerMove;
 			this.moveXDirection(xUnitsPerMove * 3);
-		}else  {
+		} else {
 			getNewDst(lvl);
 		}
-		
 
 		/*
 		 * else { this.moveXDirection(xUnitsPerMove*3);
@@ -102,13 +99,18 @@ public class Bot extends Unit {
 	private boolean canMoveX(Levels lvl) {
 		int xLocMin = 0;
 		int xLocMax = 0;
+		int yLocMax = 0;
 		int yLocNow = 0;
 		xLocMin = (int) (((double) xLoc / 50));
 		xLocMax = (int) (((double) (xLoc + 30) / 50));
-		yLocNow = (int) (((double) (yLoc ) / 50) + 0.5);
-		if (xUnitsPerMove < 0 && !lvl.getUnbreakableStatus(xLocMin, yLocNow)) {
+		yLocNow = (int) (((double) (yLoc) / 50));
+		yLocMax = (int) (((double) (yLoc + 45) / 50));
+		if (xUnitsPerMove < 0 && (!lvl.getUnbreakableStatus(xLocMin, yLocNow)
+				|| !lvl.getBreakableStatus(xLocMin, yLocNow) && (!lvl.getUnbreakableStatus(xLocMin, yLocMax)
+						|| !lvl.getBreakableStatus(xLocMin, yLocMax)))) {
 			return true;
-		} else if (xUnitsPerMove > 0 && !lvl.getUnbreakableStatus(xLocMax, yLocNow)) {
+		} else if (xUnitsPerMove > 0
+				&& (!lvl.getUnbreakableStatus(xLocMax, yLocNow) || !lvl.getUnbreakableStatus(xLocMax, yLocNow))) {
 			return true;
 		}
 		return false;
@@ -119,19 +121,18 @@ public class Bot extends Unit {
 
 		dst[0] = (int) (Math.random() * 600 + 100);
 		dst[1] = (int) (Math.random() * 600 + 100);
-		
 
-		if(lvl.getUnbreakableStatus(dst[0]/50, dst[1]/50)) {
+		if (lvl.getUnbreakableStatus(dst[0] / 50, dst[1] / 50)) {
 			return getNewDst(lvl);
 		}
-		
-		if ((dst[0] - this.getXLoc())< 0) {
+
+		if ((dst[0] - this.getXLoc()) < 0) {
 			xUnitsPerMove = -1;
 		} else {
 			xUnitsPerMove = 1;
 		}
 
-		if ((dst[1] - this.getYLoc())< 0) {
+		if ((dst[1] - this.getYLoc()) < 0) {
 			yUnitsPerMove = -1;
 		} else {
 			yUnitsPerMove = 1;
