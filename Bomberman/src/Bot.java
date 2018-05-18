@@ -83,13 +83,17 @@ public class Bot extends Unit {
 	private boolean canMoveY(Levels lvl) {
 		int yLocMin = 0;
 		int yLocMax = 0;
-		int xLocNow = 0;
-		yLocMin = (int) (((double) yLoc / 50));
+		int xLocMax = 0;
+		int xLocMin = 0;
+		yLocMin = (int) (((double) (yLoc -3) / 50));
 		yLocMax = (int) (((double) (yLoc + 48) / 50));
-		xLocNow = (int) (((double) xLoc / 50) + 0.5);
-		if (yUnitsPerMove < 0 && !lvl.getUnbreakableStatus(xLocNow, yLocMin)) {
+		xLocMin = (int) (((double) xLoc / 50) + 0.5);
+		xLocMax = (int) (((double) (xLoc + 30) / 50));
+		if (yUnitsPerMove < 0 && !lvl.getBad(xLocMax, yLocMin) && !lvl.getBad(xLocMin, yLocMin)
+		) {
 			return true;
-		} else if (yUnitsPerMove > 0 && !lvl.getUnbreakableStatus(xLocNow, yLocMax)) {
+		} else if (yUnitsPerMove > 0 && !lvl.getBad(xLocMin, yLocMax) && !lvl.getBad(xLocMax, yLocMax)
+				) {
 			return true;
 		}
 
@@ -101,16 +105,15 @@ public class Bot extends Unit {
 		int xLocMax = 0;
 		int yLocMax = 0;
 		int yLocNow = 0;
-		xLocMin = (int) (((double) xLoc / 50));
-		xLocMax = (int) (((double) (xLoc + 30) / 50));
+		xLocMin = (int) (((double) (xLoc -3 )/ 50));
+		xLocMax = (int) (((double) (xLoc + 33) / 50));
 		yLocNow = (int) (((double) (yLoc) / 50));
 		yLocMax = (int) (((double) (yLoc + 45) / 50));
-		if (xUnitsPerMove < 0 && (!lvl.getUnbreakableStatus(xLocMin, yLocNow)
-				|| !lvl.getBreakableStatus(xLocMin, yLocNow) && (!lvl.getUnbreakableStatus(xLocMin, yLocMax)
-						|| !lvl.getBreakableStatus(xLocMin, yLocMax)))) {
+		if (xUnitsPerMove < 0 && !lvl.getBad(xLocMin, yLocNow) && !lvl.getBad(xLocMin, yLocMax)
+			) {
 			return true;
-		} else if (xUnitsPerMove > 0
-				&& (!lvl.getUnbreakableStatus(xLocMax, yLocNow) || !lvl.getUnbreakableStatus(xLocMax, yLocNow))) {
+		} else if (xUnitsPerMove > 0 && !lvl.getBad(xLocMax, yLocNow) && !lvl.getBad(xLocMax, yLocMax)
+				 ) {
 			return true;
 		}
 		return false;

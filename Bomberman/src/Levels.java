@@ -182,7 +182,16 @@ public class Levels extends PApplet { //12 x 12 map
 	public void player2BombIsExploded(boolean explode) {
 		player2BombExploded = explode;
 	}
-	
+	public boolean getBad(int gridX, int gridY) {
+		if (breakableSpots[gridX][gridY]) {
+			return true;
+			
+		}else if (unbreakableSpots[gridX][gridY]) {
+			return true;
+		}
+		return false;
+		
+	}
 	
 	
 	
