@@ -47,34 +47,32 @@ public class Player extends Unit {
 	 *         player has on the field is less than the amt that they are allowed
 	 */
 	public int[] dropBomb() {
-		if(canDropBomb()) {
+		if (canDropBomb()) {
 			currentOnScreen++;
 			return super.dropBomb();
 
 		}
 
-		
-
 		return null;
 
 	}
-	
+
 	public boolean canDropBomb() {
 		if (this.currentOnScreen >= bombCount) {
 			return false;
-		}
-		else {
+		} else {
 			return true;
 		}
 	}
-	
+
 	public void changeNumBombs(int x) {
 		currentOnScreen += x;
-}
-	
+	}
+
 	public void addRadius() {
 		explosionRadius++;
 	}
+
 	public int getRadius() {
 		return explosionRadius;
 	}

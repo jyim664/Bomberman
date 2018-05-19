@@ -10,6 +10,7 @@ public class Bot extends Unit {
 
 	private int[] destination;
 
+	private int timeUntilBomb = 120;
 	private int xUnitsPerMove = 0;
 	private int yUnitsPerMove = 0;
 
@@ -51,20 +52,20 @@ public class Bot extends Unit {
 		if (Math.abs(this.getXLoc() - destination[0]) < 80 && Math.abs(this.getYLoc() - destination[1]) < 80) {
 			getNewDst(lvl);
 		}
-		if (this.canMoveX(lvl) == true) {
+		if (this.isEmptyX(lvl) == true) {
 			oscillateY = 0;
 			this.moveXDirection(xUnitsPerMove * 3);
 
-		} else if (this.canMoveY(lvl) == true && oscillateY < 3) {
+		} else if (this.isEmptyY(lvl) == true && oscillateY < 3) {
 
 			this.moveYDirection(yUnitsPerMove * 3);
 
-		} else if (this.canMoveX(lvl) == false && oscillateY < 3) {
+		} else if (this.isEmptyX(lvl) == false && oscillateY < 3) {
 
 			yUnitsPerMove = -yUnitsPerMove;
 			oscillateY++;
 			this.moveYDirection(yUnitsPerMove * 3);
-		} else if (this.canMoveY(lvl) == false) {
+		} else if (this.isEmptyY(lvl) == false) {
 
 			xUnitsPerMove = -xUnitsPerMove;
 			this.moveXDirection(xUnitsPerMove * 3);
@@ -80,40 +81,36 @@ public class Bot extends Unit {
 		 */
 	}
 
-	private boolean canMoveY(Levels lvl) {
+	private boolean isEmptyY(Levels lvl) {
 		int yLocMin = 0;
 		int yLocMax = 0;
 		int xLocMax = 0;
 		int xLocMin = 0;
-		yLocMin = (int) (((double) (yLoc -3) / 50));
+		yLocMin = (int) (((double) (yLoc - 3) / 50));
 		yLocMax = (int) (((double) (yLoc + 48) / 50));
 		xLocMin = (int) (((double) xLoc / 50) + 0.5);
 		xLocMax = (int) (((double) (xLoc + 30) / 50));
-		if (yUnitsPerMove < 0 && !lvl.getBad(xLocMax, yLocMin) && !lvl.getBad(xLocMin, yLocMin)
-		) {
+		if (yUnitsPerMove < 0 && !lvl.getBad(xLocMax, yLocMin) && !lvl.getBad(xLocMin, yLocMin)) {
 			return true;
-		} else if (yUnitsPerMove > 0 && !lvl.getBad(xLocMin, yLocMax) && !lvl.getBad(xLocMax, yLocMax)
-				) {
+		} else if (yUnitsPerMove > 0 && !lvl.getBad(xLocMin, yLocMax) && !lvl.getBad(xLocMax, yLocMax)) {
 			return true;
 		}
 
 		return false;
 	}
 
-	private boolean canMoveX(Levels lvl) {
+	private boolean isEmptyX(Levels lvl) {
 		int xLocMin = 0;
 		int xLocMax = 0;
 		int yLocMax = 0;
 		int yLocNow = 0;
-		xLocMin = (int) (((double) (xLoc -3 )/ 50));
+		xLocMin = (int) (((double) (xLoc - 3) / 50));
 		xLocMax = (int) (((double) (xLoc + 33) / 50));
 		yLocNow = (int) (((double) (yLoc) / 50));
 		yLocMax = (int) (((double) (yLoc + 45) / 50));
-		if (xUnitsPerMove < 0 && !lvl.getBad(xLocMin, yLocNow) && !lvl.getBad(xLocMin, yLocMax)
-			) {
+		if (xUnitsPerMove < 0 && !lvl.getBad(xLocMin, yLocNow) && !lvl.getBad(xLocMin, yLocMax)) {
 			return true;
-		} else if (xUnitsPerMove > 0 && !lvl.getBad(xLocMax, yLocNow) && !lvl.getBad(xLocMax, yLocMax)
-				 ) {
+		} else if (xUnitsPerMove > 0 && !lvl.getBad(xLocMax, yLocNow) && !lvl.getBad(xLocMax, yLocMax)) {
 			return true;
 		}
 		return false;
@@ -145,8 +142,11 @@ public class Bot extends Unit {
 	}
 
 	public int[] dropBomb() {
+		
 		if (canDropBomb()) {
+			
 			currentOnScreen++;
+			
 			return super.dropBomb();
 
 		}

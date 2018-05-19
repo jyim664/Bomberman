@@ -8,92 +8,84 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
- * This class resembles the actual game map where the game will be taking place. 
+ * This class resembles the actual game map where the game will be taking place.
+ * 
  * @author Justin Yim Kush Patel
  *
  */
-public class Levels extends PApplet { //12 x 12 map
+public class Levels extends PApplet { // 12 x 12 map
 
 	private int width = Main.width;
 	private int height = Main.height;
 	private char grid[][];
-	private boolean unbreakableSpots[][] ;
-	private boolean breakableSpots[][] ;
+	private boolean unbreakableSpots[][];
+	private boolean breakableSpots[][];
 
-
-	
-	
-	
 	private boolean player1BombExploded = false;
 	private boolean player2BombExploded = false;
 
-	
 	public Levels() {
-		 grid = new char[16][16];
-		 unbreakableSpots = new boolean[grid.length][grid[0].length];
+		grid = new char[16][16];
+		unbreakableSpots = new boolean[grid.length][grid[0].length];
 	}
-	
+
 	public Levels(String filename) {
 		grid = readData(filename);
-		 unbreakableSpots = new boolean[grid.length][grid.length];
-		 breakableSpots = new boolean[grid.length][grid.length];
-		for (int i = 0; i < grid[0].length;i++) {
-			for (int j = 0; j < grid.length; j ++) {
-				if (grid[j][i] == '*' ) {
+		unbreakableSpots = new boolean[grid.length][grid.length];
+		breakableSpots = new boolean[grid.length][grid.length];
+		for (int i = 0; i < grid[0].length; i++) {
+			for (int j = 0; j < grid.length; j++) {
+				if (grid[j][i] == '*') {
 					unbreakableSpots[j][i] = true;
 
 				}
 				if (grid[j][i] == '#') {
 					breakableSpots[j][i] = true;
 				}
-	}
+			}
 		}
 	}
-	
+
 	public void setup(PApplet drawer) {
-		
 
 	}
-	
-	public void draw(PApplet marker, float x, float y, float width, float height,PImage img1, PImage img2, PImage img3, PImage img4, PImage img5) {
-		
+
+	public void draw(PApplet marker, float x, float y, float width, float height, PImage img1, PImage img2, PImage img3,
+			PImage img4, PImage img5) {
+
 		marker.pushStyle();
-		
+
 		float cellWidth = width / grid.length;
 		float cellHeight = height / grid[0].length;
 
 		marker.stroke(0);
-		
-		for (int i = 0; i < grid[0].length;i++) {
-			for (int j = 0; j < grid.length; j ++) {
+
+		for (int i = 0; i < grid[0].length; i++) {
+			for (int j = 0; j < grid.length; j++) {
 				if (grid[j][i] == '#') {
-					marker.image(img2, cellWidth*j + x, cellHeight*i);
+					marker.image(img2, cellWidth * j + x, cellHeight * i);
 
+				} else if (grid[j][i] == '*') {
+					marker.image(img1, cellWidth * j + x, cellHeight * i);
 				}
-				else if(grid[j][i] == '*') {
-					marker.image(img1, cellWidth*j + x, cellHeight*i);
-				}
-				
-				else if(grid[j][i] == '_') {
-					
-					marker.image(img3, cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
 
-				}
-				else if(grid[j][i] == 'x') {
-					if(player1BombExploded == false) {
-						marker.image(img4,cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
+				else if (grid[j][i] == '_') {
 
-					}else {
-						marker.image(img5,cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
+					marker.image(img3, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
 
-					}		
-				}
-				else {
-					if(player2BombExploded == false) {
-						marker.image(img4,cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
+				} else if (grid[j][i] == 'x') {
+					if (player1BombExploded == false) {
+						marker.image(img4, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
+
+					} else {
+						marker.image(img5, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
+
 					}
-					else {
-						marker.image(img5,cellWidth*j + x, cellHeight*i + y, cellWidth, cellHeight);
+				} else {
+					if (player2BombExploded == false) {
+						marker.image(img4, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
+					} else {
+						marker.image(img5, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
 
 					}
 				}
@@ -102,10 +94,10 @@ public class Levels extends PApplet { //12 x 12 map
 		}
 
 		marker.popStyle();
-		
+
 	}
-	
-	public char[][] readData (String filename) {
+
+	public char[][] readData(String filename) {
 		File dataFile = new File(filename);
 
 		if (dataFile.exists()) {
@@ -115,17 +107,16 @@ public class Levels extends PApplet { //12 x 12 map
 
 			FileReader reader = null;
 			try {
-					reader = new FileReader(dataFile);
-					Scanner in = new Scanner(reader);
+				reader = new FileReader(dataFile);
+				Scanner in = new Scanner(reader);
 
+				while (in.hasNext() && count < 16) {
+					String line = in.nextLine();
+					for (int i = 0; i < line.length(); i++)
+						gameData[count][i] = line.charAt(i);
 
-					while (in.hasNext() && count < 16) {
-						String line = in.nextLine();
-						for(int i = 0; i < line.length(); i++)
-							gameData[count][i] = line.charAt(i);
-
-						count++;
-					}
+					count++;
+				}
 
 			} catch (IOException ex) {
 				System.out.println("File cannot be read.");
@@ -145,54 +136,53 @@ public class Levels extends PApplet { //12 x 12 map
 		} else {
 			throw new IllegalArgumentException("Data file " + filename + " does not exist.");
 		}
-    }
+	}
 
 	public void addP1Bomb(int x, int y) {
 		grid[x][y] = 'x';
 	}
-	
+
 	public void addP2Bomb(int x, int y) {
 		grid[x][y] = 'y';
 	}
-	
-	
+
 	public void resetPlace(int x, int y) {
 		grid[x][y] = '_';
 	}
-	
+
 	public boolean getUnbreakableStatus(int gridX, int gridY) {
 		return unbreakableSpots[gridX][gridY];
 	}
-	
+
 	public boolean getBreakableStatus(int gridX, int gridY) {
 		return breakableSpots[gridX][gridY];
 	}
-	
+
 	public void removeBreakableSpot(int gridX, int gridY) {
 		breakableSpots[gridX][gridY] = false;
 	}
-	
+
 	public void setBreakableSpot(int gridX, int gridY) {
 		breakableSpots[gridX][gridY] = true;
 	}
+
 	public void player1BombIsExploded(boolean explode) {
 		player1BombExploded = explode;
 	}
-	
+
 	public void player2BombIsExploded(boolean explode) {
 		player2BombExploded = explode;
 	}
+
 	public boolean getBad(int gridX, int gridY) {
 		if (breakableSpots[gridX][gridY]) {
 			return true;
-			
-		}else if (unbreakableSpots[gridX][gridY]) {
+
+		} else if (unbreakableSpots[gridX][gridY]) {
 			return true;
 		}
 		return false;
-		
+
 	}
-	
-	
-	
+
 }
