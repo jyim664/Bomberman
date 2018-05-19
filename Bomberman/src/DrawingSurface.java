@@ -65,6 +65,10 @@ public class DrawingSurface extends PApplet {
 		bot1 = new Bot(1,3,2*50,13*50,assets.get(0), board);
 
 	}
+	public void spawnBot2() {
+		bot2 = new Bot(1,3,13*50,13*50,assets.get(0), board);
+
+	}
 
 
 
@@ -93,7 +97,8 @@ public class DrawingSurface extends PApplet {
 		spawnPlayer2();
 
 		spawnBot1();
-		//	bot1.setUp(board);
+		spawnBot2();
+	
 
 
 	}
@@ -124,8 +129,12 @@ public class DrawingSurface extends PApplet {
 			bomberman2.draw(this);
 			
 			bot1.RandomMovements(board);
-
+			bot2.RandomMovements(board);
 			bot1.draw(this);
+
+			
+
+			bot2.draw(this);
 
 			
 
