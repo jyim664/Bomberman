@@ -20,6 +20,16 @@ public class Bomb extends Unit {
 	public static final int BOMB_WIDTH = 30;
 	public static final int BOMB_HEIGHT = 45;
 
+	/**
+	 * makes a bomb
+	 * 
+	 * @param img
+	 *            the image used for drawing the bomb
+	 * @param xLoc
+	 *            the x location of the bomb's top left corner
+	 * @param yLoc
+	 *            the y location of the bomb's top left corner
+	 */
 	public Bomb(PImage img, int xLoc, int yLoc) {
 		super(1, 3, xLoc, yLoc, BOMB_WIDTH, BOMB_HEIGHT, img);
 		range = 1;
@@ -32,11 +42,19 @@ public class Bomb extends Unit {
 
 	}
 
+	/**
+	 * makes the bomb explode, sets exploded to true
+	 */
 	public void explode() {
 		exploded = true;
 
 	}
 
+	/**
+	 * counts down to zero
+	 * 
+	 * @return true if timer hits zero, false otherwise
+	 */
 	public boolean countDown() {
 		if (exploded) {
 			if (timer < 15) {
@@ -68,6 +86,11 @@ public class Bomb extends Unit {
 		}
 	}
 
+	/**
+	 * 
+	 * @return returns true if the bomb has exploded, and false if the bomb has not
+	 *         exploded
+	 */
 	public boolean getStatus() { // if Exploded or not
 		return exploded;
 	}

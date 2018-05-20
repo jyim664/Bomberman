@@ -24,7 +24,7 @@ public class Player extends Unit {
 		bombCount = 1;
 		explosionRadius = 1;
 	}
-
+	
 	public void walkX(int dir) {
 
 		xLoc += dir;

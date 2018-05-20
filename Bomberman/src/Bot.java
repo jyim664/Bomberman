@@ -21,12 +21,35 @@ public class Bot extends Unit {
 	private int currentOnScreen = 0;
 	private int oscillateY = 0;
 
+	/**
+	 * Creates a Bot with lives amount of lives, speed amount of speed, and with the
+	 * top left corner at (xLoc, yLoc). the image drawn will be img and uses lvl to
+	 * choose the first spot.
+	 * 
+	 * @param lives
+	 *            number of lives this bot will have
+	 * @param speed
+	 *            the number of units that the bot can move in one step
+	 * @param xLoc
+	 *            the x value of the top left corner of the bot spawns here
+	 * @param yLoc
+	 *            the y value of the top left corner of the bot spawns here
+	 * @param img
+	 *            the image you will use for the bot
+	 * @param lvl
+	 *            the level that the bot chooses a location from
+	 */
 	public Bot(int lives, int speed, int xLoc, int yLoc, PImage img, Levels lvl) {
 		super(lives, speed, xLoc, yLoc, BOT_WIDTH, BOT_HEIGHT, img);
 		bombCount = 1;
 		destination = getNewDst(lvl);
 	}
 
+	/**
+	 * method that is currently useless
+	 * 
+	 * @param dangerous
+	 */
 	public void makeDecision(Boolean[][] dangerous) {
 		int safeSpotX;
 		int safeSpotY;
@@ -48,6 +71,12 @@ public class Bot extends Unit {
 		}
 	}
 
+	/**
+	 * this method chooses a random spot for the bot to move to
+	 * 
+	 * @param lvl
+	 *            it chooses a spot that isn't a wall on this level.
+	 */
 	public void RandomMovements(Levels lvl) {
 		if (Math.abs(this.getXLoc() - destination[0]) < 80 && Math.abs(this.getYLoc() - destination[1]) < 80) {
 			getNewDst(lvl);
@@ -141,12 +170,15 @@ public class Bot extends Unit {
 		return dst;
 	}
 
+	/**
+	 * returns the location on the 2D array where the bot drops the bomb
+	 */
 	public int[] dropBomb() {
-		
+
 		if (canDropBomb()) {
-			
+
 			currentOnScreen++;
-			
+
 			return super.dropBomb();
 
 		}
@@ -155,6 +187,11 @@ public class Bot extends Unit {
 
 	}
 
+	/**
+	 * 
+	 * @return true if the bot has satisfied all conditions to drop a bomb, false if
+	 *         not.
+	 */
 	public boolean canDropBomb() {
 		if (this.currentOnScreen >= bombCount) {
 			return false;

@@ -24,11 +24,18 @@ public class Levels extends PApplet { // 12 x 12 map
 	private boolean player1BombExploded = false;
 	private boolean player2BombExploded = false;
 
+	/**
+	 * creates a new level object with a 16 by 16 grid with nothing inside
+	 */
 	public Levels() {
 		grid = new char[16][16];
 		unbreakableSpots = new boolean[grid.length][grid[0].length];
 	}
 
+	/**
+	 * reads in the level data from a text file and makes a new level from that
+	 * @param filename the name of the file that should be read
+	 */
 	public Levels(String filename) {
 		grid = readData(filename);
 		unbreakableSpots = new boolean[grid.length][grid.length];
@@ -46,10 +53,20 @@ public class Levels extends PApplet { // 12 x 12 map
 		}
 	}
 
-	public void setup(PApplet drawer) {
 
-	}
-
+	/**
+	 * draws the layout of the level
+	 * @param marker the surface to draw on
+	 * @param x 
+	 * @param y 
+	 * @param width
+	 * @param height
+	 * @param img1
+	 * @param img2
+	 * @param img3
+	 * @param img4
+	 * @param img5
+	 */
 	public void draw(PApplet marker, float x, float y, float width, float height, PImage img1, PImage img2, PImage img3,
 			PImage img4, PImage img5) {
 
@@ -183,6 +200,10 @@ public class Levels extends PApplet { // 12 x 12 map
 		}
 		return false;
 
+	}
+
+	public void setup(DrawingSurface drawingSurface) {
+		
 	}
 
 }
