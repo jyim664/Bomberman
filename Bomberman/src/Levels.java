@@ -23,6 +23,8 @@ public class Levels extends PApplet { // 12 x 12 map
 
 	private boolean player1BombExploded = false;
 	private boolean player2BombExploded = false;
+	private boolean botBombExploded = false;
+	private int botBombTimer = 40;
 
 	/**
 	 * creates a new level object with a 16 by 16 grid with nothing inside
@@ -72,6 +74,8 @@ public class Levels extends PApplet { // 12 x 12 map
 
 		marker.pushStyle();
 
+	
+		
 		float cellWidth = width / grid.length;
 		float cellHeight = height / grid[0].length;
 
@@ -98,7 +102,23 @@ public class Levels extends PApplet { // 12 x 12 map
 						marker.image(img5, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
 
 					}
-				} else {
+				} else if(grid[j][i] == 'v') {
+					this.botBombTimer --;
+					if (botBombTimer <= 0) {
+						botBombExploded = true;
+						botBombTimer = 40;
+						
+					}
+					if (botBombExploded == false) {
+						marker.image(img4, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
+
+					} else {
+						marker.image(img5, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
+
+					}
+				}
+				
+				else{
 					if (player2BombExploded == false) {
 						marker.image(img4, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
 					} else {
@@ -206,4 +226,9 @@ public class Levels extends PApplet { // 12 x 12 map
 		
 	}
 
+	public void addBotBomb(int x, int y) {
+		
+		grid[x][y] = 'v';
+		
+	}
 }

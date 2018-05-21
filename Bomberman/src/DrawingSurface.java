@@ -124,7 +124,10 @@ public class DrawingSurface extends PApplet {
 			
 			
 
-
+			if(bot1.placeOneMore()) {
+				int[] a = bot1.dropBomb();
+				board.addBotBomb(a[0], a[1]);
+			}
 			bot1.RandomMovements(board);
 			bot2.RandomMovements(board);
 			
