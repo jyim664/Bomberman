@@ -174,18 +174,17 @@ public class Bot extends Unit {
 	 * returns the location on the 2D array where the bot drops the bomb
 	 */
 	public int[] dropBomb(Levels lvl) {
-		int[] a =  super.dropBomb();
+		int[] a = super.dropBomb();
 
 		if (canDropBomb()) {
-			 if(isEmptyX( lvl)) {
-				 a[0] += 1;
-				 return a;
-			 }else if  (isEmptyY(lvl)){
-				 a[1] += 1;
-			 }
-			
+			if (isEmptyX(lvl)) {
+				a[0] += 1;
 
-			
+				return a;
+			} else if (isEmptyY(lvl)) {
+				a[1] += 1;
+
+			}
 
 			currentOnScreen++;
 			return a;
@@ -207,13 +206,13 @@ public class Bot extends Unit {
 			return true;
 		}
 	}
+
 	public boolean placeOneMore() {
-		this.timeUntilBomb --;
+		this.timeUntilBomb--;
 		if (timeUntilBomb <= 0) {
 			timeUntilBomb = 120;
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
