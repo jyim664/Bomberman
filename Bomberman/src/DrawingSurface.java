@@ -138,6 +138,25 @@ public class DrawingSurface extends PApplet {
 						bomberman1Loc = bomberman1.pixeltoGrid();
 						bomberman2Loc = bomberman2.pixeltoGrid();
 
+						System.out.println("Player: " + Arrays.toString(bomberman1Loc));
+						System.out.print("Bomb: " + player1Bombs.get(0).getXLoc() / 50 +  " ");
+						System.out.print( player1Bombs.get(0).getYLoc() / 50);
+
+
+						if (bomberman1Loc[0] == player1Bombs.get(0).getXLoc() / 50 
+								&& bomberman1Loc[1] == player1Bombs.get(0).getYLoc() / 50) {
+							System.out.println("YES");
+							bomberman1.die();
+
+						}
+						if (bomberman2Loc[0] == player1Bombs.get(0).getXLoc() / 50 
+								&& bomberman2Loc[1] == player1Bombs.get(0).getYLoc() / 50) {
+							bomberman2.die();
+
+						}
+
+
+
 						for (int i = 0; i < explosionRadius; i++) {
 							System.out.print("\n");
 
@@ -165,6 +184,7 @@ public class DrawingSurface extends PApplet {
 								player1Bombs.get(0).setLeft(true);
 								if (bomberman1Loc[0] == player1Bombs.get(0).getXLoc() / 50 - explosionRadius + i
 										&& bomberman1Loc[1] == player1Bombs.get(0).getYLoc() / 50) {
+									System.out.println("YES");
 									bomberman1.die();
 
 								}
@@ -185,13 +205,13 @@ public class DrawingSurface extends PApplet {
 
 								if (bomberman1Loc[0] == player1Bombs.get(0).getXLoc() / 50
 										&& bomberman1Loc[1] == player1Bombs.get(0).getYLoc() / 50 - explosionRadius
-												+ i) {
+										+ i) {
 									bomberman1.die();
 
 								}
 								if (bomberman2Loc[0] == player1Bombs.get(0).getXLoc() / 50
 										&& bomberman2Loc[1] == player1Bombs.get(0).getYLoc() / 50 - explosionRadius
-												+ i) {
+										+ i) {
 									bomberman2.die();
 
 								}
@@ -207,13 +227,13 @@ public class DrawingSurface extends PApplet {
 
 								if (bomberman1Loc[0] == player1Bombs.get(0).getXLoc() / 50
 										&& bomberman1Loc[1] == player1Bombs.get(0).getYLoc() / 50 + explosionRadius
-												- i) {
+										- i) {
 									bomberman1.die();
 
 								}
 								if (bomberman2Loc[0] == player1Bombs.get(0).getXLoc() / 50
 										&& bomberman2Loc[1] == player1Bombs.get(0).getYLoc() / 50 + explosionRadius
-												- i) {
+										- i) {
 									bomberman2.die();
 
 								}
@@ -281,334 +301,342 @@ public class DrawingSurface extends PApplet {
 
 				}
 			}
+		}
 
-			// PLAYER 2 BOMB STUFF
-			if (player2Bombs.size() > 0) {
+		// PLAYER 2 BOMB STUFF
+		if (player2Bombs.size() > 0) {
 
-				int explosionRadius = bomberman2.getRadius();
+			int explosionRadius = bomberman2.getRadius();
 
-				if (player2Bombs.get(0).countDown()) {
-					if (!player2Bombs.get(0).getStatus()) {
-						board.player2BombIsExploded(true);
-						player2Bombs.get(0).explode();
+			if (player2Bombs.get(0).countDown()) {
+				if (!player2Bombs.get(0).getStatus()) {
+					board.player2BombIsExploded(true);
+					player2Bombs.get(0).explode();
 
-						int[] bomberman1Loc = new int[2];
-						int[] bomberman2Loc = new int[2];
+					int[] bomberman1Loc = new int[2];
+					int[] bomberman2Loc = new int[2];
 
-						bomberman1Loc = bomberman1.pixeltoGrid();
-						bomberman2Loc = bomberman2.pixeltoGrid();
+					bomberman1Loc = bomberman1.pixeltoGrid();
+					bomberman2Loc = bomberman2.pixeltoGrid();
 
-						if (bomberman1Loc[0] == player2Bombs.get(0).getXLoc() / 50
-								&& bomberman1Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
-							bomberman1.die();
-						}
-						if (bomberman2Loc[0] == player2Bombs.get(0).getXLoc() / 50
-								&& bomberman2Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
-							bomberman2.die();
-
-						}
-
-						for (int i = 0; i < explosionRadius; i++) {
-							if (!board.getUnbreakableStatus(player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
-									player2Bombs.get(0).getYLoc() / 50)) {
-								board.addP2Bomb(player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
-										player2Bombs.get(0).getYLoc() / 50);
-								player2Bombs.get(0).setRight(true);
-
-								if (bomberman1Loc[0] == player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i
-										&& bomberman1Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
-									bomberman1.die();
-
-								}
-								if (bomberman2Loc[0] == player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i
-										&& bomberman2Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
-									bomberman2.die();
-
-								}
-								// RIGHT
-							}
-							if (!board.getUnbreakableStatus(player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
-									player2Bombs.get(0).getYLoc() / 50)) {
-								board.addP2Bomb(player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
-										player2Bombs.get(0).getYLoc() / 50);
-								player2Bombs.get(0).setLeft(true);
-
-								if (bomberman1Loc[0] == player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i
-										&& bomberman1Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
-									bomberman1.die();
-
-								}
-								if (bomberman2Loc[0] == player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i
-										&& bomberman2Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
-									bomberman2.die();
-
-								}
-								// Left
-							}
-
-							if (!board.getUnbreakableStatus(player2Bombs.get(0).getXLoc() / 50,
-									player2Bombs.get(0).getYLoc() / 50 - explosionRadius + i)) {
-								board.addP2Bomb(player2Bombs.get(0).getXLoc() / 50,
-										player2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
-								player2Bombs.get(0).setUp(true);
-
-								if (bomberman1Loc[0] == player2Bombs.get(0).getXLoc() / 50
-										&& bomberman1Loc[1] == player2Bombs.get(0).getYLoc() / 50 - explosionRadius
-												+ i) {
-									bomberman1.die();
-
-								}
-								if (bomberman2Loc[0] == player2Bombs.get(0).getXLoc() / 50
-										&& bomberman2Loc[1] == player2Bombs.get(0).getYLoc() / 50 - explosionRadius
-												+ i) {
-									bomberman2.die();
-
-								}
-								// UP
-							}
-
-							if (!board.getUnbreakableStatus(player2Bombs.get(0).getXLoc() / 50,
-									player2Bombs.get(0).getYLoc() / 50 + explosionRadius - i)) {
-								board.addP2Bomb(player2Bombs.get(0).getXLoc() / 50,
-										player2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
-								player2Bombs.get(0).setDown(true);
-
-								if (bomberman1Loc[0] == player2Bombs.get(0).getXLoc() / 50
-										&& bomberman1Loc[1] == player2Bombs.get(0).getYLoc() / 50 + explosionRadius
-												- i) {
-									bomberman1.die();
-
-								}
-								if (bomberman2Loc[0] == player2Bombs.get(0).getXLoc() / 50
-										&& bomberman2Loc[1] == player2Bombs.get(0).getYLoc() / 50 + explosionRadius
-												- i) {
-									bomberman2.die();
-
-								}
-
-								// Down
-							}
-						}
+					if (bomberman1Loc[0] == player2Bombs.get(0).getXLoc() / 50
+							&& bomberman1Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
+						bomberman1.die();
+					}
+					if (bomberman2Loc[0] == player2Bombs.get(0).getXLoc() / 50
+							&& bomberman2Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
+						bomberman2.die();
 
 					}
 
-					else {
+					for (int i = 0; i < explosionRadius; i++) {
+						if (!board.getUnbreakableStatus(player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+								player2Bombs.get(0).getYLoc() / 50)) {
+							board.addP2Bomb(player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+									player2Bombs.get(0).getYLoc() / 50);
+							player2Bombs.get(0).setRight(true);
 
-						board.resetPlace(player2Bombs.get(0).getXLoc() / 50, player2Bombs.get(0).getYLoc() / 50);
-						board.removeBreakableSpot(player2Bombs.get(0).getXLoc() / 50,
-								player2Bombs.get(0).getYLoc() / 50);
-
-						for (int i = 0; i < explosionRadius; i++) {
-							if (player2Bombs.get(0).getRight()) { // right
-
-								board.resetPlace(player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
-										player2Bombs.get(0).getYLoc() / 50);
-								board.removeBreakableSpot(player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
-										player2Bombs.get(0).getYLoc() / 50);
-
-							} else {
-								player2Bombs.get(0).setRight(false);
+							if (bomberman1Loc[0] == player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i
+									&& bomberman1Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
+								bomberman1.die();
 
 							}
-
-							if (player2Bombs.get(0).getLeft()) { // left
-
-								board.resetPlace(player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
-										player2Bombs.get(0).getYLoc() / 50);
-								board.removeBreakableSpot(player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
-										player2Bombs.get(0).getYLoc() / 50);
-
-							} else {
-								player2Bombs.get(0).setLeft(false);
-							}
-							if (player2Bombs.get(0).getUp()) { // up
-
-								board.resetPlace(player2Bombs.get(0).getXLoc() / 50,
-										player2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
-								board.removeBreakableSpot(player2Bombs.get(0).getXLoc() / 50,
-										player2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
-
-							} else {
-								player2Bombs.get(0).setUp(false);
+							if (bomberman2Loc[0] == player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i
+									&& bomberman2Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
+								bomberman2.die();
 
 							}
-							if (player2Bombs.get(0).getDown()) { // down
-
-								board.resetPlace(player2Bombs.get(0).getXLoc() / 50,
-										player2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
-								board.removeBreakableSpot(player2Bombs.get(0).getXLoc() / 50,
-										player2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
-
-							} else {
-								player2Bombs.get(0).setDown(false);
-
-							}
-
+							// RIGHT
 						}
-						player2Bombs.remove(0);
-						bomberman2.changeNumBombs(-1);
-						board.player2BombIsExploded(false);
+						if (!board.getUnbreakableStatus(player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+								player2Bombs.get(0).getYLoc() / 50)) {
+							board.addP2Bomb(player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+									player2Bombs.get(0).getYLoc() / 50);
+							player2Bombs.get(0).setLeft(true);
+
+							if (bomberman1Loc[0] == player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i
+									&& bomberman1Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
+								bomberman1.die();
+
+							}
+							if (bomberman2Loc[0] == player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i
+									&& bomberman2Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
+								bomberman2.die();
+
+							}
+							// Left
+						}
+
+						if (!board.getUnbreakableStatus(player2Bombs.get(0).getXLoc() / 50,
+								player2Bombs.get(0).getYLoc() / 50 - explosionRadius + i)) {
+							board.addP2Bomb(player2Bombs.get(0).getXLoc() / 50,
+									player2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+							player2Bombs.get(0).setUp(true);
+
+							if (bomberman1Loc[0] == player2Bombs.get(0).getXLoc() / 50
+									&& bomberman1Loc[1] == player2Bombs.get(0).getYLoc() / 50 - explosionRadius
+									+ i) {
+								bomberman1.die();
+
+							}
+							if (bomberman2Loc[0] == player2Bombs.get(0).getXLoc() / 50
+									&& bomberman2Loc[1] == player2Bombs.get(0).getYLoc() / 50 - explosionRadius
+									+ i) {
+								bomberman2.die();
+
+							}
+							// UP
+						}
+
+						if (!board.getUnbreakableStatus(player2Bombs.get(0).getXLoc() / 50,
+								player2Bombs.get(0).getYLoc() / 50 + explosionRadius - i)) {
+							board.addP2Bomb(player2Bombs.get(0).getXLoc() / 50,
+									player2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+							player2Bombs.get(0).setDown(true);
+
+							if (bomberman1Loc[0] == player2Bombs.get(0).getXLoc() / 50
+									&& bomberman1Loc[1] == player2Bombs.get(0).getYLoc() / 50 + explosionRadius
+									- i) {
+								bomberman1.die();
+
+							}
+							if (bomberman2Loc[0] == player2Bombs.get(0).getXLoc() / 50
+									&& bomberman2Loc[1] == player2Bombs.get(0).getYLoc() / 50 + explosionRadius
+									- i) {
+								bomberman2.die();
+
+							}
+
+							// Down
+						}
 					}
 
 				}
+
+				else {
+
+					board.resetPlace(player2Bombs.get(0).getXLoc() / 50, player2Bombs.get(0).getYLoc() / 50);
+					board.removeBreakableSpot(player2Bombs.get(0).getXLoc() / 50,
+							player2Bombs.get(0).getYLoc() / 50);
+
+					for (int i = 0; i < explosionRadius; i++) {
+						if (player2Bombs.get(0).getRight()) { // right
+
+							board.resetPlace(player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+									player2Bombs.get(0).getYLoc() / 50);
+							board.removeBreakableSpot(player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+									player2Bombs.get(0).getYLoc() / 50);
+
+						} else {
+							player2Bombs.get(0).setRight(false);
+
+						}
+
+						if (player2Bombs.get(0).getLeft()) { // left
+
+							board.resetPlace(player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+									player2Bombs.get(0).getYLoc() / 50);
+							board.removeBreakableSpot(player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+									player2Bombs.get(0).getYLoc() / 50);
+
+						} else {
+							player2Bombs.get(0).setLeft(false);
+						}
+						if (player2Bombs.get(0).getUp()) { // up
+
+							board.resetPlace(player2Bombs.get(0).getXLoc() / 50,
+									player2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+							board.removeBreakableSpot(player2Bombs.get(0).getXLoc() / 50,
+									player2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+
+						} else {
+							player2Bombs.get(0).setUp(false);
+
+						}
+						if (player2Bombs.get(0).getDown()) { // down
+
+							board.resetPlace(player2Bombs.get(0).getXLoc() / 50,
+									player2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+							board.removeBreakableSpot(player2Bombs.get(0).getXLoc() / 50,
+									player2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+
+						} else {
+							player2Bombs.get(0).setDown(false);
+
+						}
+
+					}
+					player2Bombs.remove(0);
+					bomberman2.changeNumBombs(-1);
+					board.player2BombIsExploded(false);
+				}
+
 			}
+		}
 
-			// modifying stuff (KEYOBOARD)
-			// player 1
-			boolean p1key = false;
-			if (isPressed(KeyEvent.VK_A) && !p1key) {
-				p1key = true;
-				bomberman1.setImage(assets.get(2));
-				int[] newLoc = bomberman1.pixeltoGrid();
-				if (board.getUnbreakableStatus(newLoc[0] - 1, newLoc[1])
-						|| board.getBreakableStatus(newLoc[0] - 1, newLoc[1])) {
-					int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0] - 1, newLoc[1]);
-					if (bomberman1.getXLoc() - pixelWallLoc[0] >= 50)
-						bomberman1.walkX(-1 * bomberman1.getSpeed());
-
-				} else {
+		
+		
+		// modifying stuff (KEYOBOARD)
+		// player 1
+		boolean p1key = false;
+		if(bomberman1.getLives() > 0) {
+		if (isPressed(KeyEvent.VK_A) && !p1key) {
+			p1key = true;
+			bomberman1.setImage(assets.get(2));
+			
+			int[] newLoc = bomberman1.pixeltoGrid();
+			if (board.getUnbreakableStatus(newLoc[0] - 1, newLoc[1])
+					|| board.getBreakableStatus(newLoc[0] - 1, newLoc[1])) {
+				int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0] - 1, newLoc[1]);
+				if (bomberman1.getXLoc() - pixelWallLoc[0] >= 50)
 					bomberman1.walkX(-1 * bomberman1.getSpeed());
 
-				}
+			} else {
+				bomberman1.walkX(-1 * bomberman1.getSpeed());
 
 			}
-			if (isPressed(KeyEvent.VK_D) && !p1key) {
-				p1key = true;
-				bomberman1.setImage(assets.get(3));
-				int[] newLoc = bomberman1.pixeltoGrid();
-				if (board.getUnbreakableStatus(newLoc[0] + 1, newLoc[1])
-						|| board.getBreakableStatus(newLoc[0] + 1, newLoc[1])) {
-					int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0] + 1, newLoc[1]);
-					if (pixelWallLoc[0] - bomberman1.getXLoc() >= 30)
-						bomberman1.walkX(1 * bomberman1.getSpeed());
 
-				} else {
+		}
+		if (isPressed(KeyEvent.VK_D) && !p1key) {
+			p1key = true;
+			bomberman1.setImage(assets.get(3));
+			int[] newLoc = bomberman1.pixeltoGrid();
+			if (board.getUnbreakableStatus(newLoc[0] + 1, newLoc[1])
+					|| board.getBreakableStatus(newLoc[0] + 1, newLoc[1])) {
+				int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0] + 1, newLoc[1]);
+				if (pixelWallLoc[0] - bomberman1.getXLoc() >= 30)
 					bomberman1.walkX(1 * bomberman1.getSpeed());
 
-				}
+			} else {
+				bomberman1.walkX(1 * bomberman1.getSpeed());
 
 			}
-			if (isPressed(KeyEvent.VK_W) && !p1key) {
-				p1key = true;
-				bomberman1.setImage(assets.get(1));
-				int[] newLoc = bomberman1.pixeltoGrid();
-				if (board.getUnbreakableStatus(newLoc[0], newLoc[1] - 1)
-						|| board.getBreakableStatus(newLoc[0], newLoc[1] - 1)) {
-					int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0], newLoc[1] - 1);
-					if (bomberman1.getYLoc() - pixelWallLoc[1] >= 45)
-						bomberman1.walkY(-1 * bomberman1.getSpeed());
 
-				} else {
+		}
+		if (isPressed(KeyEvent.VK_W) && !p1key) {
+			p1key = true;
+			bomberman1.setImage(assets.get(1));
+			int[] newLoc = bomberman1.pixeltoGrid();
+			if (board.getUnbreakableStatus(newLoc[0], newLoc[1] - 1)
+					|| board.getBreakableStatus(newLoc[0], newLoc[1] - 1)) {
+				int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0], newLoc[1] - 1);
+				if (bomberman1.getYLoc() - pixelWallLoc[1] >= 45)
 					bomberman1.walkY(-1 * bomberman1.getSpeed());
 
-				}
+			} else {
+				bomberman1.walkY(-1 * bomberman1.getSpeed());
 
 			}
-			if (isPressed(KeyEvent.VK_S) && !p1key) {
-				p1key = true;
-				bomberman1.setImage(assets.get(0));
-				int[] newLoc = bomberman1.pixeltoGrid();
-				if (board.getUnbreakableStatus(newLoc[0], newLoc[1] + 1)
-						|| board.getBreakableStatus(newLoc[0], newLoc[1] + 1)) {
-					int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0], newLoc[1] + 1);
-					if (pixelWallLoc[1] - bomberman1.getYLoc() >= 45)
-						bomberman1.walkY(1 * bomberman1.getSpeed());
 
-				} else {
+		}
+		if (isPressed(KeyEvent.VK_S) && !p1key) {
+			p1key = true;
+			bomberman1.setImage(assets.get(0));
+			int[] newLoc = bomberman1.pixeltoGrid();
+			if (board.getUnbreakableStatus(newLoc[0], newLoc[1] + 1)
+					|| board.getBreakableStatus(newLoc[0], newLoc[1] + 1)) {
+				int[] pixelWallLoc = bomberman1.gridToPixel(newLoc[0], newLoc[1] + 1);
+				if (pixelWallLoc[1] - bomberman1.getYLoc() >= 45)
 					bomberman1.walkY(1 * bomberman1.getSpeed());
 
-				}
+			} else {
+				bomberman1.walkY(1 * bomberman1.getSpeed());
 
 			}
-			if (isPressed(KeyEvent.VK_SPACE)) { // BOMB STUFF
-				int[] bombLoc = bomberman1.dropBomb();
-				if (bombLoc != null) {
-					Bomb b1 = new Bomb(bomb, bombLoc[0] * 50, bombLoc[1] * 50);
-					board.addP1Bomb(bombLoc[0], bombLoc[1]);
-					player1Bombs.add(b1);
-					board.setBreakableSpot(bombLoc[0], bombLoc[1]);
-				}
 
+		}
+		if (isPressed(KeyEvent.VK_SPACE)) { // BOMB STUFF
+			int[] bombLoc = bomberman1.dropBomb();
+			if (bombLoc != null) {
+				Bomb b1 = new Bomb(bomb, bombLoc[0] * 50, bombLoc[1] * 50);
+				board.addP1Bomb(bombLoc[0], bombLoc[1]);
+				player1Bombs.add(b1);
+				board.setBreakableSpot(bombLoc[0], bombLoc[1]);
 			}
-			// player 2
 
-			boolean p2key = false;
-			if (isPressed(KeyEvent.VK_LEFT) && !p2key) {
-				p2key = true;
-				bomberman2.setImage(assets.get(2));
-				int[] newLoc = bomberman2.pixeltoGrid();
-				if (board.getUnbreakableStatus(newLoc[0] - 1, newLoc[1])
-						|| board.getBreakableStatus(newLoc[0] - 1, newLoc[1])) {
-					int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0] - 1, newLoc[1]);
-					if (bomberman2.getXLoc() - pixelWallLoc[0] >= 50)
-						bomberman2.walkX(-1 * bomberman2.getSpeed());
+		}
+		}
+		// player 2
 
-				} else {
+		boolean p2key = false;
+		if(bomberman2.getLives() > 0) {
+		if (isPressed(KeyEvent.VK_LEFT) && !p2key) {
+			p2key = true;
+			bomberman2.setImage(assets.get(2));
+			int[] newLoc = bomberman2.pixeltoGrid();
+			if (board.getUnbreakableStatus(newLoc[0] - 1, newLoc[1])
+					|| board.getBreakableStatus(newLoc[0] - 1, newLoc[1])) {
+				int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0] - 1, newLoc[1]);
+				if (bomberman2.getXLoc() - pixelWallLoc[0] >= 50)
 					bomberman2.walkX(-1 * bomberman2.getSpeed());
 
-				}
+			} else {
+				bomberman2.walkX(-1 * bomberman2.getSpeed());
 
 			}
-			if (isPressed(KeyEvent.VK_RIGHT) && !p2key) {
-				p2key = true;
-				bomberman2.setImage(assets.get(3));
-				int[] newLoc = bomberman2.pixeltoGrid();
-				if (board.getUnbreakableStatus(newLoc[0] + 1, newLoc[1])
-						|| board.getBreakableStatus(newLoc[0] + 1, newLoc[1])) {
-					int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0] + 1, newLoc[1]);
-					if (pixelWallLoc[0] - bomberman2.getXLoc() >= 30)
-						bomberman2.walkX(1 * bomberman2.getSpeed());
 
-				} else {
+		}
+		if (isPressed(KeyEvent.VK_RIGHT) && !p2key) {
+			p2key = true;
+			bomberman2.setImage(assets.get(3));
+			int[] newLoc = bomberman2.pixeltoGrid();
+			if (board.getUnbreakableStatus(newLoc[0] + 1, newLoc[1])
+					|| board.getBreakableStatus(newLoc[0] + 1, newLoc[1])) {
+				int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0] + 1, newLoc[1]);
+				if (pixelWallLoc[0] - bomberman2.getXLoc() >= 30)
 					bomberman2.walkX(1 * bomberman2.getSpeed());
 
-				}
+			} else {
+				bomberman2.walkX(1 * bomberman2.getSpeed());
 
 			}
-			if (isPressed(KeyEvent.VK_UP) && !p2key) {
-				p2key = true;
-				bomberman2.setImage(assets.get(1));
-				int[] newLoc = bomberman2.pixeltoGrid();
-				if (board.getUnbreakableStatus(newLoc[0], newLoc[1] - 1)
-						|| board.getBreakableStatus(newLoc[0], newLoc[1] - 1)) {
-					int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0], newLoc[1] - 1);
-					if (bomberman2.getYLoc() - pixelWallLoc[1] >= 45)
-						bomberman2.walkY(-1 * bomberman2.getSpeed());
 
-				} else {
+		}
+		if (isPressed(KeyEvent.VK_UP) && !p2key) {
+			p2key = true;
+			bomberman2.setImage(assets.get(1));
+			int[] newLoc = bomberman2.pixeltoGrid();
+			if (board.getUnbreakableStatus(newLoc[0], newLoc[1] - 1)
+					|| board.getBreakableStatus(newLoc[0], newLoc[1] - 1)) {
+				int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0], newLoc[1] - 1);
+				if (bomberman2.getYLoc() - pixelWallLoc[1] >= 45)
 					bomberman2.walkY(-1 * bomberman2.getSpeed());
 
-				}
+			} else {
+				bomberman2.walkY(-1 * bomberman2.getSpeed());
 
 			}
-			if (isPressed(KeyEvent.VK_DOWN) && !p2key) {
-				p2key = true;
-				bomberman2.setImage(assets.get(0));
-				int[] newLoc = bomberman2.pixeltoGrid();
-				if (board.getUnbreakableStatus(newLoc[0], newLoc[1] + 1)
-						|| board.getBreakableStatus(newLoc[0], newLoc[1] + 1)) {
-					int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0], newLoc[1] + 1);
-					if (pixelWallLoc[1] - bomberman2.getYLoc() >= 45)
-						bomberman2.walkY(1 * bomberman2.getSpeed());
 
-				} else {
+		}
+		if (isPressed(KeyEvent.VK_DOWN) && !p2key) {
+			p2key = true;
+			bomberman2.setImage(assets.get(0));
+			int[] newLoc = bomberman2.pixeltoGrid();
+			if (board.getUnbreakableStatus(newLoc[0], newLoc[1] + 1)
+					|| board.getBreakableStatus(newLoc[0], newLoc[1] + 1)) {
+				int[] pixelWallLoc = bomberman2.gridToPixel(newLoc[0], newLoc[1] + 1);
+				if (pixelWallLoc[1] - bomberman2.getYLoc() >= 45)
 					bomberman2.walkY(1 * bomberman2.getSpeed());
 
-				}
+			} else {
+				bomberman2.walkY(1 * bomberman2.getSpeed());
 
 			}
-			if (isPressed(KeyEvent.VK_ENTER)) {
-				int[] bombLoc = bomberman2.dropBomb();
-				if (bombLoc != null) {
-					Bomb b1 = new Bomb(bomb, bombLoc[0] * 50, bombLoc[1] * 50);
-					board.addP2Bomb(bombLoc[0], bombLoc[1]);
-					player2Bombs.add(b1);
-					board.setBreakableSpot(bombLoc[0], bombLoc[1]);
 
-				}
+		}
+		if (isPressed(KeyEvent.VK_ENTER)) {
+			int[] bombLoc = bomberman2.dropBomb();
+			if (bombLoc != null) {
+				Bomb b1 = new Bomb(bomb, bombLoc[0] * 50, bombLoc[1] * 50);
+				board.addP2Bomb(bombLoc[0], bombLoc[1]);
+				player2Bombs.add(b1);
+				board.setBreakableSpot(bombLoc[0], bombLoc[1]);
+
 			}
 		}
 	}
+	}
+
 
 	public void mousePressed() {
 		if (menu.isOverShop()) {
