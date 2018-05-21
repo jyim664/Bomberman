@@ -20,6 +20,7 @@ public class Levels extends PApplet { // 12 x 12 map
 	private char grid[][];
 	private boolean unbreakableSpots[][];
 	private boolean breakableSpots[][];
+	private boolean goodSpots[][]; //grass
 
 	private boolean player1BombExploded = false;
 	private boolean player2BombExploded = false;
@@ -44,6 +45,7 @@ public class Levels extends PApplet { // 12 x 12 map
 		grid = readData(filename);
 		unbreakableSpots = new boolean[grid.length][grid.length];
 		breakableSpots = new boolean[grid.length][grid.length];
+		goodSpots = new boolean[grid.length][grid.length];
 		for (int i = 0; i < grid[0].length; i++) {
 			for (int j = 0; j < grid.length; j++) {
 				if (grid[j][i] == '*') {
@@ -52,6 +54,10 @@ public class Levels extends PApplet { // 12 x 12 map
 				}
 				if (grid[j][i] == '#') {
 					breakableSpots[j][i] = true;
+				}
+				
+				if(grid[j][i] == '_') {
+					goodSpots[j][i] = true;
 				}
 			}
 		}
@@ -211,6 +217,9 @@ public class Levels extends PApplet { // 12 x 12 map
 		return breakableSpots[gridX][gridY];
 	}
 
+	public boolean getGoodSpots(int gridX, int gridY) {
+		return goodSpots[gridX][gridY];
+	}
 	public void removeBreakableSpot(int gridX, int gridY) {
 		breakableSpots[gridX][gridY] = false;
 	}

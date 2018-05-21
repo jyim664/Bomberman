@@ -33,6 +33,8 @@ public class DrawingSurface extends PApplet {
 
 	private boolean level1; // false == menu, true == game
 
+	
+
 	private ArrayList<Bomb> player1Bombs = new ArrayList<Bomb>();
 	private ArrayList<Bomb> player2Bombs = new ArrayList<Bomb>();
 	private ArrayList<Bomb> bot1Bombs = new ArrayList<Bomb>();
@@ -147,6 +149,8 @@ public class DrawingSurface extends PApplet {
 				
 			}
 		
+			
+			
 			//BOT 1 BOMB STUFF
 			if (bot1Bombs.size() > 0) {
 
@@ -225,7 +229,7 @@ public class DrawingSurface extends PApplet {
 								// RIGHT
 							}
 							if (!board.getUnbreakableStatus(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
-									bot1Bombs.get(0).getYLoc() / 50)) {
+									bot1Bombs.get(0).getYLoc() / 50) ) {
 								board.addBot1Bomb(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
 										bot1Bombs.get(0).getYLoc() / 50);
 								bot1Bombs.get(0).setLeft(true);
@@ -291,7 +295,7 @@ public class DrawingSurface extends PApplet {
 							}
 
 							if (!board.getUnbreakableStatus(bot1Bombs.get(0).getXLoc() / 50,
-									bot1Bombs.get(0).getYLoc() / 50 + explosionRadius - i)) {
+									bot1Bombs.get(0).getYLoc() / 50 + explosionRadius - i) ) {
 								board.addBot1Bomb(bot1Bombs.get(0).getXLoc() / 50,
 										bot1Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
 								bot1Bombs.get(0).setDown(true);
@@ -343,7 +347,9 @@ public class DrawingSurface extends PApplet {
 
 							}
 
-							if (bot1Bombs.get(0).getLeft()) { // left
+							if (bot1Bombs.get(0).getLeft() &&(board.getGoodSpots(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+									bot1Bombs.get(0).getYLoc() / 50) || (board.getBreakableStatus(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+											bot1Bombs.get(0).getYLoc() / 50)))) { // left
 
 								board.resetPlace(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
 										bot1Bombs.get(0).getYLoc() / 50);
@@ -353,7 +359,7 @@ public class DrawingSurface extends PApplet {
 							} else {
 								bot1Bombs.get(0).setLeft(false);
 							}
-							if (bot1Bombs.get(0).getUp()) { // up
+							if (bot1Bombs.get(0).getUp() ) { // up
 
 								board.resetPlace(bot1Bombs.get(0).getXLoc() / 50,
 										bot1Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
@@ -572,6 +578,8 @@ public class DrawingSurface extends PApplet {
 
 					for (int i = 0; i < explosionRadius; i++) {
 						if (bot2Bombs.get(0).getRight()) { // right
+							
+							
 
 							board.resetPlace(bot2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
 									bot2Bombs.get(0).getYLoc() / 50);
@@ -1307,7 +1315,7 @@ public class DrawingSurface extends PApplet {
 			menu.changeMapPageStatus(true);
 
 		}
-		if (menu.isOverMapPage()) {
+		if (menu.isOverMap1Page()) {
 			level1 = true;
 		}
 	}
