@@ -23,7 +23,9 @@ public class Levels extends PApplet { // 12 x 12 map
 
 	private boolean player1BombExploded = false;
 	private boolean player2BombExploded = false;
-	private boolean botBombExploded = false;
+	private boolean bot1BombExploded = false;
+	private boolean bot2BombExploded = false;
+
 	private int botBombTimer = 40;
 
 	/**
@@ -74,8 +76,8 @@ public class Levels extends PApplet { // 12 x 12 map
 
 		marker.pushStyle();
 
-	
-		
+
+
 		float cellWidth = width / grid.length;
 		float cellHeight = height / grid[0].length;
 
@@ -102,14 +104,14 @@ public class Levels extends PApplet { // 12 x 12 map
 						marker.image(img5, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
 
 					}
-				} else if(grid[j][i] == 'v') {
-					this.botBombTimer --;
-					if (botBombTimer <= 0) {
-						botBombExploded = true;
-						botBombTimer = 40;
-						
-					}
-					if (botBombExploded == false) {
+				} else if(grid[j][i] == 'v') { //bot1 bomb
+					//					this.botBombTimer --;
+					//					if (botBombTimer <= 0) {
+					//						bot1BombExploded = true;
+					//						botBombTimer = 40;
+					//						
+					//					}
+					if (bot1BombExploded == false) {
 						marker.image(img4, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
 
 					} else {
@@ -117,7 +119,21 @@ public class Levels extends PApplet { // 12 x 12 map
 
 					}
 				}
-				
+				else if(grid[j][i] == 'b') { //bot 2 bomb
+					this.botBombTimer --;
+					if (botBombTimer <= 0) {
+						bot2BombExploded = true;
+						botBombTimer = 40;
+
+					}
+					if (bot2BombExploded == false) {
+						marker.image(img4, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
+
+					} else {
+						marker.image(img5, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
+
+					}
+				}
 				else{
 					if (player2BombExploded == false) {
 						marker.image(img4, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
@@ -182,7 +198,17 @@ public class Levels extends PApplet { // 12 x 12 map
 	public void addP2Bomb(int x, int y) {
 		grid[x][y] = 'y';
 	}
+	
+	public void addBot1Bomb(int x, int y) {
 
+		grid[x][y] = 'v';
+
+	}
+
+	public void addBot2Bomb(int x, int y) {
+		grid[x][y] = 'b';
+	}
+	
 	public void resetPlace(int x, int y) {
 		grid[x][y] = '_';
 	}
@@ -211,6 +237,14 @@ public class Levels extends PApplet { // 12 x 12 map
 		player2BombExploded = explode;
 	}
 
+	public void bot1BombIsExploded(boolean explode) {
+		bot1BombExploded = explode;
+	}
+
+	public void bot2BombIsExploded(boolean explode) {
+		bot2BombExploded = explode;
+	}
+
 	public boolean getBad(int gridX, int gridY) {
 		if (breakableSpots[gridX][gridY]) {
 			return true;
@@ -223,12 +257,8 @@ public class Levels extends PApplet { // 12 x 12 map
 	}
 
 	public void setup(DrawingSurface drawingSurface) {
-		
+
 	}
 
-	public void addBotBomb(int x, int y) {
-		
-		grid[x][y] = 'v';
-		
-	}
+
 }

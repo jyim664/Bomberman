@@ -17,9 +17,12 @@ public class Bot extends Unit {
 	private static final int BOT_WIDTH = 30;
 	private static final int BOT_HEIGHT = 45;
 
+	
+	private int oscillateY = 0;
+	
 	private int bombCount;
 	private int currentOnScreen = 0;
-	private int oscillateY = 0;
+	private int explosionRadius;
 
 	/**
 	 * Creates a Bot with lives amount of lives, speed amount of speed, and with the
@@ -43,6 +46,7 @@ public class Bot extends Unit {
 		super(lives, speed, xLoc, yLoc, BOT_WIDTH, BOT_HEIGHT, img);
 		bombCount = 1;
 		destination = getNewDst(lvl);
+		explosionRadius = 1;
 	}
 
 	/**
@@ -200,6 +204,17 @@ public class Bot extends Unit {
 	 * @return true if the bot has satisfied all conditions to drop a bomb, false if
 	 *         not.
 	 */
+	public int[] dropBomb() {
+		if (canDropBomb()) {
+			currentOnScreen++;
+			return super.dropBomb();
+
+		}
+
+		return null;
+
+	}
+
 	public boolean canDropBomb() {
 		if (this.currentOnScreen >= bombCount) {
 			return false;
@@ -207,6 +222,12 @@ public class Bot extends Unit {
 			return true;
 		}
 	}
+
+	public void changeNumBombs(int x) {
+		currentOnScreen += x;
+	}
+
+
 	public boolean placeOneMore() {
 		this.timeUntilBomb --;
 		if (timeUntilBomb <= 0) {
@@ -218,4 +239,11 @@ public class Bot extends Unit {
 		}
 	}
 
+	public void addRadius() {
+		explosionRadius++;
+	}
+
+	public int getRadius() {
+		return explosionRadius;
+	}
 }
