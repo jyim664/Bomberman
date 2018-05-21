@@ -129,17 +129,21 @@ public class DrawingSurface extends PApplet {
 
 			if(bot1.placeOneMore() && bot1.getLives() > 0) { //Bot 1 bomb placing timing
 				int[] a = bot1.dropBomb();
+				if(a != null) {
 				board.addBot1Bomb(a[0], a[1]);
 				Bomb b1 = new Bomb(bomb, a[0] * 50, a[1] * 50);
 				bot1Bombs.add(b1);
+				}
 				
 			}
 			
 			if(bot2.placeOneMore() && bot2.getLives() > 0) { //Bot 1 bomb placing timing
 				int[] a = bot2.dropBomb();
+				if(a != null) {
 				board.addBot2Bomb(a[0], a[1]);
 				Bomb b1 = new Bomb(bomb, a[0] * 50, a[1] * 50);
 				bot2Bombs.add(b1);
+				}
 				
 			}
 		

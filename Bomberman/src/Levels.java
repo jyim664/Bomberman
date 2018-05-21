@@ -105,12 +105,7 @@ public class Levels extends PApplet { // 12 x 12 map
 
 					}
 				} else if(grid[j][i] == 'v') { //bot1 bomb
-					//					this.botBombTimer --;
-					//					if (botBombTimer <= 0) {
-					//						bot1BombExploded = true;
-					//						botBombTimer = 40;
-					//						
-					//					}
+
 					if (bot1BombExploded == false) {
 						marker.image(img4, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
 
@@ -120,12 +115,7 @@ public class Levels extends PApplet { // 12 x 12 map
 					}
 				}
 				else if(grid[j][i] == 'b') { //bot 2 bomb
-					this.botBombTimer --;
-					if (botBombTimer <= 0) {
-						bot2BombExploded = true;
-						botBombTimer = 40;
 
-					}
 					if (bot2BombExploded == false) {
 						marker.image(img4, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
 
@@ -198,7 +188,7 @@ public class Levels extends PApplet { // 12 x 12 map
 	public void addP2Bomb(int x, int y) {
 		grid[x][y] = 'y';
 	}
-	
+
 	public void addBot1Bomb(int x, int y) {
 
 		grid[x][y] = 'v';
@@ -208,7 +198,7 @@ public class Levels extends PApplet { // 12 x 12 map
 	public void addBot2Bomb(int x, int y) {
 		grid[x][y] = 'b';
 	}
-	
+
 	public void resetPlace(int x, int y) {
 		grid[x][y] = '_';
 	}

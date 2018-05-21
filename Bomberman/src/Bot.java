@@ -47,6 +47,9 @@ public class Bot extends Unit {
 		bombCount = 1;
 		destination = getNewDst(lvl);
 		explosionRadius = 1;
+		
+		timeUntilBomb = (int) (Math.random() * 120 + 1);
+		
 	}
 
 	/**
@@ -231,7 +234,8 @@ public class Bot extends Unit {
 	public boolean placeOneMore() {
 		this.timeUntilBomb --;
 		if (timeUntilBomb <= 0) {
-			timeUntilBomb = 120;
+			timeUntilBomb =  (int) (Math.random() * 120 + 1);;
+			System.out.println(timeUntilBomb);
 			return true;
 		}
 		else {
