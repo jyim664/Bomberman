@@ -98,7 +98,7 @@ public class Unit {
 		return retVal;
 	}
 
-	public void die() {
+	public void loseLife() {
 		lives--;
 	}
 

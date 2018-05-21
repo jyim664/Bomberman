@@ -115,12 +115,19 @@ public class DrawingSurface extends PApplet {
 
 			if (bomberman2.getLives() > 0)
 				bomberman2.draw(this);
+			
+			if(bot1.getLives()>0) 
+				bot1.draw(this);
+			
+			if(bot2.getLives()>0) 
+				bot2.draw(this);
+			
+			
+
 
 			bot1.RandomMovements(board);
 			bot2.RandomMovements(board);
-			bot1.draw(this);
-
-			bot2.draw(this);
+			
 
 			// PLAYER 1 BOMB STUFF
 			if (player1Bombs.size() > 0) {
@@ -134,9 +141,13 @@ public class DrawingSurface extends PApplet {
 
 						int[] bomberman1Loc = new int[2];
 						int[] bomberman2Loc = new int[2];
+						int[] bot1Loc = new int[2];
+						int[] bot2Loc = new int[2];
 
 						bomberman1Loc = bomberman1.pixeltoGrid();
 						bomberman2Loc = bomberman2.pixeltoGrid();
+						bot1Loc = bot1.pixeltoGrid();
+						bot2Loc = bot2.pixeltoGrid();
 
 						System.out.println("Player: " + Arrays.toString(bomberman1Loc));
 						System.out.print("Bomb: " + player1Bombs.get(0).getXLoc() / 50 +  " ");
@@ -146,12 +157,23 @@ public class DrawingSurface extends PApplet {
 						if (bomberman1Loc[0] == player1Bombs.get(0).getXLoc() / 50 
 								&& bomberman1Loc[1] == player1Bombs.get(0).getYLoc() / 50) {
 							System.out.println("YES");
-							bomberman1.die();
+							bomberman1.loseLife();
 
 						}
 						if (bomberman2Loc[0] == player1Bombs.get(0).getXLoc() / 50 
 								&& bomberman2Loc[1] == player1Bombs.get(0).getYLoc() / 50) {
-							bomberman2.die();
+							bomberman2.loseLife();
+
+						}
+						if (bot1Loc[0] == player1Bombs.get(0).getXLoc() / 50 
+								&& bot1Loc[1] == player1Bombs.get(0).getYLoc() / 50) {
+							System.out.println("YES");
+							bot1.loseLife();
+
+						}
+						if (bot2Loc[0] == player1Bombs.get(0).getXLoc() / 50 
+								&& bot2Loc[1] == player1Bombs.get(0).getYLoc() / 50) {
+							bot2.loseLife();
 
 						}
 
@@ -167,12 +189,22 @@ public class DrawingSurface extends PApplet {
 								player1Bombs.get(0).setRight(true);
 								if (bomberman1Loc[0] == player1Bombs.get(0).getXLoc() / 50 + explosionRadius - i
 										&& bomberman1Loc[1] == player1Bombs.get(0).getYLoc() / 50) {
-									bomberman1.die();
+									bomberman1.loseLife();
 
 								}
 								if (bomberman2Loc[0] == player1Bombs.get(0).getXLoc() / 50 + explosionRadius - i
 										&& bomberman2Loc[1] == player1Bombs.get(0).getYLoc() / 50) {
-									bomberman2.die();
+									bomberman2.loseLife();
+
+								}
+								if (bot1Loc[0] == player1Bombs.get(0).getXLoc() / 50 + explosionRadius - i
+										&& bot1Loc[1] == player1Bombs.get(0).getYLoc() / 50) {
+									bot1.loseLife();
+
+								}
+								if (bot2Loc[0] == player1Bombs.get(0).getXLoc() / 50 + explosionRadius - i
+										&& bot2Loc[1] == player1Bombs.get(0).getYLoc() / 50) {
+									bot2.loseLife();
 
 								}
 								// RIGHT
@@ -185,15 +217,26 @@ public class DrawingSurface extends PApplet {
 								if (bomberman1Loc[0] == player1Bombs.get(0).getXLoc() / 50 - explosionRadius + i
 										&& bomberman1Loc[1] == player1Bombs.get(0).getYLoc() / 50) {
 									System.out.println("YES");
-									bomberman1.die();
+									bomberman1.loseLife();
 
 								}
 								if (bomberman2Loc[0] == player1Bombs.get(0).getXLoc() / 50 - explosionRadius + i
 										&& bomberman2Loc[1] == player1Bombs.get(0).getYLoc() / 50) {
-									bomberman2.die();
+									bomberman2.loseLife();
 
 								}
 
+								if (bot1Loc[0] == player1Bombs.get(0).getXLoc() / 50 - explosionRadius + i
+										&& bot1Loc[1] == player1Bombs.get(0).getYLoc() / 50) {
+									System.out.println("YES");
+									bot1.loseLife();
+
+								}
+								if (bot2Loc[0] == player1Bombs.get(0).getXLoc() / 50 - explosionRadius + i
+										&& bot2Loc[1] == player1Bombs.get(0).getYLoc() / 50) {
+									bot2.loseLife();
+
+								}
 								// Left
 							}
 
@@ -206,13 +249,26 @@ public class DrawingSurface extends PApplet {
 								if (bomberman1Loc[0] == player1Bombs.get(0).getXLoc() / 50
 										&& bomberman1Loc[1] == player1Bombs.get(0).getYLoc() / 50 - explosionRadius
 										+ i) {
-									bomberman1.die();
+									bomberman1.loseLife();
 
 								}
 								if (bomberman2Loc[0] == player1Bombs.get(0).getXLoc() / 50
 										&& bomberman2Loc[1] == player1Bombs.get(0).getYLoc() / 50 - explosionRadius
 										+ i) {
-									bomberman2.die();
+									bomberman2.loseLife();
+
+								}
+								
+								if (bot1Loc[0] == player1Bombs.get(0).getXLoc() / 50
+										&& bot1Loc[1] == player1Bombs.get(0).getYLoc() / 50 - explosionRadius
+										+ i) {
+									bot1.loseLife();
+
+								}
+								if (bot2Loc[0] == player1Bombs.get(0).getXLoc() / 50
+										&& bot2Loc[1] == player1Bombs.get(0).getYLoc() / 50 - explosionRadius
+										+ i) {
+									bot2.loseLife();
 
 								}
 
@@ -228,13 +284,25 @@ public class DrawingSurface extends PApplet {
 								if (bomberman1Loc[0] == player1Bombs.get(0).getXLoc() / 50
 										&& bomberman1Loc[1] == player1Bombs.get(0).getYLoc() / 50 + explosionRadius
 										- i) {
-									bomberman1.die();
+									bomberman1.loseLife();
 
 								}
 								if (bomberman2Loc[0] == player1Bombs.get(0).getXLoc() / 50
 										&& bomberman2Loc[1] == player1Bombs.get(0).getYLoc() / 50 + explosionRadius
 										- i) {
-									bomberman2.die();
+									bomberman2.loseLife();
+
+								}
+								if (bot1Loc[0] == player1Bombs.get(0).getXLoc() / 50
+										&& bot1Loc[1] == player1Bombs.get(0).getYLoc() / 50 + explosionRadius
+										- i) {
+									bot1.loseLife();
+
+								}
+								if (bot2Loc[0] == player1Bombs.get(0).getXLoc() / 50
+										&& bot2Loc[1] == player1Bombs.get(0).getYLoc() / 50 + explosionRadius
+										- i) {
+									bot2.loseLife();
 
 								}
 
@@ -315,20 +383,34 @@ public class DrawingSurface extends PApplet {
 
 					int[] bomberman1Loc = new int[2];
 					int[] bomberman2Loc = new int[2];
+					int[] bot1Loc = new int[2];
+					int[] bot2Loc = new int[2];
+
 
 					bomberman1Loc = bomberman1.pixeltoGrid();
 					bomberman2Loc = bomberman2.pixeltoGrid();
+					bot1Loc = bot1.pixeltoGrid();
+					bot2Loc = bot2.pixeltoGrid();
 
 					if (bomberman1Loc[0] == player2Bombs.get(0).getXLoc() / 50
 							&& bomberman1Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
-						bomberman1.die();
+						bomberman1.loseLife();
 					}
 					if (bomberman2Loc[0] == player2Bombs.get(0).getXLoc() / 50
 							&& bomberman2Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
-						bomberman2.die();
+						bomberman2.loseLife();
+					}
+					if (bot1Loc[0] == player2Bombs.get(0).getXLoc() / 50
+							&& bot1Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
+						bot1.loseLife();
+					}
+					if (bot2Loc[0] == player2Bombs.get(0).getXLoc() / 50
+							&& bot2Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
+						bot2.loseLife();
 
 					}
 
+					
 					for (int i = 0; i < explosionRadius; i++) {
 						if (!board.getUnbreakableStatus(player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
 								player2Bombs.get(0).getYLoc() / 50)) {
@@ -338,13 +420,21 @@ public class DrawingSurface extends PApplet {
 
 							if (bomberman1Loc[0] == player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i
 									&& bomberman1Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
-								bomberman1.die();
+								bomberman1.loseLife();
 
 							}
 							if (bomberman2Loc[0] == player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i
 									&& bomberman2Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
-								bomberman2.die();
+								bomberman2.loseLife();
+							}
+							if (bot1Loc[0] == player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i
+									&& bot1Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
+								bot1.loseLife();
 
+							}
+							if (bot2Loc[0] == player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i
+									&& bot2Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
+								bot2.loseLife();
 							}
 							// RIGHT
 						}
@@ -356,12 +446,23 @@ public class DrawingSurface extends PApplet {
 
 							if (bomberman1Loc[0] == player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i
 									&& bomberman1Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
-								bomberman1.die();
+								bomberman1.loseLife();
 
 							}
 							if (bomberman2Loc[0] == player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i
 									&& bomberman2Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
-								bomberman2.die();
+								bomberman2.loseLife();
+
+							}
+
+							if (bot1Loc[0] == player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i
+									&& bot1Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
+								bot1.loseLife();
+
+							}
+							if (bot2Loc[0] == player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i
+									&& bot2Loc[1] == player2Bombs.get(0).getYLoc() / 50) {
+								bot2.loseLife();
 
 							}
 							// Left
@@ -376,13 +477,25 @@ public class DrawingSurface extends PApplet {
 							if (bomberman1Loc[0] == player2Bombs.get(0).getXLoc() / 50
 									&& bomberman1Loc[1] == player2Bombs.get(0).getYLoc() / 50 - explosionRadius
 									+ i) {
-								bomberman1.die();
+								bomberman1.loseLife();
 
 							}
 							if (bomberman2Loc[0] == player2Bombs.get(0).getXLoc() / 50
 									&& bomberman2Loc[1] == player2Bombs.get(0).getYLoc() / 50 - explosionRadius
 									+ i) {
-								bomberman2.die();
+								bomberman2.loseLife();
+
+							}
+							if (bot1Loc[0] == player2Bombs.get(0).getXLoc() / 50
+									&& bot1Loc[1] == player2Bombs.get(0).getYLoc() / 50 - explosionRadius
+									+ i) {
+								bot1.loseLife();
+
+							}
+							if (bot2Loc[0] == player2Bombs.get(0).getXLoc() / 50
+									&& bot2Loc[1] == player2Bombs.get(0).getYLoc() / 50 - explosionRadius
+									+ i) {
+								bot2.loseLife();
 
 							}
 							// UP
@@ -397,13 +510,25 @@ public class DrawingSurface extends PApplet {
 							if (bomberman1Loc[0] == player2Bombs.get(0).getXLoc() / 50
 									&& bomberman1Loc[1] == player2Bombs.get(0).getYLoc() / 50 + explosionRadius
 									- i) {
-								bomberman1.die();
+								bomberman1.loseLife();
 
 							}
 							if (bomberman2Loc[0] == player2Bombs.get(0).getXLoc() / 50
 									&& bomberman2Loc[1] == player2Bombs.get(0).getYLoc() / 50 + explosionRadius
 									- i) {
-								bomberman2.die();
+								bomberman2.loseLife();
+
+							}
+							if (bot1Loc[0] == player2Bombs.get(0).getXLoc() / 50
+									&& bot1Loc[1] == player2Bombs.get(0).getYLoc() / 50 + explosionRadius
+									- i) {
+								bot1.loseLife();
+
+							}
+							if (bot2Loc[0] == player2Bombs.get(0).getXLoc() / 50
+									&& bot2Loc[1] == player2Bombs.get(0).getYLoc() / 50 + explosionRadius
+									- i) {
+								bot2.loseLife();
 
 							}
 
