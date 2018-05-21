@@ -35,6 +35,8 @@ public class DrawingSurface extends PApplet {
 
 	private ArrayList<Bomb> player1Bombs = new ArrayList<Bomb>();
 	private ArrayList<Bomb> player2Bombs = new ArrayList<Bomb>();
+	private ArrayList<Bomb> bot1Bombs = new ArrayList<Bomb>();
+	private ArrayList<Bomb> bot2Bombs = new ArrayList<Bomb>();
 
 	private static final int frameHeight = 800, frameWidth = 800;
 
@@ -122,15 +124,507 @@ public class DrawingSurface extends PApplet {
 			if(bot2.getLives()>0) 
 				bot2.draw(this);
 			
-			
-
-			if(bot1.placeOneMore()) {
-				int[] a = bot1.dropBomb();
-				board.addBotBomb(a[0], a[1]);
-			}
 			bot1.RandomMovements(board);
 			bot2.RandomMovements(board);
+
+			if(bot1.placeOneMore() && bot1.getLives() > 0) { //Bot 1 bomb placing timing
+				int[] a = bot1.dropBomb();
+				if(a != null) {
+				board.addBot1Bomb(a[0], a[1]);
+				Bomb b1 = new Bomb(bomb, a[0] * 50, a[1] * 50);
+				bot1Bombs.add(b1);
+				}
+				
+			}
 			
+			if(bot2.placeOneMore() && bot2.getLives() > 0) { //Bot 1 bomb placing timing
+				int[] a = bot2.dropBomb();
+				if(a != null) {
+				board.addBot2Bomb(a[0], a[1]);
+				Bomb b1 = new Bomb(bomb, a[0] * 50, a[1] * 50);
+				bot2Bombs.add(b1);
+				}
+				
+			}
+		
+			//BOT 1 BOMB STUFF
+			if (bot1Bombs.size() > 0) {
+
+				int explosionRadius = bot1.getRadius();
+
+				if (bot1Bombs.get(0).countDown()) {
+					if (!bot1Bombs.get(0).getStatus()) {
+						board.bot1BombIsExploded(true);
+						bot1Bombs.get(0).explode();
+
+						int[] bomberman1Loc = new int[2];
+						int[] bomberman2Loc = new int[2];
+						int[] bot1Loc = new int[2];
+						int[] bot2Loc = new int[2];
+
+						bomberman1Loc = bomberman1.pixeltoGrid();
+						bomberman2Loc = bomberman2.pixeltoGrid();
+						bot1Loc = bot1.pixeltoGrid();
+						bot2Loc = bot2.pixeltoGrid();
+
+
+
+						if (bomberman1Loc[0] == bot1Bombs.get(0).getXLoc() / 50 
+								&& bomberman1Loc[1] == bot1Bombs.get(0).getYLoc() / 50) {
+							System.out.println("YES");
+							bomberman1.loseLife();
+
+						}
+						if (bomberman2Loc[0] == bot1Bombs.get(0).getXLoc() / 50 
+								&& bomberman2Loc[1] == bot1Bombs.get(0).getYLoc() / 50) {
+							bomberman2.loseLife();
+
+						}
+						if (bot1Loc[0] == bot1Bombs.get(0).getXLoc() / 50 
+								&& bot1Loc[1] == bot1Bombs.get(0).getYLoc() / 50) {
+							System.out.println("YES");
+							bot1.loseLife();
+
+						}
+						if (bot2Loc[0] == bot1Bombs.get(0).getXLoc() / 50 
+								&& bot2Loc[1] == bot1Bombs.get(0).getYLoc() / 50) {
+							bot2.loseLife();
+
+						}
+
+
+
+						for (int i = 0; i < explosionRadius; i++) {
+							System.out.print("\n");
+
+							if (!board.getUnbreakableStatus(bot1Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+									bot1Bombs.get(0).getYLoc() / 50)) {
+								board.addBot1Bomb(bot1Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+										bot1Bombs.get(0).getYLoc() / 50);
+								bot1Bombs.get(0).setRight(true);
+								if (bomberman1Loc[0] == bot1Bombs.get(0).getXLoc() / 50 + explosionRadius - i
+										&& bomberman1Loc[1] == bot1Bombs.get(0).getYLoc() / 50) {
+									bomberman1.loseLife();
+
+								}
+								if (bomberman2Loc[0] == bot1Bombs.get(0).getXLoc() / 50 + explosionRadius - i
+										&& bomberman2Loc[1] == bot1Bombs.get(0).getYLoc() / 50) {
+									bomberman2.loseLife();
+
+								}
+								if (bot1Loc[0] == bot1Bombs.get(0).getXLoc() / 50 + explosionRadius - i
+										&& bot1Loc[1] == bot1Bombs.get(0).getYLoc() / 50) {
+									bot1.loseLife();
+
+								}
+								if (bot2Loc[0] == bot1Bombs.get(0).getXLoc() / 50 + explosionRadius - i
+										&& bot2Loc[1] == bot1Bombs.get(0).getYLoc() / 50) {
+									bot2.loseLife();
+
+								}
+								// RIGHT
+							}
+							if (!board.getUnbreakableStatus(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+									bot1Bombs.get(0).getYLoc() / 50)) {
+								board.addBot1Bomb(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+										bot1Bombs.get(0).getYLoc() / 50);
+								bot1Bombs.get(0).setLeft(true);
+								if (bomberman1Loc[0] == bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i
+										&& bomberman1Loc[1] == bot1Bombs.get(0).getYLoc() / 50) {
+									System.out.println("YES");
+									bomberman1.loseLife();
+
+								}
+								if (bomberman2Loc[0] == bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i
+										&& bomberman2Loc[1] == bot1Bombs.get(0).getYLoc() / 50) {
+									bomberman2.loseLife();
+
+								}
+
+								if (bot1Loc[0] == bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i
+										&& bot1Loc[1] == bot1Bombs.get(0).getYLoc() / 50) {
+									System.out.println("YES");
+									bot1.loseLife();
+
+								}
+								if (bot2Loc[0] == bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i
+										&& bot2Loc[1] == bot1Bombs.get(0).getYLoc() / 50) {
+									bot2.loseLife();
+
+								}
+								// Left
+							}
+
+							if (!board.getUnbreakableStatus(bot1Bombs.get(0).getXLoc() / 50,
+									bot1Bombs.get(0).getYLoc() / 50 - explosionRadius + i)) {
+								board.addBot1Bomb(bot1Bombs.get(0).getXLoc() / 50,
+										bot1Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+								bot1Bombs.get(0).setUp(true);
+
+								if (bomberman1Loc[0] == bot1Bombs.get(0).getXLoc() / 50
+										&& bomberman1Loc[1] == bot1Bombs.get(0).getYLoc() / 50 - explosionRadius
+										+ i) {
+									bomberman1.loseLife();
+
+								}
+								if (bomberman2Loc[0] == bot1Bombs.get(0).getXLoc() / 50
+										&& bomberman2Loc[1] == bot1Bombs.get(0).getYLoc() / 50 - explosionRadius
+										+ i) {
+									bomberman2.loseLife();
+
+								}
+								
+								if (bot1Loc[0] == bot1Bombs.get(0).getXLoc() / 50
+										&& bot1Loc[1] == bot1Bombs.get(0).getYLoc() / 50 - explosionRadius
+										+ i) {
+									bot1.loseLife();
+
+								}
+								if (bot2Loc[0] == bot1Bombs.get(0).getXLoc() / 50
+										&& bot2Loc[1] == bot1Bombs.get(0).getYLoc() / 50 - explosionRadius
+										+ i) {
+									bot2.loseLife();
+
+								}
+
+								// UP
+							}
+
+							if (!board.getUnbreakableStatus(bot1Bombs.get(0).getXLoc() / 50,
+									bot1Bombs.get(0).getYLoc() / 50 + explosionRadius - i)) {
+								board.addBot1Bomb(bot1Bombs.get(0).getXLoc() / 50,
+										bot1Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+								bot1Bombs.get(0).setDown(true);
+
+								if (bomberman1Loc[0] == bot1Bombs.get(0).getXLoc() / 50
+										&& bomberman1Loc[1] == bot1Bombs.get(0).getYLoc() / 50 + explosionRadius
+										- i) {
+									bomberman1.loseLife();
+
+								}
+								if (bomberman2Loc[0] == bot1Bombs.get(0).getXLoc() / 50
+										&& bomberman2Loc[1] == bot1Bombs.get(0).getYLoc() / 50 + explosionRadius
+										- i) {
+									bomberman2.loseLife();
+
+								}
+								if (bot1Loc[0] == bot1Bombs.get(0).getXLoc() / 50
+										&& bot1Loc[1] == bot1Bombs.get(0).getYLoc() / 50 + explosionRadius
+										- i) {
+									bot1.loseLife();
+
+								}
+								if (bot2Loc[0] == bot1Bombs.get(0).getXLoc() / 50
+										&& bot2Loc[1] == bot1Bombs.get(0).getYLoc() / 50 + explosionRadius
+										- i) {
+									bot2.loseLife();
+
+								}
+
+								// Down
+							}
+						}
+					} else {
+
+						board.resetPlace(bot1Bombs.get(0).getXLoc() / 50, bot1Bombs.get(0).getYLoc() / 50);
+						board.removeBreakableSpot(bot1Bombs.get(0).getXLoc() / 50,
+								bot1Bombs.get(0).getYLoc() / 50);
+
+						for (int i = 0; i < explosionRadius; i++) {
+							if (bot1Bombs.get(0).getRight()) { // right
+
+								board.resetPlace(bot1Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+										bot1Bombs.get(0).getYLoc() / 50);
+								board.removeBreakableSpot(bot1Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+										bot1Bombs.get(0).getYLoc() / 50);
+
+							} else {
+								bot1Bombs.get(0).setRight(false);
+
+							}
+
+							if (bot1Bombs.get(0).getLeft()) { // left
+
+								board.resetPlace(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+										bot1Bombs.get(0).getYLoc() / 50);
+								board.removeBreakableSpot(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+										bot1Bombs.get(0).getYLoc() / 50);
+
+							} else {
+								bot1Bombs.get(0).setLeft(false);
+							}
+							if (bot1Bombs.get(0).getUp()) { // up
+
+								board.resetPlace(bot1Bombs.get(0).getXLoc() / 50,
+										bot1Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+								board.removeBreakableSpot(bot1Bombs.get(0).getXLoc() / 50,
+										bot1Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+
+							} else {
+								bot1Bombs.get(0).setUp(false);
+
+							}
+							if (bot1Bombs.get(0).getDown()) { // down
+
+								board.resetPlace(bot1Bombs.get(0).getXLoc() / 50,
+										bot1Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+								board.removeBreakableSpot(bot1Bombs.get(0).getXLoc() / 50,
+										bot1Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+
+							} else {
+								bot1Bombs.get(0).setDown(false);
+
+							}
+
+						}
+						bot1Bombs.remove(0);
+						bot1.changeNumBombs(-1);
+						board.bot1BombIsExploded(false);
+					}
+
+				}
+			}
+		}
+		
+		
+		//BOT 2 BOMB STUFF
+		
+		if (bot2Bombs.size() > 0) {
+
+			int explosionRadius = bot2.getRadius();
+
+			if (bot2Bombs.get(0).countDown()) {
+				if (!bot2Bombs.get(0).getStatus()) {
+					board.bot2BombIsExploded(true);
+					bot2Bombs.get(0).explode();
+
+					int[] bomberman1Loc = new int[2];
+					int[] bomberman2Loc = new int[2];
+					int[] bot1Loc = new int[2];
+					int[] bot2Loc = new int[2];
+
+					bomberman1Loc = bomberman1.pixeltoGrid();
+					bomberman2Loc = bomberman2.pixeltoGrid();
+					bot1Loc = bot1.pixeltoGrid();
+					bot2Loc = bot2.pixeltoGrid();
+
+
+
+					if (bomberman1Loc[0] == bot2Bombs.get(0).getXLoc() / 50 
+							&& bomberman1Loc[1] == bot2Bombs.get(0).getYLoc() / 50) {
+						System.out.println("YES");
+						bomberman1.loseLife();
+
+					}
+					if (bomberman2Loc[0] == bot2Bombs.get(0).getXLoc() / 50 
+							&& bomberman2Loc[1] == bot2Bombs.get(0).getYLoc() / 50) {
+						bomberman2.loseLife();
+
+					}
+					if (bot1Loc[0] == bot2Bombs.get(0).getXLoc() / 50 
+							&& bot1Loc[1] == bot2Bombs.get(0).getYLoc() / 50) {
+						System.out.println("YES");
+						bot1.loseLife();
+
+					}
+					if (bot2Loc[0] == bot2Bombs.get(0).getXLoc() / 50 
+							&& bot2Loc[1] == bot2Bombs.get(0).getYLoc() / 50) {
+						bot2.loseLife();
+
+					}
+
+
+
+					for (int i = 0; i < explosionRadius; i++) {
+						System.out.print("\n");
+
+						if (!board.getUnbreakableStatus(bot2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+								bot2Bombs.get(0).getYLoc() / 50)) {
+							board.addBot2Bomb(bot2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+									bot2Bombs.get(0).getYLoc() / 50);
+							bot2Bombs.get(0).setRight(true);
+							if (bomberman1Loc[0] == bot2Bombs.get(0).getXLoc() / 50 + explosionRadius - i
+									&& bomberman1Loc[1] == bot2Bombs.get(0).getYLoc() / 50) {
+								bomberman1.loseLife();
+
+							}
+							if (bomberman2Loc[0] == bot2Bombs.get(0).getXLoc() / 50 + explosionRadius - i
+									&& bomberman2Loc[1] == bot2Bombs.get(0).getYLoc() / 50) {
+								bomberman2.loseLife();
+
+							}
+							if (bot1Loc[0] == bot2Bombs.get(0).getXLoc() / 50 + explosionRadius - i
+									&& bot1Loc[1] == bot2Bombs.get(0).getYLoc() / 50) {
+								bot1.loseLife();
+
+							}
+							if (bot2Loc[0] == bot2Bombs.get(0).getXLoc() / 50 + explosionRadius - i
+									&& bot2Loc[1] == bot2Bombs.get(0).getYLoc() / 50) {
+								bot2.loseLife();
+
+							}
+							// RIGHT
+						}
+						if (!board.getUnbreakableStatus(bot2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+								bot2Bombs.get(0).getYLoc() / 50)) {
+							board.addBot2Bomb(bot2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+									bot2Bombs.get(0).getYLoc() / 50);
+							bot2Bombs.get(0).setLeft(true);
+							if (bomberman1Loc[0] == bot2Bombs.get(0).getXLoc() / 50 - explosionRadius + i
+									&& bomberman1Loc[1] == bot2Bombs.get(0).getYLoc() / 50) {
+								System.out.println("YES");
+								bomberman1.loseLife();
+
+							}
+							if (bomberman2Loc[0] == bot2Bombs.get(0).getXLoc() / 50 - explosionRadius + i
+									&& bomberman2Loc[1] == bot2Bombs.get(0).getYLoc() / 50) {
+								bomberman2.loseLife();
+
+							}
+
+							if (bot1Loc[0] == bot2Bombs.get(0).getXLoc() / 50 - explosionRadius + i
+									&& bot1Loc[1] == bot2Bombs.get(0).getYLoc() / 50) {
+								bot1.loseLife();
+
+							}
+							if (bot2Loc[0] == bot2Bombs.get(0).getXLoc() / 50 - explosionRadius + i
+									&& bot2Loc[1] == bot2Bombs.get(0).getYLoc() / 50) {
+								bot2.loseLife();
+
+							}
+							// Left
+						}
+
+						if (!board.getUnbreakableStatus(bot2Bombs.get(0).getXLoc() / 50,
+								bot2Bombs.get(0).getYLoc() / 50 - explosionRadius + i)) {
+							board.addBot2Bomb(bot2Bombs.get(0).getXLoc() / 50,
+									bot2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+							bot2Bombs.get(0).setUp(true);
+
+							if (bomberman1Loc[0] == bot2Bombs.get(0).getXLoc() / 50
+									&& bomberman1Loc[1] == bot2Bombs.get(0).getYLoc() / 50 - explosionRadius
+									+ i) {
+								bomberman1.loseLife();
+
+							}
+							if (bomberman2Loc[0] == bot2Bombs.get(0).getXLoc() / 50
+									&& bomberman2Loc[1] == bot2Bombs.get(0).getYLoc() / 50 - explosionRadius
+									+ i) {
+								bomberman2.loseLife();
+
+							}
+							
+							if (bot1Loc[0] == bot2Bombs.get(0).getXLoc() / 50
+									&& bot1Loc[1] == bot2Bombs.get(0).getYLoc() / 50 - explosionRadius
+									+ i) {
+								bot1.loseLife();
+
+							}
+							if (bot2Loc[0] == bot2Bombs.get(0).getXLoc() / 50
+									&& bot2Loc[1] == bot2Bombs.get(0).getYLoc() / 50 - explosionRadius
+									+ i) {
+								bot2.loseLife();
+
+							}
+
+							// UP
+						}
+
+						if (!board.getUnbreakableStatus(bot2Bombs.get(0).getXLoc() / 50,
+								bot2Bombs.get(0).getYLoc() / 50 + explosionRadius - i)) {
+							board.addBot2Bomb(bot2Bombs.get(0).getXLoc() / 50,
+									bot2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+							bot2Bombs.get(0).setDown(true);
+
+							if (bomberman1Loc[0] == bot2Bombs.get(0).getXLoc() / 50
+									&& bomberman1Loc[1] == bot2Bombs.get(0).getYLoc() / 50 + explosionRadius
+									- i) {
+								bomberman1.loseLife();
+
+							}
+							if (bomberman2Loc[0] == bot2Bombs.get(0).getXLoc() / 50
+									&& bomberman2Loc[1] == bot2Bombs.get(0).getYLoc() / 50 + explosionRadius
+									- i) {
+								bomberman2.loseLife();
+
+							}
+							if (bot1Loc[0] == bot2Bombs.get(0).getXLoc() / 50
+									&& bot1Loc[1] == bot2Bombs.get(0).getYLoc() / 50 + explosionRadius
+									- i) {
+								bot1.loseLife();
+
+							}
+							if (bot2Loc[0] == bot2Bombs.get(0).getXLoc() / 50
+									&& bot2Loc[1] == bot2Bombs.get(0).getYLoc() / 50 + explosionRadius
+									- i) {
+								bot2.loseLife();
+
+							}
+
+							// Down
+						}
+					}
+				} else {
+
+					board.resetPlace(bot2Bombs.get(0).getXLoc() / 50, bot2Bombs.get(0).getYLoc() / 50);
+					board.removeBreakableSpot(bot2Bombs.get(0).getXLoc() / 50,
+							bot2Bombs.get(0).getYLoc() / 50);
+
+					for (int i = 0; i < explosionRadius; i++) {
+						if (bot2Bombs.get(0).getRight()) { // right
+
+							board.resetPlace(bot2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+									bot2Bombs.get(0).getYLoc() / 50);
+							board.removeBreakableSpot(bot2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+									bot2Bombs.get(0).getYLoc() / 50);
+
+						} else {
+							bot2Bombs.get(0).setRight(false);
+
+						}
+
+						if (bot2Bombs.get(0).getLeft()) { // left
+
+							board.resetPlace(bot2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+									bot2Bombs.get(0).getYLoc() / 50);
+							board.removeBreakableSpot(bot2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+									bot2Bombs.get(0).getYLoc() / 50);
+
+						} else {
+							bot2Bombs.get(0).setLeft(false);
+						}
+						if (bot2Bombs.get(0).getUp()) { // up
+
+							board.resetPlace(bot2Bombs.get(0).getXLoc() / 50,
+									bot2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+							board.removeBreakableSpot(bot2Bombs.get(0).getXLoc() / 50,
+									bot2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+
+						} else {
+							bot2Bombs.get(0).setUp(false);
+
+						}
+						if (bot2Bombs.get(0).getDown()) { // down
+
+							board.resetPlace(bot2Bombs.get(0).getXLoc() / 50,
+									bot2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+							board.removeBreakableSpot(bot2Bombs.get(0).getXLoc() / 50,
+									bot2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+
+						} else {
+							bot2Bombs.get(0).setDown(false);
+
+						}
+
+					}
+					bot2Bombs.remove(0);
+					bot2.changeNumBombs(-1);
+					board.bot2BombIsExploded(false);
+				}
+
+			}
+		}
+	
 
 			// PLAYER 1 BOMB STUFF
 			if (player1Bombs.size() > 0) {
@@ -372,7 +866,7 @@ public class DrawingSurface extends PApplet {
 
 				}
 			}
-		}
+		
 
 		// PLAYER 2 BOMB STUFF
 		if (player2Bombs.size() > 0) {
