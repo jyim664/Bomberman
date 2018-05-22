@@ -21,6 +21,7 @@ public class Levels extends PApplet { // 12 x 12 map
 	private boolean unbreakableSpots[][];
 	private boolean breakableSpots[][];
 	private boolean goodSpots[][]; //grass
+	private char items[][];
 
 	private boolean player1BombExploded = false;
 	private boolean player2BombExploded = false;
@@ -39,13 +40,18 @@ public class Levels extends PApplet { // 12 x 12 map
 
 	/**
 	 * reads in the level data from a text file and makes a new level from that
-	 * @param filename the name of the file that should be read
+	 * 
+	 * @param filename
+	 *            the name of the file that should be read
 	 */
 	public Levels(String filename) {
 		grid = readData(filename);
 		unbreakableSpots = new boolean[grid.length][grid.length];
 		breakableSpots = new boolean[grid.length][grid.length];
 		goodSpots = new boolean[grid.length][grid.length];
+		items = new char[grid.length][grid.length];
+		
+
 		for (int i = 0; i < grid[0].length; i++) {
 			for (int j = 0; j < grid.length; j++) {
 				if (grid[j][i] == '*') {
@@ -54,6 +60,14 @@ public class Levels extends PApplet { // 12 x 12 map
 				}
 				if (grid[j][i] == '#') {
 					breakableSpots[j][i] = true;
+					int a = (int) (Math.random() * 4 + 0.5);
+//					if (a == 1) {
+//						// current filler for health boost is the letter 'h'
+						items[j][i] = 'h';
+//					} else if (a == 2) {
+//						// current filler for speed boost is the letter 's'
+//						items[j][i] = 's';
+//					}
 				}
 				
 				if(grid[j][i] == '_') {
@@ -63,12 +77,13 @@ public class Levels extends PApplet { // 12 x 12 map
 		}
 	}
 
-
 	/**
 	 * draws the layout of the level
-	 * @param marker the surface to draw on
-	 * @param x 
-	 * @param y 
+	 * 
+	 * @param marker
+	 *            the surface to draw on
+	 * @param x
+	 * @param y
 	 * @param width
 	 * @param height
 	 * @param img1
@@ -78,11 +93,9 @@ public class Levels extends PApplet { // 12 x 12 map
 	 * @param img5
 	 */
 	public void draw(PApplet marker, float x, float y, float width, float height, PImage img1, PImage img2, PImage img3,
-			PImage img4, PImage img5) {
+			PImage img4, PImage img5, PImage img6) {
 
 		marker.pushStyle();
-
-
 
 		float cellWidth = width / grid.length;
 		float cellHeight = height / grid[0].length;
@@ -110,7 +123,7 @@ public class Levels extends PApplet { // 12 x 12 map
 						marker.image(img5, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
 
 					}
-				} else if(grid[j][i] == 'v') { //bot1 bomb
+				} else if (grid[j][i] == 'v') { // bot1 bomb
 
 					if (bot1BombExploded == false) {
 						marker.image(img4, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
@@ -119,8 +132,7 @@ public class Levels extends PApplet { // 12 x 12 map
 						marker.image(img5, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
 
 					}
-				}
-				else if(grid[j][i] == 'b') { //bot 2 bomb
+				} else if (grid[j][i] == 'b') { // bot 2 bomb
 
 					if (bot2BombExploded == false) {
 						marker.image(img4, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
@@ -129,8 +141,15 @@ public class Levels extends PApplet { // 12 x 12 map
 						marker.image(img5, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
 
 					}
+				} 
+				else if (grid[j][i] == 'h') {
+					marker.image(img6, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
+
 				}
-				else{
+				
+				
+				
+				else { //player 2 bomb
 					if (player2BombExploded == false) {
 						marker.image(img4, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
 					} else {
@@ -205,8 +224,12 @@ public class Levels extends PApplet { // 12 x 12 map
 		grid[x][y] = 'b';
 	}
 
-	public void resetPlace(int x, int y) {
+	public void resetPlaceToGrass(int x, int y) {
 		grid[x][y] = '_';
+	}
+	
+	public void resetPlaceToItems(int x, int y) {
+		grid[x][y] = items[x][y];
 	}
 
 	public boolean getUnbreakableStatus(int gridX, int gridY) {
@@ -255,9 +278,32 @@ public class Levels extends PApplet { // 12 x 12 map
 
 	}
 
+	/**
+	 * check to see if there is an item at this spot, and what type of item
+	 * 
+	 * @param gridX
+	 *            x coord on the gme grid
+	 * @param gridY
+	 *            y coord on the game grid
+	 * @return "Health" if the item is a health boost, "Speed" if the item is a
+	 *         speed boost, and "None" if the item is non-existent
+	 */
+	public String getItemType(int gridX, int gridY) {
+		if (items[gridX][gridY] == 'h') {
+			return "Health";
+		} else if (items[gridX][gridY] == 's') {
+			return "Speed";
+		} else {
+			return "None";
+		}
+	}
+
 	public void setup(DrawingSurface drawingSurface) {
 
 	}
-
+	
+	public char getItems(int gridX, int gridY) {
+		return items[gridX][gridY];
+	}
 
 }
