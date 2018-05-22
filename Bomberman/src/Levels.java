@@ -61,13 +61,14 @@ public class Levels extends PApplet { // 12 x 12 map
 				if (grid[j][i] == '#') {
 					breakableSpots[j][i] = true;
 					int a = (int) (Math.random() * 4 + 0.5);
-//					if (a == 1) {
-//						// current filler for health boost is the letter 'h'
+					if (a == 1) {
+						// current filler for health boost is the letter 'h'
 						items[j][i] = 'h';
-//					} else if (a == 2) {
-//						// current filler for speed boost is the letter 's'
-//						items[j][i] = 's';
-//					}
+					} else if (a == 2) {
+						// current filler for speed boost is the letter 's'
+						items[j][i] = 's';
+					}
+						
 				}
 				
 				if(grid[j][i] == '_') {
@@ -93,7 +94,7 @@ public class Levels extends PApplet { // 12 x 12 map
 	 * @param img5
 	 */
 	public void draw(PApplet marker, float x, float y, float width, float height, PImage img1, PImage img2, PImage img3,
-			PImage img4, PImage img5, PImage img6) {
+			PImage img4, PImage img5, PImage img6, PImage img7) {
 
 		marker.pushStyle();
 
@@ -144,6 +145,10 @@ public class Levels extends PApplet { // 12 x 12 map
 				} 
 				else if (grid[j][i] == 'h') {
 					marker.image(img6, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
+
+				}
+				else if (grid[j][i] == 's') {
+					marker.image(img7, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
 
 				}
 				

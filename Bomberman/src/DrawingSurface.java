@@ -28,11 +28,18 @@ public class DrawingSurface extends PApplet {
 	private PImage bomb;
 	private PImage explosion;
 	private PImage health;
+	private PImage speed;
 
 	private ArrayList<PImage> assets; // all of Bomberman's images
 	private ArrayList<Integer> keys;
 
 	private boolean level1; // false == menu, true == game
+	private boolean level2; // false == menu, true == game
+	private boolean level3; // false == menu, true == game
+	
+	
+	private boolean gameState;
+
 
 	
 
@@ -45,9 +52,11 @@ public class DrawingSurface extends PApplet {
 
 	public DrawingSurface() {
 		menu = new MenuScreen("B    mberman");
-		board = new Levels("LevelOneMap");
+		board = new Levels();
 		level1 = false; // menu = false, game screen = true;
-
+		level2 = false; // menu = false, game screen = true;
+		level3 = false; // menu = false, game screen = true;
+		gameState = false;
 		assets = new ArrayList<PImage>();
 		keys = new ArrayList<Integer>();
 
@@ -88,7 +97,7 @@ public class DrawingSurface extends PApplet {
 		bomb = loadImage("bomb.png");
 		explosion = loadImage("explode.png");
 		health = loadImage("heart.png");
-
+		speed = loadImage("speed.png");
 		menu.setup(this);
 		board.setup(this);
 		spawnPlayer1();
@@ -105,19 +114,44 @@ public class DrawingSurface extends PApplet {
 	// sequence and after the last line is read, the first
 	// line is executed again.
 	public void draw() {
-		System.out.println(board.getItems(0,0));
 
+		
 		this.scale((float) width / frameWidth, (float) height / frameHeight);// scales objects based on framesize
-		if (level1 == false) {
+		if (!gameState) {
 			menu.draw(this);
 			menu.drawInsPage(this);
 			menu.drawMapPage(this);
 		}
-		if (level1) {
+		
+		if(winner) {
+		
+			String whoWon = "";
+			if(bomberman1.getLives() == 0) {
+				whoWon = "Player 2 Wins!";
+			}
+			if(bomberman2.getLives() == 0) {
+				whoWon = "Player 1 Wins!";
+			}
+			textSize(35);
+			text(whoWon, 400,400); //player1
+			
+			fill(255);
+			rect(0,0,800,800);
+		}
+		if (gameState && !winner) {
+			
 			if (bomberman1.getLives() == 0 || bomberman2.getLives() == 0) {
 				winner = true;
+				System.out.println("GAME END");
+				
+				
 			}
-			board.draw(this, 0, 0, Main.width, Main.height, boundaryWall, breakableWall, grassTile, bomb, explosion, health);
+			board.draw(this, 0, 0, Main.width, Main.height, boundaryWall, breakableWall, grassTile, bomb, explosion, health,speed);
+			
+			//HPS
+			textSize(35);
+			text(bomberman1.getLives(), bomberman1.getXLoc() + 5, bomberman1.getYLoc() - 5); //player1
+
 			if (bomberman1.getLives() > 0)
 				bomberman1.draw(this);
 
@@ -329,15 +363,30 @@ public class DrawingSurface extends PApplet {
 						}
 					} else {
 
-						board.resetPlaceToGrass(bot1Bombs.get(0).getXLoc() / 50, bot1Bombs.get(0).getYLoc() / 50);
+						
+						if(board.getItems(bot1Bombs.get(0).getXLoc() / 50, bot1Bombs.get(0).getYLoc() / 50) != 0) {
+							board.resetPlaceToItems(bot1Bombs.get(0).getXLoc() / 50, bot1Bombs.get(0).getYLoc() / 50);
+						}
+						else {
+							board.resetPlaceToGrass(bot1Bombs.get(0).getXLoc() / 50, bot1Bombs.get(0).getYLoc() / 50);
+						}
+						
 						board.removeBreakableSpot(bot1Bombs.get(0).getXLoc() / 50,
 								bot1Bombs.get(0).getYLoc() / 50);
 
 						for (int i = 0; i < explosionRadius; i++) {
 							if (bot1Bombs.get(0).getRight()) { // right
 
-								board.resetPlaceToGrass(bot1Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
-										bot1Bombs.get(0).getYLoc() / 50);
+								if(board.getItems(bot1Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+										bot1Bombs.get(0).getYLoc() / 50) != 0) {
+									board.resetPlaceToItems(bot1Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+											bot1Bombs.get(0).getYLoc() / 50);
+								}
+								else {
+									board.resetPlaceToGrass(bot1Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+											bot1Bombs.get(0).getYLoc() / 50);
+								}
+								
 								board.removeBreakableSpot(bot1Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
 										bot1Bombs.get(0).getYLoc() / 50);
 
@@ -349,9 +398,18 @@ public class DrawingSurface extends PApplet {
 							if (bot1Bombs.get(0).getLeft() &&(board.getGoodSpots(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
 									bot1Bombs.get(0).getYLoc() / 50) || (board.getBreakableStatus(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
 											bot1Bombs.get(0).getYLoc() / 50)))) { // left
-
-								board.resetPlaceToGrass(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
-										bot1Bombs.get(0).getYLoc() / 50);
+								
+								if(board.getItems(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+										bot1Bombs.get(0).getYLoc() / 50) != 0) {
+									board.resetPlaceToItems(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+											bot1Bombs.get(0).getYLoc() / 50);
+								}
+								else {
+									board.resetPlaceToGrass(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+											bot1Bombs.get(0).getYLoc() / 50);
+								}
+								
+								
 								board.removeBreakableSpot(bot1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
 										bot1Bombs.get(0).getYLoc() / 50);
 
@@ -360,8 +418,15 @@ public class DrawingSurface extends PApplet {
 							}
 							if (bot1Bombs.get(0).getUp() ) { // up
 
-								board.resetPlaceToGrass(bot1Bombs.get(0).getXLoc() / 50,
-										bot1Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+								if(board.getItems(bot1Bombs.get(0).getXLoc() / 50,
+										bot1Bombs.get(0).getYLoc() / 50 - explosionRadius + i) != 0) {
+									board.resetPlaceToItems(bot1Bombs.get(0).getXLoc() / 50,
+											bot1Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+								}
+								else {
+									board.resetPlaceToGrass(bot1Bombs.get(0).getXLoc() / 50,
+											bot1Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+								}
 								board.removeBreakableSpot(bot1Bombs.get(0).getXLoc() / 50,
 										bot1Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
 
@@ -371,8 +436,16 @@ public class DrawingSurface extends PApplet {
 							}
 							if (bot1Bombs.get(0).getDown()) { // down
 
-								board.resetPlaceToGrass(bot1Bombs.get(0).getXLoc() / 50,
-										bot1Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+								if(board.getItems(bot1Bombs.get(0).getXLoc() / 50,
+										bot1Bombs.get(0).getYLoc() / 50 + explosionRadius - i) != 0) {
+									board.resetPlaceToItems(bot1Bombs.get(0).getXLoc() / 50,
+											bot1Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+								}
+								else {
+									board.resetPlaceToGrass(bot1Bombs.get(0).getXLoc() / 50,
+											bot1Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+								}
+								
 								board.removeBreakableSpot(bot1Bombs.get(0).getXLoc() / 50,
 										bot1Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
 
@@ -567,17 +640,29 @@ public class DrawingSurface extends PApplet {
 					}
 				} else {
 
-					board.resetPlaceToGrass(bot2Bombs.get(0).getXLoc() / 50, bot2Bombs.get(0).getYLoc() / 50);
+					if(board.getItems(bot2Bombs.get(0).getXLoc() / 50, bot2Bombs.get(0).getYLoc() / 50) != 0) {
+						board.resetPlaceToItems(bot2Bombs.get(0).getXLoc() / 50, bot2Bombs.get(0).getYLoc() / 50);
+					}
+					else {
+						board.resetPlaceToGrass(bot2Bombs.get(0).getXLoc() / 50, bot2Bombs.get(0).getYLoc() / 50);
+					}
 					board.removeBreakableSpot(bot2Bombs.get(0).getXLoc() / 50,
 							bot2Bombs.get(0).getYLoc() / 50);
 
 					for (int i = 0; i < explosionRadius; i++) {
 						if (bot2Bombs.get(0).getRight()) { // right
 							
-							
+							if(board.getItems(bot2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+									bot2Bombs.get(0).getYLoc() / 50) != 0) {
+								board.resetPlaceToItems(bot2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+										bot2Bombs.get(0).getYLoc() / 50);
+							}
+							else {
+								board.resetPlaceToGrass(bot2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+										bot2Bombs.get(0).getYLoc() / 50);
+							}
 
-							board.resetPlaceToGrass(bot2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
-									bot2Bombs.get(0).getYLoc() / 50);
+						
 							board.removeBreakableSpot(bot2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
 									bot2Bombs.get(0).getYLoc() / 50);
 
@@ -588,8 +673,16 @@ public class DrawingSurface extends PApplet {
 
 						if (bot2Bombs.get(0).getLeft()) { // left
 
-							board.resetPlaceToGrass(bot2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
-									bot2Bombs.get(0).getYLoc() / 50);
+							if(board.getItems(bot2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+									bot2Bombs.get(0).getYLoc() / 50) != 0) {
+								board.resetPlaceToItems(bot2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+										bot2Bombs.get(0).getYLoc() / 50);
+							}
+							else {
+								board.resetPlaceToGrass(bot2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+										bot2Bombs.get(0).getYLoc() / 50);
+							}
+
 							board.removeBreakableSpot(bot2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
 									bot2Bombs.get(0).getYLoc() / 50);
 
@@ -598,8 +691,17 @@ public class DrawingSurface extends PApplet {
 						}
 						if (bot2Bombs.get(0).getUp()) { // up
 
-							board.resetPlaceToGrass(bot2Bombs.get(0).getXLoc() / 50,
-									bot2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+							if(board.getItems(bot2Bombs.get(0).getXLoc() / 50,
+									bot2Bombs.get(0).getYLoc() / 50 - explosionRadius + i) != 0) {
+								board.resetPlaceToItems(bot2Bombs.get(0).getXLoc() / 50,
+										bot2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+							}
+							else {
+								board.resetPlaceToGrass(bot2Bombs.get(0).getXLoc() / 50,
+										bot2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+							}
+
+						
 							board.removeBreakableSpot(bot2Bombs.get(0).getXLoc() / 50,
 									bot2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
 
@@ -609,8 +711,17 @@ public class DrawingSurface extends PApplet {
 						}
 						if (bot2Bombs.get(0).getDown()) { // down
 
-							board.resetPlaceToGrass(bot2Bombs.get(0).getXLoc() / 50,
-									bot2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+							
+							if(board.getItems(bot2Bombs.get(0).getXLoc() / 50,
+									bot2Bombs.get(0).getYLoc() / 50 + explosionRadius - i) != 0) {
+								board.resetPlaceToItems(bot2Bombs.get(0).getXLoc() / 50,
+										bot2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+							}
+							else {
+								board.resetPlaceToGrass(bot2Bombs.get(0).getXLoc() / 50,
+										bot2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+							}
+						
 							board.removeBreakableSpot(bot2Bombs.get(0).getXLoc() / 50,
 									bot2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
 
@@ -803,8 +914,8 @@ public class DrawingSurface extends PApplet {
 						}
 					} else {
 
-						if(board.getItems(player1Bombs.get(0).getXLoc() / 50, player1Bombs.get(0).getYLoc() / 50) == 'h') {
-							board.resetPlaceToGrass(player1Bombs.get(0).getXLoc() / 50, player1Bombs.get(0).getYLoc() / 50);
+						if(board.getItems(player1Bombs.get(0).getXLoc() / 50, player1Bombs.get(0).getYLoc() / 50) != 0) {
+							board.resetPlaceToItems(player1Bombs.get(0).getXLoc() / 50, player1Bombs.get(0).getYLoc() / 50);
 						}
 						else {
 							board.resetPlaceToGrass(player1Bombs.get(0).getXLoc() / 50, player1Bombs.get(0).getYLoc() / 50);
@@ -817,13 +928,14 @@ public class DrawingSurface extends PApplet {
 							if (player1Bombs.get(0).getRight()) { // right
 
 								if(board.getItems(player1Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
-										player1Bombs.get(0).getYLoc() / 50) == 'h') {
+										player1Bombs.get(0).getYLoc() / 50) != 0 ) {
 									System.out.println("YES");
-									board.resetPlaceToGrass(player1Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+									board.resetPlaceToItems(player1Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
 											player1Bombs.get(0).getYLoc() / 50);
 								}
 								else {
-									board.resetPlaceToGrass(player1Bombs.get(0).getXLoc() / 50, player1Bombs.get(0).getYLoc() / 50);
+									board.resetPlaceToGrass(player1Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+											player1Bombs.get(0).getYLoc() / 50);
 								}
 							
 								board.removeBreakableSpot(player1Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
@@ -835,9 +947,18 @@ public class DrawingSurface extends PApplet {
 							}
 
 							if (player1Bombs.get(0).getLeft()) { // left
-
-								board.resetPlaceToGrass(player1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
-										player1Bombs.get(0).getYLoc() / 50);
+								
+								if(board.getItems(player1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+										player1Bombs.get(0).getYLoc() / 50) != 0) {
+									System.out.println("YES");
+									board.resetPlaceToItems(player1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+											player1Bombs.get(0).getYLoc() / 50);
+								}
+								else {
+									board.resetPlaceToGrass(player1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+											player1Bombs.get(0).getYLoc() / 50);
+								}
+								
 								board.removeBreakableSpot(player1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
 										player1Bombs.get(0).getYLoc() / 50);
 
@@ -846,8 +967,17 @@ public class DrawingSurface extends PApplet {
 							}
 							if (player1Bombs.get(0).getUp()) { // up
 
-								board.resetPlaceToGrass(player1Bombs.get(0).getXLoc() / 50,
-										player1Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+								if(board.getItems(player1Bombs.get(0).getXLoc() / 50,
+										player1Bombs.get(0).getYLoc() / 50 - explosionRadius + i) != 0) {
+									System.out.println("YES");
+									board.resetPlaceToItems(player1Bombs.get(0).getXLoc() / 50,
+											player1Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+								}
+								else {
+									board.resetPlaceToGrass(player1Bombs.get(0).getXLoc() / 50,
+											player1Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+								}
+								
 								board.removeBreakableSpot(player1Bombs.get(0).getXLoc() / 50,
 										player1Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
 
@@ -856,9 +986,17 @@ public class DrawingSurface extends PApplet {
 
 							}
 							if (player1Bombs.get(0).getDown()) { // down
-
-								board.resetPlaceToGrass(player1Bombs.get(0).getXLoc() / 50,
-										player1Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+								if(board.getItems(player1Bombs.get(0).getXLoc() / 50,
+										player1Bombs.get(0).getYLoc() / 50 + explosionRadius - i) != 0) {
+									System.out.println("YES");
+									board.resetPlaceToItems(player1Bombs.get(0).getXLoc() / 50,
+											player1Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+								}
+								else {
+									board.resetPlaceToGrass(player1Bombs.get(0).getXLoc() / 50,
+											player1Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+								}
+								
 								board.removeBreakableSpot(player1Bombs.get(0).getXLoc() / 50,
 										player1Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
 
@@ -1046,15 +1184,27 @@ public class DrawingSurface extends PApplet {
 
 				else {
 
-					board.resetPlaceToGrass(player2Bombs.get(0).getXLoc() / 50, player2Bombs.get(0).getYLoc() / 50);
+					if(board.getItems(player2Bombs.get(0).getXLoc() / 50, player2Bombs.get(0).getYLoc() / 50) != 0) {
+						board.resetPlaceToItems(player2Bombs.get(0).getXLoc() / 50, player2Bombs.get(0).getYLoc() / 50);
+					}
+					else {
+						board.resetPlaceToGrass(player2Bombs.get(0).getXLoc() / 50, player2Bombs.get(0).getYLoc() / 50);
+					}
 					board.removeBreakableSpot(player2Bombs.get(0).getXLoc() / 50,
 							player2Bombs.get(0).getYLoc() / 50);
 
 					for (int i = 0; i < explosionRadius; i++) {
 						if (player2Bombs.get(0).getRight()) { // right
 
-							board.resetPlaceToGrass(player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
-									player2Bombs.get(0).getYLoc() / 50);
+							if(board.getItems(player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+									player2Bombs.get(0).getYLoc() / 50) != 0) {
+								board.resetPlaceToItems(player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+										player2Bombs.get(0).getYLoc() / 50);
+							}
+							else {
+								board.resetPlaceToGrass(player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
+										player2Bombs.get(0).getYLoc() / 50);
+							}
 							board.removeBreakableSpot(player2Bombs.get(0).getXLoc() / 50 + explosionRadius - i,
 									player2Bombs.get(0).getYLoc() / 50);
 
@@ -1065,8 +1215,18 @@ public class DrawingSurface extends PApplet {
 
 						if (player2Bombs.get(0).getLeft()) { // left
 
-							board.resetPlaceToGrass(player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
-									player2Bombs.get(0).getYLoc() / 50);
+							
+
+								if(board.getItems(player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+										player2Bombs.get(0).getYLoc() / 50) != 0) {
+									board.resetPlaceToItems(player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+											player2Bombs.get(0).getYLoc() / 50);
+								}
+								else {
+									board.resetPlaceToGrass(player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
+											player2Bombs.get(0).getYLoc() / 50);
+								}
+							
 							board.removeBreakableSpot(player2Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
 									player2Bombs.get(0).getYLoc() / 50);
 
@@ -1075,8 +1235,16 @@ public class DrawingSurface extends PApplet {
 						}
 						if (player2Bombs.get(0).getUp()) { // up
 
-							board.resetPlaceToGrass(player2Bombs.get(0).getXLoc() / 50,
-									player2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+							if(board.getItems(player2Bombs.get(0).getXLoc() / 50,
+									player2Bombs.get(0).getYLoc() / 50 - explosionRadius + i) != 0) {
+								board.resetPlaceToItems(player2Bombs.get(0).getXLoc() / 50,
+										player2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+							}
+							else {
+								board.resetPlaceToGrass(player2Bombs.get(0).getXLoc() / 50,
+										player2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
+							}
+						
 							board.removeBreakableSpot(player2Bombs.get(0).getXLoc() / 50,
 									player2Bombs.get(0).getYLoc() / 50 - explosionRadius + i);
 
@@ -1086,8 +1254,17 @@ public class DrawingSurface extends PApplet {
 						}
 						if (player2Bombs.get(0).getDown()) { // down
 
-							board.resetPlaceToGrass(player2Bombs.get(0).getXLoc() / 50,
-									player2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+							if(board.getItems(player2Bombs.get(0).getXLoc() / 50,
+									player2Bombs.get(0).getYLoc() / 50 + explosionRadius - i) != 0) {
+								board.resetPlaceToItems(player2Bombs.get(0).getXLoc() / 50,
+										player2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+							}
+							else {
+								board.resetPlaceToGrass(player2Bombs.get(0).getXLoc() / 50,
+										player2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
+							}
+						
+						
 							board.removeBreakableSpot(player2Bombs.get(0).getXLoc() / 50,
 									player2Bombs.get(0).getYLoc() / 50 + explosionRadius - i);
 
@@ -1103,7 +1280,9 @@ public class DrawingSurface extends PApplet {
 				}
 
 			}
-		}
+			}
+		
+		
 
 		
 		
@@ -1186,6 +1365,7 @@ public class DrawingSurface extends PApplet {
 			}
 
 		}
+		
 		}
 		// player 2
 
@@ -1266,8 +1446,12 @@ public class DrawingSurface extends PApplet {
 			}
 		}
 	}
-	}
-
+			
+		}
+	
+		
+	
+	
 
 	public void mousePressed() {
 		if (menu.isOverShop()) {
@@ -1317,17 +1501,53 @@ public class DrawingSurface extends PApplet {
 
 		}
 		if (menu.isOverMap1Page()) {
-			level1 = true;
+		
+			gameState = true;
+			board = new Levels("LevelOneMap");
+		}
+		
+		if (menu.isOverMap2Page()) {
+			gameState = true;
+			board = new Levels("LevelTwoMap");
+		}
+		
+		if (menu.isOverMap3Page()) {
+			gameState = true;
+			board = new Levels("LevelThreeMap");
 		}
 	}
 
 	public void keyPressed() {
 		keys.add(keyCode);
+		if (isPressed(KeyEvent.VK_Q)) { // BOMB STUFF
+			int[] newLoc = bomberman1.pixeltoGrid();
+			if (newLoc != null) {
+				if(board.getItems(newLoc[0], newLoc[1]) == 's') {
+					bomberman1.speedUp(1);
+					board.resetPlaceToGrass(newLoc[0], newLoc[1]);
+
+				}
+				if(board.getItems(newLoc[0], newLoc[1]) == 'h') {
+					bomberman1.addLives(1);
+					board.resetPlaceToGrass(newLoc[0], newLoc[1]);
+
+				}
+				
+				
+				
+			}
+
+		}
+		
+
+		
 	}
 
 	public void keyReleased() {
 		while (keys.contains(keyCode))
 			keys.remove(new Integer(keyCode));
+		
+		
 
 	}
 

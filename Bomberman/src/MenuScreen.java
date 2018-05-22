@@ -48,9 +48,9 @@ public class MenuScreen {
 	private boolean overMap3Page = false;
 	private boolean activateMapPage = false;
 	
-	private boolean l1completed = false;
-	private boolean l2completed = false;
-	private boolean l3completed = false;
+	private boolean l1completed = true;
+	private boolean l2completed = true;
+	private boolean l3completed = true;
 	
 	private String title;
 	private String start = "Start";
@@ -400,11 +400,19 @@ public class MenuScreen {
 	public boolean isOverMap1Page() {
 		return overMap1Page;
 	}
-
+	
+	public boolean isOverMap2Page() {
+		return overMap2Page;
+	}
+	
+	public boolean isOverMap3Page() {
+		return overMap3Page;
+	}
 	
 	public void changeOverMap1Page(boolean check) {
 		overMap1Page = check;
 	}
+	
 	
 	public void level1Completed(boolean check) {
 		l1completed = check;
