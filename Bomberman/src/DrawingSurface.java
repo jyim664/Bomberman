@@ -133,7 +133,7 @@ public class DrawingSurface extends PApplet {
 				whoWon = "Player 1 Wins!";
 			}
 			textSize(35);
-			text(whoWon, 400,400); //player1
+			text(whoWon, 400,400); //player1 
 			
 			fill(255);
 			rect(0,0,800,800);
