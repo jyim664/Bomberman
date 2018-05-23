@@ -30,6 +30,9 @@ public class DrawingSurface extends PApplet {
 	private PImage health;
 	private PImage speed;
 
+	private PImage p1Win;
+	private PImage p2Win;
+	
 	private ArrayList<PImage> assets; // all of Bomberman's images
 	private ArrayList<Integer> keys;
 
@@ -98,6 +101,8 @@ public class DrawingSurface extends PApplet {
 		explosion = loadImage("explode.png");
 		health = loadImage("heart.png");
 		speed = loadImage("speed.png");
+		p1Win = loadImage("p1win.png");
+		p2Win = loadImage("p2win.png");
 		menu.setup(this);
 		board.setup(this);
 		spawnPlayer1();
@@ -126,21 +131,20 @@ public class DrawingSurface extends PApplet {
 		if(winner) {
 		
 			String whoWon = "";
-			if(bomberman1.getLives() == 0) {
-				whoWon = "Player 2 Wins!";
-			}
-			if(bomberman2.getLives() == 0) {
-				whoWon = "Player 1 Wins!";
-			}
-			textSize(35);
-			text(whoWon, 400,400); //player1 
-			
 			fill(255);
 			rect(0,0,800,800);
+			if(bomberman1.getLives() == 0) {
+				image(p2Win,0,0,750,750);
+			}
+			if(bomberman2.getLives() == 0) {
+				image(p1Win,0,0,800,800);
+			}
+			textSize(35);
+			
 		}
 		if (gameState && !winner) {
 			
-			if (bomberman1.getLives() == 0 || bomberman2.getLives() == 0) {
+			if ((bomberman1.getLives() == 0 || bomberman2.getLives() == 0)&& bot1.getLives() == 0 && bot2.getLives() == 0 ) {
 				winner = true;
 				System.out.println("GAME END");
 				
