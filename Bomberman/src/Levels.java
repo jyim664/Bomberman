@@ -310,5 +310,8 @@ public class Levels extends PApplet { // 12 x 12 map
 	public char getItems(int gridX, int gridY) {
 		return items[gridX][gridY];
 	}
+	public void deleteItem(int gridX, int gridY) {
+		items[gridX][gridY] = 'o';
+	}
 
 }
