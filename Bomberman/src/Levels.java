@@ -60,7 +60,7 @@ public class Levels extends PApplet { // 12 x 12 map
 				}
 				if (grid[j][i] == '#') {
 					breakableSpots[j][i] = true;
-					int a = (int) (Math.random() * 4 + 0.5);
+					int a = (int) (Math.random() * 6 + 0.5);
 					if (a == 1) {
 						// current filler for health boost is the letter 'h'
 						items[j][i] = 'h';
