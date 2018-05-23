@@ -29,11 +29,17 @@ public class DrawingSurface extends PApplet {
 	private PImage explosion;
 	private PImage health;
 	private PImage speed;
+	
+	private PImage heart;
 
 	private PImage p1Win;
 	private PImage p2Win;
 	
-	private ArrayList<PImage> assets; // all of Bomberman's images
+	private ArrayList<PImage> player1Images; // all of Bomberman 1's images
+	private ArrayList<PImage> player2Images; // all of Bomberman 2's images
+	private ArrayList<PImage> botImages; // all of Bomberman 2's images
+
+	
 	private ArrayList<Integer> keys;
 
 	private boolean level1; // false == menu, true == game
@@ -48,6 +54,7 @@ public class DrawingSurface extends PApplet {
 
 	private ArrayList<Bomb> player1Bombs = new ArrayList<Bomb>();
 	private ArrayList<Bomb> player2Bombs = new ArrayList<Bomb>();
+	
 	private ArrayList<Bomb> bot1Bombs = new ArrayList<Bomb>();
 	private ArrayList<Bomb> bot2Bombs = new ArrayList<Bomb>();
 
@@ -60,7 +67,11 @@ public class DrawingSurface extends PApplet {
 		level2 = false; // menu = false, game screen = true;
 		level3 = false; // menu = false, game screen = true;
 		gameState = false;
-		assets = new ArrayList<PImage>();
+		player1Images = new ArrayList<PImage>();
+		player2Images = new ArrayList<PImage>();
+		botImages = new ArrayList<PImage>();
+
+
 		keys = new ArrayList<Integer>();
 
 		winner = false;
@@ -68,30 +79,41 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void spawnPlayer1() {
-		bomberman1 = new Player(assets.get(0), 2 * 50, 2 * 50); // FOR LEVEL 1
+		bomberman1 = new Player(player1Images.get(0), 2 * 50, 2 * 50); // FOR LEVEL 1
 	}
 
 	public void spawnPlayer2() {
-		bomberman2 = new Player(assets.get(0), 13 * 50, 2 * 50); // FOR LEVEL 1
+		bomberman2 = new Player(player2Images.get(0), 13 * 50, 2 * 50); // FOR LEVEL 1
 	}
 
 	public void spawnBot1() {
-		bot1 = new Bot(1, 3, 2 * 50, 13 * 50, assets.get(0), board);
+		bot1 = new Bot(1, 3, 2 * 50, 13 * 50, botImages.get(0), board);
 
 	}
 
 	public void spawnBot2() {
-		bot2 = new Bot(1, 3, 13 * 50, 13 * 50, assets.get(0), board);
+		bot2 = new Bot(1, 3, 13 * 50, 13 * 50, botImages.get(0), board);
 
 	}
 
 	// The statements in the setup() function
 	// execute once when the program begins
 	public void setup() {
-		assets.add(loadImage("bombermanFront.png")); // 0 = front
-		assets.add(loadImage("bombermanBack.png")); // 1 = back
-		assets.add(loadImage("bombermanLeft.png")); // 2 = left
-		assets.add(loadImage("bombermanRight.png")); // 3 = right
+		player1Images.add(loadImage("bombermanFront3.png")); // 0 = front
+		player1Images.add(loadImage("bombermanBack3.png")); // 1 = back
+		player1Images.add(loadImage("bombermanLeft3.png")); // 2 = left
+		player1Images.add(loadImage("bombermanRight3.png")); // 3 = right
+		
+		player2Images.add(loadImage("bombermanFront2.png")); // 0 = front
+		player2Images.add(loadImage("bombermanBack2.png")); // 1 = back
+		player2Images.add(loadImage("bombermanLeft2.png")); // 2 = left
+		player2Images.add(loadImage("bombermanRight2.png")); // 3 = right
+		
+		botImages.add(loadImage("bombermanFront.png")); // 0 = front
+		botImages.add(loadImage("bombermanBack.png")); // 1 = back
+		botImages.add(loadImage("bombermanLeft.png")); // 2 = left
+		botImages.add(loadImage("bombermanRight.png")); // 3 = right
+
 
 		boundaryWall = loadImage("UnbreakableStoneTile.png");
 		breakableWall = loadImage("BreakableStoneTile.png");
@@ -99,10 +121,11 @@ public class DrawingSurface extends PApplet {
 
 		bomb = loadImage("bomb.png");
 		explosion = loadImage("explode.png");
-		health = loadImage("heart.png");
+		health = loadImage("health.png");
 		speed = loadImage("speed.png");
-		p1Win = loadImage("p1win.png");
-		p2Win = loadImage("p2win.png");
+		p1Win = loadImage("p1win.jpg");
+		p2Win = loadImage("p2win.jpg");
+		heart = loadImage("heart.png");
 		menu.setup(this);
 		board.setup(this);
 		spawnPlayer1();
@@ -131,20 +154,20 @@ public class DrawingSurface extends PApplet {
 		if(winner) {
 		
 			String whoWon = "";
-			fill(255);
+			fill(0);
 			rect(0,0,800,800);
 			if(bomberman1.getLives() == 0) {
-				image(p2Win,175,175,450,450);
+				image(p2Win,100,100,600,600);
 			}
 			if(bomberman2.getLives() == 0) {
-				image(p1Win,150, 100,500,500);
+				image(p1Win,100, 100,600,600);
 			}
 			textSize(35);
 			
 		}
 		if (gameState && !winner) {
 			
-			if ((bomberman1.getLives() == 0 || bomberman2.getLives() == 0) ) {
+			if ((bomberman1.getLives() == 0 || bomberman2.getLives() == 0)  ) {
 				winner = true;
 				System.out.println("GAME END");
 				
@@ -153,8 +176,27 @@ public class DrawingSurface extends PApplet {
 			board.draw(this, 0, 0, Main.width, Main.height, boundaryWall, breakableWall, grassTile, bomb, explosion, health,speed);
 			
 			//HPS
-			textSize(35);
-			text(bomberman1.getLives(), bomberman1.getXLoc() + 5, bomberman1.getYLoc() - 5); //player1
+			for(int i = 0; i < bomberman1.getLives(); i++) { // player 1 
+				image(heart,bomberman1.getXLoc() + (i * 7), bomberman1.getYLoc() - 10,10,10);
+
+			}
+			
+			for(int i = 0; i < bomberman2.getLives(); i++) { // player 1 
+				image(heart,bomberman2.getXLoc() + (i * 7), bomberman2.getYLoc() - 10,10,10);
+			}
+			
+			for(int i = 0; i < bot1.getLives(); i++) { // player 1 
+				image(heart,bot1.getXLoc() + (i * 7), bot1.getYLoc() - 10,10,10);
+
+			}
+			
+			for(int i = 0; i < bot2.getLives(); i++) { // player 1 
+				image(heart,bot2.getXLoc() + (i * 7), bot2.getYLoc() - 10,10,10);
+
+			}
+			
+			
+			
 
 			if (bomberman1.getLives() > 0)
 				bomberman1.draw(this);
@@ -168,8 +210,35 @@ public class DrawingSurface extends PApplet {
 			if(bot2.getLives()>0) 
 				bot2.draw(this);
 			
-			bot1.RandomMovements(board);
-			bot2.RandomMovements(board);
+			int bot1Movement = bot1.RandomMovements(board);
+			if(bot1Movement == 1) { 
+				bot1.setImage(botImages.get(2));
+			}
+			if(bot1Movement == 2) { 
+				bot1.setImage(botImages.get(3));
+			}
+			if(bot1Movement == 3) { 
+				bot1.setImage(botImages.get(1));
+			}
+			if(bot1Movement == 4) { 
+				bot1.setImage(botImages.get(0));
+			}
+			
+			int bot2Movement = bot2.RandomMovements(board);
+			
+			if(bot2Movement == 1) { 
+				bot2.setImage(botImages.get(2));
+			}
+			if(bot2Movement == 2) { 
+				bot2.setImage(botImages.get(3));
+			}
+			if(bot2Movement == 3) { 
+				bot2.setImage(botImages.get(1));
+			}
+			if(bot2Movement == 4) { 
+				bot2.setImage(botImages.get(0));
+			}
+
 
 			if(bot1.placeOneMore() && bot1.getLives() > 0) { //Bot 1 bomb placing timing
 				int[] a = bot1.dropBomb();
@@ -954,7 +1023,6 @@ public class DrawingSurface extends PApplet {
 								
 								if(board.getItems(player1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
 										player1Bombs.get(0).getYLoc() / 50) != 0) {
-									System.out.println("YES");
 									board.resetPlaceToItems(player1Bombs.get(0).getXLoc() / 50 - explosionRadius + i,
 											player1Bombs.get(0).getYLoc() / 50);
 								}
@@ -1296,7 +1364,7 @@ public class DrawingSurface extends PApplet {
 		if(bomberman1.getLives() > 0) {
 		if (isPressed(KeyEvent.VK_A) && !p1key) {
 			p1key = true;
-			bomberman1.setImage(assets.get(2));
+			bomberman1.setImage(player1Images.get(2));
 			
 			int[] newLoc = bomberman1.pixeltoGrid();
 			if (board.getUnbreakableStatus(newLoc[0] - 1, newLoc[1])
@@ -1313,7 +1381,7 @@ public class DrawingSurface extends PApplet {
 		}
 		if (isPressed(KeyEvent.VK_D) && !p1key) {
 			p1key = true;
-			bomberman1.setImage(assets.get(3));
+			bomberman1.setImage(player1Images.get(3));
 			int[] newLoc = bomberman1.pixeltoGrid();
 			if (board.getUnbreakableStatus(newLoc[0] + 1, newLoc[1])
 					|| board.getBreakableStatus(newLoc[0] + 1, newLoc[1])) {
@@ -1329,7 +1397,7 @@ public class DrawingSurface extends PApplet {
 		}
 		if (isPressed(KeyEvent.VK_W) && !p1key) {
 			p1key = true;
-			bomberman1.setImage(assets.get(1));
+			bomberman1.setImage(player1Images.get(1));
 			int[] newLoc = bomberman1.pixeltoGrid();
 			if (board.getUnbreakableStatus(newLoc[0], newLoc[1] - 1)
 					|| board.getBreakableStatus(newLoc[0], newLoc[1] - 1)) {
@@ -1345,7 +1413,7 @@ public class DrawingSurface extends PApplet {
 		}
 		if (isPressed(KeyEvent.VK_S) && !p1key) {
 			p1key = true;
-			bomberman1.setImage(assets.get(0));
+			bomberman1.setImage(player1Images.get(0));
 			int[] newLoc = bomberman1.pixeltoGrid();
 			if (board.getUnbreakableStatus(newLoc[0], newLoc[1] + 1)
 					|| board.getBreakableStatus(newLoc[0], newLoc[1] + 1)) {
@@ -1377,7 +1445,7 @@ public class DrawingSurface extends PApplet {
 		if(bomberman2.getLives() > 0) {
 		if (isPressed(KeyEvent.VK_LEFT) && !p2key) {
 			p2key = true;
-			bomberman2.setImage(assets.get(2));
+			bomberman2.setImage(player2Images.get(2));
 			int[] newLoc = bomberman2.pixeltoGrid();
 			if (board.getUnbreakableStatus(newLoc[0] - 1, newLoc[1])
 					|| board.getBreakableStatus(newLoc[0] - 1, newLoc[1])) {
@@ -1393,7 +1461,7 @@ public class DrawingSurface extends PApplet {
 		}
 		if (isPressed(KeyEvent.VK_RIGHT) && !p2key) {
 			p2key = true;
-			bomberman2.setImage(assets.get(3));
+			bomberman2.setImage(player2Images.get(3));
 			int[] newLoc = bomberman2.pixeltoGrid();
 			if (board.getUnbreakableStatus(newLoc[0] + 1, newLoc[1])
 					|| board.getBreakableStatus(newLoc[0] + 1, newLoc[1])) {
@@ -1409,7 +1477,7 @@ public class DrawingSurface extends PApplet {
 		}
 		if (isPressed(KeyEvent.VK_UP) && !p2key) {
 			p2key = true;
-			bomberman2.setImage(assets.get(1));
+			bomberman2.setImage(player2Images.get(1));
 			int[] newLoc = bomberman2.pixeltoGrid();
 			if (board.getUnbreakableStatus(newLoc[0], newLoc[1] - 1)
 					|| board.getBreakableStatus(newLoc[0], newLoc[1] - 1)) {
@@ -1425,7 +1493,7 @@ public class DrawingSurface extends PApplet {
 		}
 		if (isPressed(KeyEvent.VK_DOWN) && !p2key) {
 			p2key = true;
-			bomberman2.setImage(assets.get(0));
+			bomberman2.setImage(player2Images.get(0));
 			int[] newLoc = bomberman2.pixeltoGrid();
 			if (board.getUnbreakableStatus(newLoc[0], newLoc[1] + 1)
 					|| board.getBreakableStatus(newLoc[0], newLoc[1] + 1)) {
@@ -1529,20 +1597,39 @@ public class DrawingSurface extends PApplet {
 				if(board.getItems(newLoc[0], newLoc[1]) == 's') {
 					bomberman1.speedUp(1);
 					board.resetPlaceToGrass(newLoc[0], newLoc[1]);
+					board.deleteItem(newLoc[0], newLoc[1]);
 
 				}
 				if(board.getItems(newLoc[0], newLoc[1]) == 'h') {
 					bomberman1.addLives(1);
 					board.resetPlaceToGrass(newLoc[0], newLoc[1]);
+					board.deleteItem(newLoc[0], newLoc[1]);
 
 				}
-				
-				
-				
+			
 			}
 
 		}
 		
+		if (isPressed(KeyEvent.VK_SHIFT)) { // BOMB STUFF
+			int[] newLoc = bomberman2.pixeltoGrid();
+			if (newLoc != null) {
+				if(board.getItems(newLoc[0], newLoc[1]) == 's') {
+					bomberman2.speedUp(1);
+					board.resetPlaceToGrass(newLoc[0], newLoc[1]);
+					board.deleteItem(newLoc[0], newLoc[1]);
+
+				}
+				if(board.getItems(newLoc[0], newLoc[1]) == 'h') {
+					bomberman2.addLives(1);
+					board.resetPlaceToGrass(newLoc[0], newLoc[1]);
+					board.deleteItem(newLoc[0], newLoc[1]);
+
+				}
+			
+			}
+
+		}
 
 		
 	}

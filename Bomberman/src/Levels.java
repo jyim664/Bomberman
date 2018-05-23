@@ -112,7 +112,7 @@ public class Levels extends PApplet { // 12 x 12 map
 					marker.image(img1, cellWidth * j + x, cellHeight * i);
 				}
 
-				else if (grid[j][i] == '_') {
+				else if (grid[j][i] == '_' ) {
 
 					marker.image(img3, cellWidth * j + x, cellHeight * i + y, cellWidth, cellHeight);
 
@@ -311,7 +311,8 @@ public class Levels extends PApplet { // 12 x 12 map
 		return items[gridX][gridY];
 	}
 	public void deleteItem(int gridX, int gridY) {
-		items[gridX][gridY] = 'o';
+		items[gridX][gridY] = 0;
+		grid[gridX][gridY] = '_';
 	}
 
 }

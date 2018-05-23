@@ -84,29 +84,59 @@ public class Bot extends Unit {
 	 * @param lvl
 	 *            it chooses a spot that isn't a wall on this level.
 	 */
-	public void RandomMovements(Levels lvl) {
+	public int RandomMovements(Levels lvl) { //0 = stay same, 1 = left, 2 = right, 3 = up, 4 = down
 		if (Math.abs(this.getXLoc() - destination[0]) < 80 && Math.abs(this.getYLoc() - destination[1]) < 80) {
 			getNewDst(lvl);
 		}
 		if (this.isEmptyX(lvl) == true) {
 			oscillateY = 0;
 			this.moveXDirection(xUnitsPerMove * 3);
+			if(xUnitsPerMove < 0 ) {
+				return 1;
+			}
+			else {
+				return 2;
+			}
 
+			
 		} else if (this.isEmptyY(lvl) == true && oscillateY < 3) {
 
 			this.moveYDirection(yUnitsPerMove * 3);
+			if(yUnitsPerMove < 0) {
+				return 3;
+			}
+			else {
+				return 4;
+			}
 
 		} else if (this.isEmptyX(lvl) == false && oscillateY < 3) {
 
 			yUnitsPerMove = -yUnitsPerMove;
 			oscillateY++;
 			this.moveYDirection(yUnitsPerMove * 3);
+			if(yUnitsPerMove < 0) {
+				return 3;
+			}
+			else {
+				return 4;
+			}
 		} else if (this.isEmptyY(lvl) == false) {
 
 			xUnitsPerMove = -xUnitsPerMove;
 			this.moveXDirection(xUnitsPerMove * 3);
+			
+			if(xUnitsPerMove < 0 ) {
+				return 1;
+			}
+			else {
+				return 2;
+			}
+
+			
+			
 		} else {
 			getNewDst(lvl);
+			return 0;
 		}
 
 		/*

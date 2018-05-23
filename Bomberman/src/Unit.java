@@ -30,11 +30,14 @@ public class Unit {
 	}
 
 	public void addLives(int howMany) {
-		lives += howMany;
+		if (lives < 5) {
+			lives += howMany;
+		}
 	}
 
 	public void speedUp(int howFast) {
-		speed += howFast;
+		if(speed < 6)
+			speed += howFast;
 	}
 
 	public void moveXDirection(int howMany) {

@@ -84,7 +84,7 @@ public class MenuScreen {
 	
 	public void setup(PApplet drawer) {
 	bg = drawer.loadImage("biomes-noisy.png");
-	bomberFace1 = drawer.loadImage("BombermanFace.png");
+	bomberFace1 = drawer.loadImage("BombermanFace1.png");
 	bomberFace2 = drawer.loadImage("BombermanFace2.png");
 	enterKey = drawer.loadImage("Enter.png");
 	spacebar = drawer.loadImage("Space.png");
