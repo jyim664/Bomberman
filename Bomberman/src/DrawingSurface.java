@@ -134,17 +134,17 @@ public class DrawingSurface extends PApplet {
 			fill(255);
 			rect(0,0,800,800);
 			if(bomberman1.getLives() == 0) {
-				image(p2Win,0,0,750,750);
+				image(p2Win,175,175,450,450);
 			}
 			if(bomberman2.getLives() == 0) {
-				image(p1Win,0,0,800,800);
+				image(p1Win,150, 100,500,500);
 			}
 			textSize(35);
 			
 		}
 		if (gameState && !winner) {
 			
-			if ((bomberman1.getLives() == 0 || bomberman2.getLives() == 0)&& bot1.getLives() == 0 && bot2.getLives() == 0 ) {
+			if ((bomberman1.getLives() == 0 || bomberman2.getLives() == 0) ) {
 				winner = true;
 				System.out.println("GAME END");
 				
